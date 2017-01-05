@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <!-- instat -->
+  <meta charset="utf-8">
+  <title>England soccer results</title>
+  <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,600,700&subset=latin,cyrillic" rel="stylesheet" type="text/css"> -->
+  <link href="/contrib/fontawesome@4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/contrib/semanticui@2.2.3/semantic.min.css" rel="stylesheet" type="text/css">
+  <link href="/contrib/leaflet@1.0.2/leaflet.css" rel="stylesheet" type="text/css">
+  <link href="seasons.css" rel="stylesheet" property="stylesheet"/>
+</head>
+<body style="margin: 0px; padding: 0px">
+  <div id="vis1" />
+  <!-- <script src="/contrib/requirejs@2.3.1/require.min.js"></script> -->
+  <script src="/contrib/d3@4.4.0/d3.min.js"></script>
+  <script src="/contrib/ramda@0.22.1/ramda.min.js"></script>
+  <!-- <script src="/contrib/react@15.3.1/build/react.min.js"></script> -->
+  <!-- <script src="/contrib/react@15.3.1/build/react-dom.min.js"></script> -->
+  <!-- <script src="/contrib/semanticui@2.2.3/semantic.min.js"></script> -->
+  <!-- <script src="/contrib/leaflet@1.0.2/leaflet-src.js"></script> -->
+  <script>
+  function require(x) {
+      return {
+         ramda: R,
+         d3: d3
+      }[x];
+  }
+  </script>
+  <script src="seasons.js"></script> 
+</body>
+</html>
