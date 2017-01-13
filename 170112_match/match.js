@@ -29,7 +29,7 @@ var App = (function () {
             return;
         var html = '';
         var bg_scale = d3.interpolateHslLong(d3.color('hsl(90, 100%, 90%)'), d3.color('hsl(350, 100%, 90%)'));
-        for (var t = 0; t < max_time + step; t += step) {
+        for (var t = 1000; t < max_time + step; t += step) {
             html += '<div class="time_interval" onMouseOver=';
             html += "\"app.over_time_interval(" + period + ", " + t + ", " + (t + step) + ")\">";
             html += "<div class=\"timestamp\">" + ftime2(t) + "</div>";
