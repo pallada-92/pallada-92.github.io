@@ -1,0 +1,40 @@
+#events {}
+
+#events .time_interval {
+    margin: 0px 0px 0px 10px;
+}
+
+#events .time_interval:hover .timestamp {
+    color: red;
+}
+
+#events .timestamp {
+    font-size: 10px;
+    color: gray;
+    margin: 0px 10px 0px 0px;
+    display: inline-block;
+}
+
+#events .event {
+    font-size: 12px;
+    padding: 0px 3px;
+    margin: 0px 3px;
+    background-color: #EEE;
+    display: inline-block;
+    cursor: default;
+}
+
+#events .event:hover {
+    opacity: 0.5;
+}
+
+#field {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    background: green;
+}
+
+#field .player {
+    
+}
