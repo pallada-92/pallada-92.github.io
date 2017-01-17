@@ -2,22 +2,7 @@
 var d3 = require('d3');
 var R = require('ramda');
 var dao_1 = require('./dao');
-function f00(num) {
-    return ('0' + num).slice(-2);
-}
-function ftime1(stamp100) {
-    var seconds = Math.floor(stamp100 / 100);
-    var frac = stamp100 - seconds * 100;
-    var minutes = Math.floor(seconds / 60);
-    seconds -= minutes * 60;
-    return f00(minutes) + ":" + f00(seconds) + "." + f00(frac);
-}
-function ftime2(stamp100) {
-    var seconds = Math.floor(stamp100 / 100);
-    var minutes = Math.floor(seconds / 60);
-    seconds -= minutes * 60;
-    return f00(minutes) + ":" + f00(seconds);
-}
+var common_1 = require('./common');
 var App = (function () {
     function App() {
     }
@@ -32,11 +17,11 @@ var App = (function () {
         for (var t = 1000; t < max_time + step; t += step) {
             html += '<div class="time_interval" onMouseOver=';
             html += "\"app.over_time_interval(" + period + ", " + t + ", " + (t + step) + ")\">";
-            html += "<div class=\"timestamp\">" + ftime2(t) + "</div>";
+            html += "<div class=\"timestamp\">" + common_1.Common.ftime2(t) + "</div>";
             var events = this.dao.events(period, t, t + step);
             for (var i = 0; i < events.length; i++) {
                 var event_1 = events[i];
-                var bg = bg_scale(event_1.code / (this.dao.event_count - 1));
+                var bg = bg_scale(event_1.code / (this.dao.event_names.length - 1));
                 html += "<div class=\"event\"\n                onMouseOver=\"app.over_event(" + period + ", " + event_1.id + ")\"\n                onMouseOut=\"app.out_event(" + period + ", " + event_1.id + ")\"\n                style=\"background-color: " + bg + "\">";
                 html += event_1.title;
                 html += '</div>';
@@ -47,7 +32,8 @@ var App = (function () {
     };
     App.prototype.onresize = function () {
         this.field_height = window.innerHeight;
-        this.field_width = this.field_height / 105 * 68;
+        this.field_width = this.field_height /
+            this.dao.field_height * this.dao.field_width;
         var events = document.getElementById('events');
         if (events == null)
             return;
@@ -64,7 +50,7 @@ var App = (function () {
         var _this = this;
         var field = d3.select('#field');
         var color = 'lightgray';
-        var meter = this.field_height / 105;
+        var meter = this.field_height / this.dao.field_height;
         var line = meter * 0.1;
         field.append('line')
             .attr('x1', 0)
@@ -152,9 +138,7 @@ var App = (function () {
         players.exit().remove();
         var enter_g = players.enter().append('g')
             .classed('player', true);
-        d3.select('.cur_player').each(function () {
-            this.parentNode.appendChild(this);
-        });
+        d3.select('.cur_player').each(common_1.Common.move_to_front);
         enter_g.append('line')
             .attr('stroke', 'black');
         enter_g.append('circle')

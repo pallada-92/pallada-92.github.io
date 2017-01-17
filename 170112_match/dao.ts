@@ -102,7 +102,12 @@ function polar_decart(phi, r): [number, number] {
 export class Dao {
     data: Data;
     onload: () => void;
+    mock: boolean = false;
     load() {
+        if (this.mock) {
+            setTimeout(() => this.onload(), 0);
+            return;
+        }
         d3.json('data.json', (data: Data) => {
             this.data = data;
             this.onload();
@@ -112,15 +117,25 @@ export class Dao {
         let e: EventsPeriod = this.data.events[`period${period}`];
         return new FixString(e.T, 6).max();
     }
-    get event_count() {
-        return this.data.events.event_names.length;
+    get event_names() {
+        return this.data.events.event_names;
+    }
+    event_count(period: number) {
+        let e: EventsPeriod = this.data.events[`period${period}`];
+        return new FixString(e.T, 6).length;
+    }
+    all_players() {
+        return R.keys(this.data.players);
+    }
+    cmd_players(command: string) { // command = 'H' | 'A';
+        return this.all_players().filter((x) => x[0] == command);
     }
     field_width: number = 68;
     field_height: number = 105;
     event(period: number, id: number, events?: EventsPeriod) {
         let e = events || this.data.events[`period${period}`];
         let code = new FixString(e.E, 3).at_int(id) as number;
-        let player_id = new FixString(e.P, 3).at_raw(id);
+        let player_id = new FixString(e.P, 3).at_raw(id) as string;
         let inverse = player_id && player_id[0] == 'H';
         let x = new FixString(e.X, 5).at_int(id) / 100 * this.field_height / 105;
         let y = new FixString(e.Y, 5).at_int(id) / 100 * this.field_width / 68;

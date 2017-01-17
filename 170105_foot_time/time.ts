@@ -284,3 +284,5 @@ d3.csv('2015_E0.csv', function (matches) {
     svg.selectAll('.team-hor').on('mouseover', highlight_team)
         .on('mouseout', reset);
 })
+
+

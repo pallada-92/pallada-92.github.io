@@ -1,4 +1,5 @@
 "use strict";
+var R = require('ramda');
 var d3 = require('d3');
 function trim(str) {
     return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
@@ -70,12 +71,17 @@ function polar_decart(phi, r) {
 }
 var Dao = (function () {
     function Dao() {
+        this.mock = false;
         this.field_width = 68;
         this.field_height = 105;
         this.fitness_shift = 12 * 100;
     }
     Dao.prototype.load = function () {
         var _this = this;
+        if (this.mock) {
+            setTimeout(function () { return _this.onload(); }, 0);
+            return;
+        }
         d3.json('data.json', function (data) {
             _this.data = data;
             _this.onload();
@@ -85,13 +91,23 @@ var Dao = (function () {
         var e = this.data.events[("period" + period)];
         return new FixString(e.T, 6).max();
     };
-    Object.defineProperty(Dao.prototype, "event_count", {
+    Object.defineProperty(Dao.prototype, "event_names", {
         get: function () {
-            return this.data.events.event_names.length;
+            return this.data.events.event_names;
         },
         enumerable: true,
         configurable: true
     });
+    Dao.prototype.event_count = function (period) {
+        var e = this.data.events[("period" + period)];
+        return new FixString(e.T, 6).length;
+    };
+    Dao.prototype.all_players = function () {
+        return R.keys(this.data.players);
+    };
+    Dao.prototype.cmd_players = function (command) {
+        return this.all_players().filter(function (x) { return x[0] == command; });
+    };
     Dao.prototype.event = function (period, id, events) {
         var e = events || this.data.events[("period" + period)];
         var code = new FixString(e.E, 3).at_int(id);

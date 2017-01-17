@@ -2,25 +2,7 @@ import * as d3 from 'd3';
 import * as R from 'ramda';
 
 import { Dao } from './dao';
-
-function f00(num: number): string {
-    return ('0' + num).slice(-2);
-}
-
-function ftime1(stamp100: number): string {
-    let seconds = Math.floor(stamp100 / 100);
-    let frac = stamp100 - seconds * 100;
-    let minutes = Math.floor(seconds / 60);
-    seconds -= minutes * 60;
-    return `${f00(minutes)}:${f00(seconds)}.${f00(frac)}`;
-}
-
-function ftime2(stamp100: number): string {
-    let seconds = Math.floor(stamp100 / 100);
-    let minutes = Math.floor(seconds / 60);
-    seconds -= minutes * 60;
-    return `${f00(minutes)}:${f00(seconds)}`;
-}
+import { Common } from './common';
 
 class App {
     dao: Dao;
@@ -37,11 +19,11 @@ class App {
         for (let t = 1000; t < max_time + step; t += step) {
             html += '<div class="time_interval" onMouseOver=';
             html += `"app.over_time_interval(${period}, ${t}, ${t + step})">`;
-            html += `<div class="timestamp">${ftime2(t)}</div>`;
+            html += `<div class="timestamp">${Common.ftime2(t)}</div>`;
             let events = this.dao.events(period, t, t + step);
             for (let i = 0; i < events.length; i++) {
                 let event = events[i];
-                let bg = bg_scale(event.code / (this.dao.event_count - 1))
+                let bg = bg_scale(event.code / (this.dao.event_names.length - 1))
                 html += `<div class="event"
                 onMouseOver="app.over_event(${period}, ${event.id})"
                 onMouseOut="app.out_event(${period}, ${event.id})"
@@ -57,7 +39,8 @@ class App {
     field_width: number;
     onresize() {
         this.field_height = window.innerHeight;
-        this.field_width = this.field_height / 105 * 68;
+        this.field_width = this.field_height /
+            this.dao.field_height * this.dao.field_width;
         let events = document.getElementById('events');
         if (events == null) return;
         events.style.marginRight = this.field_width + 50 + 'px';
@@ -71,7 +54,7 @@ class App {
     draw_field() {
         let field = d3.select('#field');
         let color = 'lightgray';
-        let meter = this.field_height / 105;
+        let meter = this.field_height / this.dao.field_height;
         let line = meter * 0.1;
         field.append('line')
             .attr('x1', 0)
@@ -162,9 +145,7 @@ class App {
         players.exit().remove();
         let enter_g = players.enter().append('g')
             .classed('player', true)
-        d3.select('.cur_player').each(function () {
-            this.parentNode.appendChild(this);
-        });
+        d3.select('.cur_player').each(Common.move_to_front);
         enter_g.append('line')
             .attr('stroke', 'black')
         enter_g.append('circle')
