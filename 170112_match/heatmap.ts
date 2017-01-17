@@ -639,7 +639,8 @@ class App {
         // let buf2 = new UpsampleConvolutionBuffer(buf1, w2, h2,
         //     (d) => Math.exp(-Math.pow(d / r, 6)), 10 * r);
         // (d) => Common.clamp(1 - (d / r - b) / (1 - b)), 20);
-        // let buf2 = new ResizedBuffer(buf1, w2, h2);
+        let buf2 = new ResizedBuffer(buf1, w2, h2);
+        let buf2_max_val = buf2.max_val();
         // let quant = new QuantBuffer(buf2, 0, 255);
         // let contour = new EdgeDetector(quant);
         // let scheme = new ColorScheme(
@@ -673,7 +674,7 @@ class App {
         // let scheme = ColorScheme.from_uniform_steps(
         //     ['white', 'black'], 500);
         let scheme = ColorScheme.from_uniform_steps(
-            ['white', 'blue', 'darkblue'], 500);
+            ['yellow', 'red'], 500);
         let iter_events = iter_fitness.events(
             this.dao.event_names.map((v, i) => i));
         const h3 = 16, w3 = Math.round(h3 * ratio),
@@ -700,42 +701,43 @@ class App {
         let composition = new CompositionCanvas(this.canvas)
             .resize(w2, h2)
             // .fill((x, y) => (x % 2 && y % 2) ^ ~~(y % 100 < 50) ?
-            // .fill((x, y) => x % 2 && y % 2 ?
-            // .fill((x, y) => y % 100 < 50 ?
-            // [0, 140, 0] : [0, 150, 0])
-            // [105, 170, 52] : [86, 159, 28])
-            // [78, 90, 42] : [96, 108, 58])
+            .fill((x, y) => x % 2 && y % 2 ?
+                // .fill((x, y) => y % 100 < 50 ?
+                // [0, 140, 0] : [0, 150, 0])
+                // [105, 170, 52] : [86, 159, 28])
+                [78, 90, 42] : [96, 108, 58])
             // .fill(() => [255, 255, 255])
-            .fill(() => [240, 255, 240])
+            // .fill(() => [240, 255, 240])
             // .fill(() => [0, 0, 0])
-            .draw_field(m2, 'rgb(0, 127, 0)', 1)
-            // .blend_alpha_buffer(quant, (val, x, y) => {
-            // let t = Math.pow(val / quant_e.levels, 1 / 2.2)
-            // let t = val / quant.levels;
-            // return [
-            // [0, 127, 0],
-            // scheme.at(t),
-            // [0, 0, 0],
-            // val > 0 ? 0 : 1];
-            // t > 0.15 ? 0 : 1];
-            // 1 - Common.clamp(t * 2, 0, 0.7)];
-            // 1 - t];
-            // Math.pow(1 - t, 2)];
-            // 0];
-            // Math.max(1, 1 - t)];
-            // })
-            .draw_buffer(buf1, (
-                ctx: CanvasRenderingContext2D,
-                val: number, x: number, y: number
-            ) => {
-                let radius = Common.clamp(
-                    Math.pow(val / buf1_max_val, 1) * 15, 0, 15);
-                ctx.fillStyle = 'rgb(0, 127, 0)';
-                ctx.beginPath();
-                ctx.arc(x, y, radius, 0, 2 * Math.PI);
-                ctx.fill();
+            // .draw_field(m2, 'rgb(0, 127, 0)', 1)
+            .draw_field(m2, 'white', 1)
+            .blend_alpha_buffer(buf2, (val, x, y) => {
+                // let t = Math.pow(val / quant_e.levels, 1 / 2.2)
+                // let t = val / quant.levels;
+                let t = val / buf2_max_val;
+                return [
+                    // [0, 127, 0],
+                    scheme.at(t),
+                    // [0, 0, 0],
+                    val > 0 ? 0.2 : 1];
+                // t > 0.15 ? 0 : 1];
+                // 1 - Common.clamp(t * 2, 0, 0.7)];
+                // 1 - t];
+                // Math.pow(1 - t, 2)];
+                // 0];
+                // Math.max(1, 1 - t)];
             })
-            // .draw_field(m2, 'black', 1)
+            // .draw_buffer(buf1, (
+            // ctx: CanvasRenderingContext2D,
+            // val: number, x: number, y: number
+            // ) => {
+            // let radius = Common.clamp(
+            // Math.pow(val / buf1_max_val, 1) * 15, 0, 15);
+            // ctx.fillStyle = 'rgb(0, 127, 0)';
+            // ctx.beginPath();
+            // ctx.arc(x, y, radius, 0, 2 * Math.PI);
+            // ctx.fill();
+            // })
             // .draw_field(m2, 'gray', 1)
             .draw_buffer(buf1, (
                 ctx: CanvasRenderingContext2D,
@@ -751,11 +753,11 @@ class App {
                 ctx.stroke();
             })
             .draw((ctx) => {
-                ctx.fillStyle = 'black';
+                ctx.fillStyle = 'white';
                 ctx.font = '12px Monospace';
                 ctx.textAlign = 'left';
                 ctx.textBaseline = 'top';
-                ctx.fillText('f14', 10, 10);
+                ctx.fillText('f15', 10, 10);
             })
         // .draw(contour.draw_on('black', 'rect', 1, 0))
         console.log(`time = ${+new Date() - time0}`);

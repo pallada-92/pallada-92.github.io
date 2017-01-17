@@ -6,7 +6,6 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var d3 = require('d3');
 var dao_1 = require('./dao');
-var common_1 = require('./common');
 var ShapeIterator = (function () {
     function ShapeIterator() {
     }
@@ -562,7 +561,9 @@ var App = (function () {
             .feed_shape_iterator(adapter, iter_fitness);
         var buf1_max_val = buf1.max_val();
         var h2 = 500, w2 = Math.round(h2 * ratio), m2 = w2 / this.dao.field_width;
-        var scheme = ColorScheme.from_uniform_steps(['white', 'blue', 'darkblue'], 500);
+        var buf2 = new ResizedBuffer(buf1, w2, h2);
+        var buf2_max_val = buf2.max_val();
+        var scheme = ColorScheme.from_uniform_steps(['yellow', 'red'], 500);
         var iter_events = iter_fitness.events(this.dao.event_names.map(function (v, i) { return i; }));
         var h3 = 16, w3 = Math.round(h3 * ratio), m3 = w3 / this.dao.field_width;
         var adapter_e = function (_a) {
@@ -579,14 +580,14 @@ var App = (function () {
         var quant_e = new QuantBuffer(buf2e, 0, 10);
         var composition = new CompositionCanvas(this.canvas)
             .resize(w2, h2)
-            .fill(function () { return [240, 255, 240]; })
-            .draw_field(m2, 'rgb(0, 127, 0)', 1)
-            .draw_buffer(buf1, function (ctx, val, x, y) {
-            var radius = common_1.Common.clamp(Math.pow(val / buf1_max_val, 1) * 15, 0, 15);
-            ctx.fillStyle = 'rgb(0, 127, 0)';
-            ctx.beginPath();
-            ctx.arc(x, y, radius, 0, 2 * Math.PI);
-            ctx.fill();
+            .fill(function (x, y) { return x % 2 && y % 2 ?
+            [78, 90, 42] : [96, 108, 58]; })
+            .draw_field(m2, 'white', 1)
+            .blend_alpha_buffer(buf2, function (val, x, y) {
+            var t = val / buf2_max_val;
+            return [
+                scheme.at(t),
+                val > 0 ? 0.2 : 1];
         })
             .draw_buffer(buf1, function (ctx, val, x, y) {
             return;
@@ -599,11 +600,11 @@ var App = (function () {
             ctx.stroke();
         })
             .draw(function (ctx) {
-            ctx.fillStyle = 'black';
+            ctx.fillStyle = 'white';
             ctx.font = '12px Monospace';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            ctx.fillText('f14', 10, 10);
+            ctx.fillText('f15', 10, 10);
         });
         console.log("time = " + (+new Date() - time0));
     };
