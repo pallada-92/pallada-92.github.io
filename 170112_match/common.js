@@ -1,4 +1,5 @@
 "use strict";
+var d3 = require('d3');
 var Common = (function () {
     function Common() {
     }
@@ -36,6 +37,10 @@ var Common = (function () {
         if (min === void 0) { min = 0; }
         if (max === void 0) { max = 1; }
         return Math.max(min, Math.min(max, num));
+    };
+    Common.rgb_lst = function (color) {
+        var c = d3.rgb(color);
+        return [c.r, c.g, c.b];
     };
     return Common;
 }());

@@ -1,4 +1,4 @@
-
+import * as d3 from 'd3';
 
 export class Common {
 
@@ -41,4 +41,12 @@ export class Common {
         return Math.max(min, Math.min(max, num));
     }
 
+    static rgb_lst(color): [number, number, number] {
+        let c = d3.rgb(color);
+        return [c.r, c.g, c.b];
+    }
+
 }
+
+
+

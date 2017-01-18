@@ -6,6 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var d3 = require('d3');
 var dao_1 = require('./dao');
+var common_1 = require('./common');
 var ShapeIterator = (function () {
     function ShapeIterator() {
     }
@@ -547,9 +548,10 @@ var App = (function () {
     App.prototype.on_data_load = function (player) {
         var _this = this;
         var time0 = +new Date();
+        var scheme = ColorScheme.from_uniform_steps(['white', 'black'], 500);
         var iter_fitness = new FitnessShapeIterator(this.dao, [1], [0, 70 * 60 * 100], [this.dao.cmd_players('H')[player]]);
         var ratio = this.dao.field_width / this.dao.field_height;
-        var h1 = 32, w1 = Math.round(h1 * ratio), m1 = w1 / this.dao.field_width;
+        var h1 = 500, w1 = Math.round(h1 * ratio), m1 = w1 / this.dao.field_width;
         var adapter = function (_a) {
             var x = _a[0], y = _a[1];
             return [
@@ -559,13 +561,12 @@ var App = (function () {
         };
         var buf1 = new Uint16DrawBuffer(w1, h1, 20)
             .feed_shape_iterator(adapter, iter_fitness);
-        var buf1_max_val = buf1.max_val();
         var h2 = 500, w2 = Math.round(h2 * ratio), m2 = w2 / this.dao.field_width;
-        var buf2 = new ResizedBuffer(buf1, w2, h2);
-        var buf2_max_val = buf2.max_val();
-        var scheme = ColorScheme.from_uniform_steps(['yellow', 'red'], 500);
+        var buf2 = new GaussConvolutionBuffer(buf1).blur(10, 4);
+        var quant = new QuantBuffer(buf2, 0, 255);
+        var contour = new EdgeDetector(quant);
         var iter_events = iter_fitness.events(this.dao.event_names.map(function (v, i) { return i; }));
-        var h3 = 16, w3 = Math.round(h3 * ratio), m3 = w3 / this.dao.field_width;
+        var h3 = 500, w3 = Math.round(h3 * ratio), m3 = w3 / this.dao.field_width;
         var adapter_e = function (_a) {
             var x = _a[0], y = _a[1];
             return [
@@ -575,36 +576,37 @@ var App = (function () {
         };
         var buf1e = new Uint16DrawBuffer(w3, h3, 1)
             .feed_shape_iterator(adapter_e, iter_events);
-        var r_e = 25, b_e = 0.6;
-        var buf2e = new ResizedBuffer(buf1e, w2, h2);
-        var quant_e = new QuantBuffer(buf2e, 0, 10);
+        var r_e = 15, b_e = 0.6;
+        var buf2e = new GaussConvolutionBuffer(buf1e).blur(Math.round(r_e / 2), 4);
+        var quant_e = new QuantBuffer(buf2e, 0, 255);
+        var contour_e = new EdgeDetector(quant_e);
         var composition = new CompositionCanvas(this.canvas)
             .resize(w2, h2)
-            .fill(function (x, y) { return x % 2 && y % 2 ?
-            [78, 90, 42] : [96, 108, 58]; })
-            .draw_field(m2, 'white', 1)
-            .blend_alpha_buffer(buf2, function (val, x, y) {
-            var t = val / buf2_max_val;
+            .blend_alpha_buffer(quant, function (val, x, y) {
+            var val_e = quant_e.at(x, y);
+            var t1 = val / quant.levels;
+            var t2 = val_e / quant_e.levels;
             return [
-                scheme.at(t),
-                val > 0 ? 0.2 : 1];
+                common_1.Common.rgb_lst(d3.hcl(140 + t2 * 360, 50 + t2 * 50, 50 + (1 - t1) * 25)),
+                0];
         })
-            .draw_buffer(buf1, function (ctx, val, x, y) {
-            return;
+            .draw_field(m2, 'gray', 1)
+            .draw_buffer(buf1e, function (ctx, val, x, y) {
             if (val == 0)
                 return;
-            var t = quant_e.at(x, y) / quant_e.levels;
-            ctx.strokeStyle = 'black';
+            var t1 = quant.at(x, y) / quant.levels;
+            var t2 = quant_e.at(x, y) / quant_e.levels;
+            ctx.fillStyle = 'black';
             ctx.beginPath();
-            ctx.arc(x, y, 1, 0, 2 * Math.PI);
-            ctx.stroke();
+            ctx.arc(x, y, 2, 0, 2 * Math.PI);
+            ctx.fill();
         })
             .draw(function (ctx) {
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = 'black';
             ctx.font = '12px Monospace';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            ctx.fillText('f15', 10, 10);
+            ctx.fillText('ef13', 10, 10);
         });
         console.log("time = " + (+new Date() - time0));
     };
