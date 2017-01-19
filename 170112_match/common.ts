@@ -46,6 +46,17 @@ export class Common {
         return [c.r, c.g, c.b];
     }
 
+    static vec_len(vec: number[]) {
+        let x = vec[0];
+        let y = vec[1];
+        return Math.sqrt(x * x + y * y);
+    }
+
+    static dist(vec1: number[], vec2: number[]) {
+        let dx = vec1[0] - vec2[0];
+        let dy = vec1[1] - vec2[1];
+        return Math.sqrt(dx * dx + dy * dy);
+    }
 }
 
 

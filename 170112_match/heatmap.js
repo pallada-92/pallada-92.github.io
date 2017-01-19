@@ -351,6 +351,43 @@ var EdgeDetector = (function () {
     };
     return EdgeDetector;
 }());
+var GroupPoints = (function () {
+    function GroupPoints(radius) {
+        this.radius = radius;
+        this.circles = [];
+    }
+    ;
+    GroupPoints.prototype.add_circle = function (circle) {
+        for (var i = 0; i < this.circles.length; i++) {
+            var cur_circle = this.circles[i];
+            var dist = common_1.Common.dist(circle, cur_circle);
+            if (dist >= circle[2] + cur_circle[2])
+                continue;
+            var a = 1 / (1 + Math.pow(circle[2] / cur_circle[2], 2));
+            var new_x = cur_circle[0] * a + circle[0] * (1 - a);
+            var new_y = cur_circle[1] * a + circle[1] * (1 - a);
+            var new_rad = common_1.Common.vec_len([circle[2], cur_circle[2]]);
+            this.circles.splice(i, 1);
+            this.add_circle([new_x, new_y, new_rad]);
+            return;
+        }
+        this.circles.push(circle);
+    };
+    GroupPoints.prototype.feed_shape_iterator = function (adapter, iter) {
+        var _this = this;
+        iter.forEach(function (s) {
+            if (s.length == 2) {
+                var _a = adapter([s[0], s[1]]), x = _a[0], y = _a[1];
+                _this.add_circle([x, y, _this.radius]);
+            }
+        });
+        return this;
+    };
+    GroupPoints.prototype.forEach = function (fun) {
+        this.circles.forEach(function (c) { return fun(c); });
+    };
+    return GroupPoints;
+}());
 var CompositionCanvas = (function () {
     function CompositionCanvas(canvas) {
         this.canvas = canvas;
@@ -545,11 +582,16 @@ var ColorScheme = (function () {
 var App = (function () {
     function App() {
     }
-    App.prototype.on_data_load = function (player) {
+    App.prototype.on_data_load = function (param) {
         var _this = this;
+        if (param === void 0) { param = 'source-over'; }
         var time0 = +new Date();
+        var scheme_e = ColorScheme.from_uniform_steps([
+            'rgb(0, 0, 0)', 'rgb(0, 0, 255)', 'rgb(0, 255, 255)',
+            'rgb(0, 255, 0)', 'rgb(255, 255, 0)', 'rgb(255, 0, 0)',
+            'rgb(255, 255, 255)'], 500);
         var scheme = ColorScheme.from_uniform_steps(['white', 'black'], 500);
-        var iter_fitness = new FitnessShapeIterator(this.dao, [1], [0, 70 * 60 * 100], [this.dao.cmd_players('H')[player]]);
+        var iter_fitness = new FitnessShapeIterator(this.dao, [1], [0, 70 * 60 * 100], [this.dao.cmd_players('H')[0]]);
         var ratio = this.dao.field_width / this.dao.field_height;
         var h1 = 500, w1 = Math.round(h1 * ratio), m1 = w1 / this.dao.field_width;
         var adapter = function (_a) {
@@ -562,8 +604,8 @@ var App = (function () {
         var buf1 = new Uint16DrawBuffer(w1, h1, 20)
             .feed_shape_iterator(adapter, iter_fitness);
         var h2 = 500, w2 = Math.round(h2 * ratio), m2 = w2 / this.dao.field_width;
-        var buf2 = new GaussConvolutionBuffer(buf1).blur(10, 4);
-        var quant = new QuantBuffer(buf2, 0, 255);
+        var buf2 = new GaussConvolutionBuffer(buf1).blur(0, 4);
+        var quant = new QuantBuffer(buf2, 7, 255);
         var contour = new EdgeDetector(quant);
         var iter_events = iter_fitness.events(this.dao.event_names.map(function (v, i) { return i; }));
         var h3 = 500, w3 = Math.round(h3 * ratio), m3 = w3 / this.dao.field_width;
@@ -576,37 +618,38 @@ var App = (function () {
         };
         var buf1e = new Uint16DrawBuffer(w3, h3, 1)
             .feed_shape_iterator(adapter_e, iter_events);
+        var circles_e = new GroupPoints(3)
+            .feed_shape_iterator(adapter_e, iter_events);
+        console.log(iter_events, circles_e);
         var r_e = 15, b_e = 0.6;
         var buf2e = new GaussConvolutionBuffer(buf1e).blur(Math.round(r_e / 2), 4);
-        var quant_e = new QuantBuffer(buf2e, 0, 255);
+        var quant_e = new QuantBuffer(buf2e, 0, 7);
         var contour_e = new EdgeDetector(quant_e);
         var composition = new CompositionCanvas(this.canvas)
             .resize(w2, h2)
+            .fill(function () { return [240, 255, 240]; })
+            .draw_field(m2, 'rgb(0, 127, 0)', 1)
             .blend_alpha_buffer(quant, function (val, x, y) {
             var val_e = quant_e.at(x, y);
-            var t1 = val / quant.levels;
+            var t1 = Math.pow(val / quant.levels, 1 / 2.2);
             var t2 = val_e / quant_e.levels;
             return [
-                common_1.Common.rgb_lst(d3.hcl(140 + t2 * 360, 50 + t2 * 50, 50 + (1 - t1) * 25)),
-                0];
+                scheme.at(t1),
+                1 - t1];
         })
-            .draw_field(m2, 'gray', 1)
-            .draw_buffer(buf1e, function (ctx, val, x, y) {
-            if (val == 0)
-                return;
-            var t1 = quant.at(x, y) / quant.levels;
-            var t2 = quant_e.at(x, y) / quant_e.levels;
-            ctx.fillStyle = 'black';
-            ctx.beginPath();
-            ctx.arc(x, y, 2, 0, 2 * Math.PI);
-            ctx.fill();
+            .blend_alpha_buffer(quant_e, function (val, x, y) {
+            val /= quant_e.levels;
+            return [
+                scheme_e.at(val),
+                Math.max(1 - 1.5 * val, 0)
+            ];
         })
             .draw(function (ctx) {
             ctx.fillStyle = 'black';
             ctx.font = '12px Monospace';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'top';
-            ctx.fillText('ef13', 10, 10);
+            ctx.fillText('ef22', 10, 10);
         });
         console.log("time = " + (+new Date() - time0));
     };

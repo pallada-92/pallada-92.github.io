@@ -42,6 +42,16 @@ var Common = (function () {
         var c = d3.rgb(color);
         return [c.r, c.g, c.b];
     };
+    Common.vec_len = function (vec) {
+        var x = vec[0];
+        var y = vec[1];
+        return Math.sqrt(x * x + y * y);
+    };
+    Common.dist = function (vec1, vec2) {
+        var dx = vec1[0] - vec2[0];
+        var dy = vec1[1] - vec2[1];
+        return Math.sqrt(dx * dx + dy * dy);
+    };
     return Common;
 }());
 exports.Common = Common;
