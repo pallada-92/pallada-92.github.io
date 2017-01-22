@@ -280,13 +280,13 @@ var Cross1 = (function () {
             D: stats['H'],
             A: stats['H'] + stats['D'],
         };
-        this.prob_g.select('rect')
+        this.prob_g.selectAll('rect')
             .attr('x', function (letter) { return _this.prob_scale(left[letter] / total); })
             .attr('y', 0)
             .attr('width', function (letter) { return _this.prob_scale(stats[letter] / total); })
             .attr('height', 20)
             .attr('fill', function (letter) { return common_1.Common1.res_interp[letter](1 / 3); });
-        this.prob_g.select('text')
+        this.prob_g.selectAll('text')
             .attr('x', function (letter) { return _this.prob_scale(left[letter] / total + stats[letter] / 2 / total); })
             .attr('y', 10)
             .attr('fill', 'white')

@@ -316,13 +316,13 @@ export class Cross1 {
             D: stats['H'],
             A: stats['H'] + stats['D'],
         }
-        this.prob_g.select('rect')
+        this.prob_g.selectAll('rect')
             .attr('x', (letter: string) => this.prob_scale(left[letter] / total))
             .attr('y', 0)
             .attr('width', (letter: string) => this.prob_scale(stats[letter] / total))
             .attr('height', 20)
             .attr('fill', (letter: string) => Common1.res_interp[letter](1 / 3))
-        this.prob_g.select('text')
+        this.prob_g.selectAll('text')
             .attr('x', (letter: string) => this.prob_scale(left[letter] / total + stats[letter] / 2 / total))
             .attr('y', 10)
             .attr('fill', 'white')

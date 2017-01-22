@@ -84,7 +84,7 @@ var Launcher = (function () {
 }());
 var CrossSlide1 = (function () {
     function CrossSlide1() {
-        this.image = 'shots/cropped/170105_cross.png';
+        this.image = 'shots/cropped/170122_cross1.png';
         this.bg_size = '80%';
         this.obj1 = new cross_1.Cross1();
         this.width = this.obj1.width + this.obj1.margin.left + this.obj1.margin.right;
@@ -112,7 +112,7 @@ var CrossSlide1 = (function () {
 }());
 var WeeksSlide1 = (function () {
     function WeeksSlide1() {
-        this.image = 'shots/cropped/170105_time_team.png';
+        this.image = 'shots/cropped/170122_time_team1.png';
         this.bg_size = '80%';
         this.obj1 = new weeks_1.Weeks1();
         this.width = this.obj1.width + this.obj1.margin.left + this.obj1.margin.right;
@@ -140,7 +140,7 @@ var WeeksSlide1 = (function () {
 }());
 var SeasonsSlide1 = (function () {
     function SeasonsSlide1() {
-        this.image = 'shots/cropped/170105_seasons.png';
+        this.image = 'shots/cropped/170122_seasons2.png';
         this.bg_size = '80%';
         this.obj1 = new seasons_1.Seasons1();
         this.width = this.obj1.width + this.obj1.margin.left + this.obj1.margin.right;
@@ -168,7 +168,7 @@ var SeasonsSlide1 = (function () {
 }());
 var PhasesGraphSlide1 = (function () {
     function PhasesGraphSlide1() {
-        this.image = 'shots/cropped/170105_seasons.png';
+        this.image = 'shots/cropped/170122_seasons1.png';
         this.bg_size = '80%';
         this.minimatch = new minimatch_1.Minimatch1();
         this.graph1 = new phases_graph_1.PhasesGraph1();

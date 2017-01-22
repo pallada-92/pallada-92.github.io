@@ -95,7 +95,7 @@ class Launcher {
 }
 
 class CrossSlide1 {
-    image = 'shots/cropped/170105_cross.png';
+    image = 'shots/cropped/170122_cross1.png';
     bg_size = '80%';
     obj1: Cross1;
     width: number;
@@ -126,7 +126,7 @@ class CrossSlide1 {
 }
 
 class WeeksSlide1 {
-    image = 'shots/cropped/170105_time_team.png';
+    image = 'shots/cropped/170122_time_team1.png';
     bg_size = '80%';
     obj1: Weeks1;
     width: number;
@@ -157,7 +157,7 @@ class WeeksSlide1 {
 }
 
 class SeasonsSlide1 {
-    image = 'shots/cropped/170105_seasons.png';
+    image = 'shots/cropped/170122_seasons2.png';
     bg_size = '80%';
     obj1: Seasons1;
     width: number;
@@ -191,7 +191,7 @@ class SeasonsSlide1 {
 }
 
 class PhasesGraphSlide1 {
-    image = 'shots/cropped/170105_seasons.png';
+    image = 'shots/cropped/170122_seasons1.png';
     bg_size = '80%';
     minimatch: Minimatch1;
     graph1: PhasesGraph1;
