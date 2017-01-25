@@ -1,0 +1,37 @@
+Python
+Tornado
+Jupyter
+Scikit-learn
+Numpy
+Pandas
+Selenium web driver
+Google App Engine
+SQLite
+
+Emacs
+Git
+Arch Linux
+Gephi
+LaTeX
+Bash
+SSH
+Processing.org
+QGIS
+
+HTML5
+CSS3
+React
+TypeScript
+JavaScript
+jQuery
+d3.js
+Ramda.js
+SVG
+Canvas
+SemanticUI
+
+Data Mining
+Machine Learning
+web scraping
+Single-page web applications
+Mobile-friendly
