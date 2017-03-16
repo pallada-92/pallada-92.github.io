@@ -254,7 +254,8 @@ function Sphere(id, size) {
       vert = rotate(vert, 1, rot_y * Math.PI);
       trans_vert.push(vert);
     }
-    dir = [trans_vert[0], trans_vert[1]];
+    //dir = [trans_vert[0], trans_vert[1]];
+    dir = [[0, 0, 1], [0, 1, 0]];
     var vert_order = sortIndices(trans_vert);
     var trans_tri_mid = [];
     for (var i=0; i<triangles.length; i++) {
@@ -266,7 +267,7 @@ function Sphere(id, size) {
     }
     var tri_order = sortIndices(trans_tri_mid);
     ctx.fillStyle = 'rgb(221, 221, 221)';
-    ctx.fillRect(0, 0, size, size);
+    ctx.clearRect(0, 0, size, size);
     ctx.strokeStyle = 'rgb(255, 255, 255)';
     ctx.lineWidth = 2.5;
     var line_pad = 0.3;
@@ -283,7 +284,7 @@ function Sphere(id, size) {
       var v0 = proj(trans_vert[tri[0]]);
       var v1 = proj(trans_vert[tri[1]]);
       var v2 = proj(trans_vert[tri[2]]);
-      ctx.fillStyle = 'rgba(229, 229, 229, 0.8)';
+      ctx.fillStyle = 'rgba(229, 229, 229, 0.4)';
       for (var stroke=0; stroke<=1; stroke++) {
         if (!stroke) {
           ctx.beginPath();
@@ -358,7 +359,7 @@ function Sphere(id, size) {
       var c = 0.005 / Math.PI;
       rot_x = mousedown_rot[0] - dx * c;
       rot_y = mousedown_rot[1] + dy * c;
-      rot_y = clamp(rot_y, -1/2, 1/2);
+      // rot_y = clamp(rot_y, -1/2, 1/2);
     }
   }
 
@@ -436,3 +437,5 @@ window.onload = function() {
   window.onmouseup = s.onmouseup;
   window.onmousemove = s.onmousemove;
 }
+
+// По поводу мобильных устройств. Это возможно, но батарейка будет сильно расходоваться при открытии страницы
