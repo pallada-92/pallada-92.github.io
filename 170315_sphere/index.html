@@ -8,7 +8,9 @@
   <center>
   <canvas id="sphere"></canvas>
   </center>
-  <script src="snapsvg@0.4.1/dist/snap.svg-min.js"></script>
+  <script>
+    var dropShadow = window.location.hash.indexOf('shadow') != -1;
+  </script>
   <script src="sphere.js"></script>
 </body>
 </html>

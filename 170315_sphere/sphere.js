@@ -182,7 +182,7 @@ function Sphere(id, size) {
 
   function draw_poly(vect, dir, selected, text) {
     ctx.save();
-    var circ_pts = 100;
+    var circ_pts = 33;
     var circ_size = 0.17;
     var circ_lower = 0.05;
     vect = mul(vect, 1 - circ_lower);
@@ -209,14 +209,18 @@ function Sphere(id, size) {
     } else {
       ctx.fillStyle = 'rgb(255, 251, 255)';
     }
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
-    ctx.shadowOffsetX = -5;
-    ctx.shadowOffsetY = 5;
-    ctx.shadowBlur = 4;
+    if (dropShadow) {
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+      ctx.shadowOffsetX = -5;
+      ctx.shadowOffsetY = 5;
+      ctx.shadowBlur = 4;
+    }
     ctx.fill();
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.05)';
-    ctx.shadowOffsetX = -3;
-    ctx.shadowOffsetY = 3;
+    if (dropShadow) {
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.05)';
+      ctx.shadowOffsetX = -3;
+      ctx.shadowOffsetY = 3;
+    }
     if (selected) {
       ctx.strokeStyle = 'rgb(162, 185, 215)';
     } else {
@@ -245,6 +249,7 @@ function Sphere(id, size) {
   var rot_y = 0.45;
   var selected_poly = -1;
   function draw() {
+    console.log('draw');
     var trans_vert = [];
     for (var i=0; i<vertices.length; i++) {
       var vert = vertices[i];
@@ -274,8 +279,8 @@ function Sphere(id, size) {
         draw_poly(tv, dir, false);
       }
     }
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+    // ctx.lineCap = 'round';
+    // ctx.lineJoin = 'round';
     for (var i=0; i<triangles.length; i++) {
       var tri = triangles[tri_order[i]];
       var v0 = proj(trans_vert[tri[0]]);
@@ -354,27 +359,49 @@ function Sphere(id, size) {
       rot_y = mousedown_rot[1] + dy * c;
       rot_y = clamp(rot_y, -Math.PI / 2, Math.PI / 2);
     }
-    draw();
   }
 
   canvas.onmousedown = function(e) {
     mousedown = true;
     mousedown_pos = mouse_coords(e);
     mousedown_rot = [rot_x, rot_y];
-    draw();
   }
 
   canvas.onmouseout = function() {
     mousedown = false;
-    draw();
   }
 
   canvas.onmouseup = function() {
     mousedown = false;
+  }
+
+  var requestAnimationFrame = window.requestAnimationFrame;
+  if (!requestAnimationFrame) {
+    requestAnimationFrame = (function() {
+      return window.webkitRequestAnimationFrame ||
+        // comment out if FF4 is slow (it caps framerate at ~30fps:
+        // https://bugzilla.mozilla.org/show_bug.cgi?id=630127)
+        window.mozRequestAnimationFrame || 
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(
+          /* function FrameRequestCallback */ callback,
+          /* DOMElement Element */ element
+        ) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+    })();
+  }
+
+  animate();
+
+  function animate() {
+    // rot_x += 0.03;
+    // rot_y += 0.03;
+    requestAnimationFrame(animate);
     draw();
   }
 
-  draw(); 
 }
 
 window.onload = function() {
