@@ -221,22 +221,20 @@ function Sphere(id, size) {
       ctx.shadowOffsetX = -3;
       ctx.shadowOffsetY = 3;
     }
+    ctx.save();
+    ctx.lineWidth = 1.5;
     if (selected) {
       ctx.strokeStyle = 'rgb(162, 185, 215)';
     } else {
-      ctx.strokeStyle = 'rgb(238, 238, 238)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
     }
     ctx.stroke();
+    ctx.restore();
     if (text) {
       var vp = proj(vect);
-      ctx.fillStyle = 'black';
-      var c = 0.8;
+      var c = 0.13 * size / img.width;
       ctx.setTransform(-c * v2[1], -c * v2[2], c * v1[1], c * v1[2], vp[0], vp[1]);
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.font = '25px Helvetica';
       ctx.drawImage(img, -img.width/2, -img.height/2);
-      // ctx.fillText(text, 0, 0);
     }
     ctx.restore();
     return cur_poly;
@@ -245,16 +243,15 @@ function Sphere(id, size) {
   var mousedown = false;
   var mousedown_pos = [0, 0];
   var polygons = [];
-  var rot_x = 0.7;
-  var rot_y = 0.45;
+  var rot_x = 0.7 / Math.PI;
+  var rot_y = 0.45 / Math.PI;
   var selected_poly = -1;
-  function draw() {
-    console.log('draw');
+  this.draw = function() {
     var trans_vert = [];
     for (var i=0; i<vertices.length; i++) {
       var vert = vertices[i];
-      vert = rotate(vert, 2, rot_x);
-      vert = rotate(vert, 1, rot_y);
+      vert = rotate(vert, 2, rot_x * Math.PI);
+      vert = rotate(vert, 1, rot_y * Math.PI);
       trans_vert.push(vert);
     }
     dir = [trans_vert[0], trans_vert[1]];
@@ -340,10 +337,14 @@ function Sphere(id, size) {
     return x;
   }
 
-  canvas.onmousemove = function(e) {
-    var pos = mouse_coords(e);
+  var mouseoversphere = false;
+  this.onmousemove = function(e) {
+    var rect = canvas.getBoundingClientRect();
+    var pos = [e.clientX - rect.left, e.clientY - rect.top];
     selected_poly = -1;
     canvas.style.cursor = 'default';
+    mouseoversphere = len([pos[0] - size/2, pos[1] - size/2, 0]) <= size / 2;
+    console.log(mouseoversphere);
     for (var i=0; i<polygons.length; i++) {
       var cur_poly = polygons[i];
       if (inside(pos, cur_poly)) {
@@ -354,10 +355,10 @@ function Sphere(id, size) {
     if (mousedown) {
       var dx = pos[0] - mousedown_pos[0];
       var dy = pos[1] - mousedown_pos[1];
-      var c = 0.005;
+      var c = 0.005 / Math.PI;
       rot_x = mousedown_rot[0] - dx * c;
       rot_y = mousedown_rot[1] + dy * c;
-      rot_y = clamp(rot_y, -Math.PI / 2, Math.PI / 2);
+      rot_y = clamp(rot_y, -1/2, 1/2);
     }
   }
 
@@ -368,7 +369,7 @@ function Sphere(id, size) {
   }
 
   canvas.onmouseout = function() {
-    mousedown = false;
+    
   }
 
   canvas.onmouseup = function() {
@@ -393,17 +394,45 @@ function Sphere(id, size) {
     })();
   }
 
-  animate();
-
+  this.play = true;
+  var this1 = this;
+  var autorotate_dir = 1;
+  var prev_frame = +new Date();
+  
   function animate() {
-    // rot_x += 0.03;
-    // rot_y += 0.03;
+    var tdelta = (+new Date()) - prev_frame;
+    prev_frame = +new Date;
     requestAnimationFrame(animate);
-    draw();
+    if (this1.play) {
+      // if (!mouseoversphere && !mousedown) {
+      if (selected_poly == -1 && !mousedown) {
+        var c = 0.01 * tdelta / 100;
+        rot_x += c;
+        var rot_y_thresh = 0.4;
+        if (Math.abs(rot_y) > rot_y_thresh) {
+          autorotate_dir = -Math.sign(rot_y);
+          rot_y += c * autorotate_dir * (Math.abs(rot_y) - rot_y_thresh + 0.1) * 5;
+        } else {
+          rot_y += c * autorotate_dir * Math.sqrt(1.01 - Math.pow(rot_y / rot_y_thresh, 2));
+        }
+        // console.log(autorotate_dir);
+      }
+      this1.draw();
+    }
   }
+
+  this.onmouseup = function() {
+    mousedown = false;
+  }
+
+  animate();
 
 }
 
+
+var s;
 window.onload = function() {
-  Sphere('sphere', window.innerHeight - 50);
+  s = new Sphere('sphere', window.innerHeight - 50);
+  window.onmouseup = s.onmouseup;
+  window.onmousemove = s.onmousemove;
 }
