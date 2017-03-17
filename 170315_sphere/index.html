@@ -20,17 +20,26 @@
   <script src="sphere-items.js"></script>
   <script src="sphere.js"></script>
   <script>
+    var r;
+    var w = window.innerWidth - 50;
+    var h = window.innerHeight - 50;
+    if (w / 1000 * 600 > h) {
+      r = h / 600;
+    } else {
+      r = w / 1000
+    }
     window.onload = function() {
       new Sphere({
         id: 'sphere',
-        width: 800,
-        height: 600,
-        cx: 300,
-        cy: 300,
-        rad: 250,
-        popup_x: 600,
-        popup_y: 200,
-        popup_w: 200,
+        width: 1000 * r,
+        height: 600 * r,
+        cx: 300 * r,
+        cy: 300 * r,
+        rad: 250 * r,
+        popup: true,
+        popup_x: 550 * r,
+        popup_y: 200 * r,
+        popup_w: 400 * r,
       }, new SphereData());
     }
   </script>

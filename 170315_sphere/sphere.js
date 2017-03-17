@@ -198,7 +198,62 @@ function Sphere(params, data) {
     data.items[i].t = 0;
   }
 
-  function draw_poly(vect, dir, img, t) {
+  function draw_poly(segments, x, y, w, h, t) {
+    var line_len_starts = [0];
+    var line_len = 0;
+    var line_pts = [[x, y]];
+    var line_seg = [];
+    for (var i=0; i<segments.length; i++) {
+      var cur_seg = [
+        segments[i][0] * w,
+        segments[i][1] * h,
+      ];
+      line_seg.push(cur_seg);
+      x += cur_seg[0];
+      y += cur_seg[1];
+      line_pts.push([x, y]);
+      line_len += len(cur_seg);
+      line_len_starts.push(line_len);
+    }
+    ctx.beginPath();
+    ctx.moveTo(line_pts[0][0], line_pts[0][1]);
+    for (var i=0; i<segments.length; i++) {
+      var cur_t = Math.min(
+        (t * line_len - line_len_starts[i]) / len(line_seg[i]),
+        1
+      );
+      if (cur_t < 0) continue;
+      ctx.lineTo(
+        line_pts[i][0] + line_seg[i][0] * cur_t,
+        line_pts[i][1] + line_seg[i][1] * cur_t
+      );
+    }
+  }
+
+  function splittext(text, width) {
+    var words = text.split(' ');
+    var lines = [];
+    var cur_x = 0;
+    var cur_line = ''
+    for (var i=0; i<words.length; i++) {
+      var word_w = ctx.measureText(' ' + words[i]).width;
+      if (cur_line == '') {
+        cur_line = words[i];
+        cur_x = word_w;
+      } else if (cur_x + word_w > width) {
+        lines.push(cur_line);
+        cur_x = word_w;
+        cur_line = words[i];
+      } else {
+        cur_line += ' ' + words[i];
+        cur_x += word_w;
+      }
+    }
+    lines.push(cur_line);
+    return lines;
+  }
+
+  function draw_vertex(vect, dir, img, t, selected, title, text) {
     ctx.save();
     var circ_coeff = 1;
     if (t > 0) {
@@ -225,6 +280,68 @@ function Sphere(params, data) {
         mul(v2, circ_size * Math.sin(a))
       ));
       cur_poly.push(pt);
+    }
+    var vp = proj(vect);
+    if (t > 0 && selected && params.popup)  {
+      ctx.save();
+      ctx.lineWidth = 2;
+      ctx.setLineDash([2, 2]);
+      ctx.strokeStyle = 'rgb(255, 104, 28)';
+      draw_poly(
+        [[0.25, 0.5], [0.25, 0], [0.25, 0.5], [0.25, 0]],
+        params.popup_x,
+        params.popup_y,
+        vp[0] - params.popup_x,
+        vp[1] - params.popup_y,
+        t
+      );
+      ctx.stroke();
+      ctx.restore();
+      var pp = 0.07;
+      var text_w = params.popup_w * (1 - pp * 2 * 1.5);
+      ctx.font = '15px Helvetica';
+      var text_lines = splittext(text, text_w);
+      ctx.font = 'bold 15px Helvetica';
+      var title_lines = splittext(title, text_w);
+      var lineheight = 20;
+      var block_height = 20 + lineheight * (text_lines.length + title_lines.length);
+      ctx.save();
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = 'rgb(255, 104, 28)';
+      ctx.fillStyle = 'rgba(0, 70, 129, 0.9)';
+      draw_poly(
+        [[pp, -0.5], [1 - pp * 2, 0], [pp, 0.5], [-pp, 0.5], [-0.1, 0],
+         [-0.05, 15 / block_height], [-0.05, -15 / block_height],
+         [-(0.8 - pp * 2), 0], [-pp, -0.5]],
+        params.popup_x,
+        params.popup_y,
+        params.popup_w,
+        block_height,
+        t
+      );
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fill();
+      ctx.clip();
+      ctx.fillStyle = 'white';
+      var shift1 = 4;
+      ctx.font = 'bold 15px Helvetica';
+      for (var i=0; i<title_lines.length; i++) {
+        ctx.fillText(
+          title_lines[i].slice(0, Math.round(title_lines[i].length * t)),
+          params.popup_x + (params.popup_w - text_w) / 2,
+          params.popup_y - block_height / 2 + lineheight * (i + 1) + shift1
+        );
+      }
+      ctx.font = '15px Helvetica';
+      for (var i=0; i<text_lines.length; i++) {
+        ctx.fillText(
+          text_lines[i].slice(0, Math.round(text_lines[i].length * t)),
+          params.popup_x + (params.popup_w - text_w) / 2,
+          params.popup_y - block_height / 2 + lineheight * (i + 1 + title_lines.length) + shift1 + 2
+        );
+      }
+      ctx.restore();
     }
     if (t == -1) {
       ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
@@ -263,7 +380,6 @@ function Sphere(params, data) {
       ctx.lineTo(cur_poly[jj][0], cur_poly[jj][1]);
     }
     ctx.stroke();
-    var vp = proj(vect);
     var circ_c = 0.36;
     if (t > 0) {
       ctx.save()
@@ -294,7 +410,6 @@ function Sphere(params, data) {
       ctx.drawImage(img, -img.width / 2, -img.height / 2);
       ctx.restore();
     }
-    var line_segments;
     return cur_poly;
   }
 
@@ -331,7 +446,7 @@ function Sphere(params, data) {
     for (var i=0; i<vertices.length; i++) {
       var tv = vertices[i];
       if (tv[0] <= 0) {
-        draw_poly(tv, dir, null, -1);
+        draw_vertex(tv, dir, null, -1, false);
       }
     }
     ctx.lineWidth = 2;
@@ -382,12 +497,18 @@ function Sphere(params, data) {
       var tv = vertices[i];
       if (tv[0] > 0) {
         if (selected_poly == i) continue;
-        polygons[i] = draw_poly(tv, dir, data.items[i].img, data.items[i].t)
+        polygons[i] = draw_vertex(
+          tv, dir, data.items[i].img, data.items[i].t, false,
+          data.items[i].title, data.items[i].text
+        )
       }
     }
     var i = selected_poly;
     if (i != -1 && vertices[i][0] > 0) {
-      polygons[i] = draw_poly(vertices[i], dir, data.items[i].img, data.items[i].t);
+      polygons[i] = draw_vertex(
+        vertices[i], dir, data.items[i].img, data.items[i].t, true,
+        data.items[i].title, data.items[i].text
+      );
     }
   }
 
