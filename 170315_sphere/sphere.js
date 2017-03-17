@@ -370,7 +370,7 @@ function Sphere(id, size, items) {
     ];
     last_mouse_pos = [x, y];
     var rect = canvas.getBoundingClientRect();
-    rel_pos = [x - rect.left, y - rect.top];
+    rel_pos = [x - rect.left * pxratio, y - rect.top * pxratio];
     in_sphere = len(
       [rel_pos[0] - size/2, rel_pos[1] - size/2]
     ) <= size / 2;
