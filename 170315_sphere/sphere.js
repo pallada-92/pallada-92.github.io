@@ -315,7 +315,7 @@ function Sphere(id, size, items) {
           ctx.fillStyle = 'white';
         }
         if (selected_poly == i) {
-          ctx.strokeStyle = 'rgb(162, 185, 215)';
+          ctx.strokeStyle = 'rgb(80, 80, 255)';
         } else {
           ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
         }
