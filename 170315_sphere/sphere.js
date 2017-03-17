@@ -4,8 +4,9 @@ function Sphere(id, size, items) {
   canvas.style.width = size + 'px';
   canvas.style.height = size + 'px';
   var pxratio = window.devicePixelRatio;
-  canvas.width = size * pxratio;
-  canvas.height = size * pxratio;
+  size *= pxratio;
+  canvas.width = size;
+  canvas.height = size;
   var ctx = canvas.getContext('2d');
 
   // 0 - north pole, 1..5 - top, 6..10 - bottom, 11 - south pole
