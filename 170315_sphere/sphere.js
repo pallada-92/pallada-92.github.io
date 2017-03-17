@@ -1,12 +1,19 @@
-function Sphere(id, size, items) {
+function Sphere(params, data) {
 
-  var canvas = document.getElementById(id);
-  canvas.style.width = size + 'px';
-  canvas.style.height = size + 'px';
+  var canvas = document.getElementById(params.id);
+  canvas.style.width = params.width + 'px';
+  canvas.style.height = params.height + 'px';
   var pxratio = window.devicePixelRatio;
-  size *= pxratio;
-  canvas.width = size;
-  canvas.height = size;
+  params.width *= pxratio;
+  params.height *= pxratio;
+  canvas.width = params.width;
+  canvas.height = params.height;
+  params.cx *= pxratio;
+  params.cy *= pxratio;
+  params.rad *= pxratio;
+  params.popup_x *= pxratio;
+  params.popup_y *= pxratio;
+  params.popup_w *= pxratio;
   var ctx = canvas.getContext('2d');
 
   // 0 - north pole, 1..5 - top, 6..10 - bottom, 11 - south pole
@@ -130,8 +137,8 @@ function Sphere(id, size, items) {
 
   function proj(vector) {
     return [
-      (vector[1] * 1 + 1) * size / 2,
-      (vector[2] * 1 + 1) * size / 2,
+      vector[1] * params.rad + params.cx,
+      vector[2] * params.rad + params.cy,
     ];
   }
   
@@ -186,27 +193,52 @@ function Sphere(id, size, items) {
   }
 
   for (var i=0; i<vertices.length; i++) {
-    items[i].img = new Image();
-    items[i].img.src = items[i].icon;
+    data.items[i].img = new Image();
+    data.items[i].img.src = data.items[i].icon;
+    data.items[i].t = 0;
   }
 
-  function draw_poly(vect, dir, img) {
+  function draw_poly(vect, dir, img, t) {
     ctx.save();
+    var circ_coeff = 1;
+    if (t > 0) {
+      circ_coeff = 1 + t / 5;
+    }
     var circ_pts = 33;
-    var circ_size = 0.17;
+    var circ_size = 0.19 * circ_coeff;
     var circ_lower = 0.05;
     vect = mul(vect, 1 - circ_lower);
-    var t = ort(vect, dir);
-    var v1 = t[1];
-    var v2 = t[2];
+    var tt = ort(vect, dir);
+    var v1 = [tt[1][1], tt[1][2]];
+    var v2 = [tt[2][1], tt[2][2]];
+    if (t > 0) {
+      v1 = [tt[1][1] * (1 - t), tt[1][2] * (1 - t) + t];
+      v2 = [tt[2][1] * (1 - t) - t, tt[2][2] * (1 - t)];
+    }
+    v1 = mul(v1, params.rad);
+    v2 = mul(v2, params.rad);
     var cur_poly = [];
     for (var j=0; j<circ_pts; j++) {
       var a = 2 * Math.PI * j / circ_pts;
-      var pt = proj(add(vect, add(
+      var pt = add(proj(vect), add(
         mul(v1, circ_size * Math.cos(a)),
         mul(v2, circ_size * Math.sin(a))
-      )));
+      ));
       cur_poly.push(pt);
+    }
+    if (t == -1) {
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0)';
+    } else if (t == 0) {
+      ctx.fillStyle = 'white';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+    } else {
+      if (rotating) {
+        ctx.fillStyle = 'rgb(162, 185, 215)';
+      } else {
+        ctx.fillStyle = 'white';
+      }
+      ctx.strokeStyle = 'rgb(255, 104, 28)';
     }
     ctx.beginPath();
     ctx.moveTo(cur_poly[0][0], cur_poly[0][1]);
@@ -214,16 +246,55 @@ function Sphere(id, size, items) {
       ctx.lineTo(cur_poly[j][0], cur_poly[j][1]);
     }
     ctx.closePath();
+    ctx.save();
+    if (t > 0) {
+      ctx.shadowColor = 'rgba(100, 100, 100, 0.5)';
+      ctx.shadowBlur = t * 10;
+      ctx.shadowOffsetX = - t * 10;
+      ctx.shadowOffsetY = t * 10;
+    }
     ctx.fill();
+    ctx.restore();
+    ctx.beginPath();
+    ctx.moveTo(cur_poly[0][0], cur_poly[0][1]);
+    var max_j = Math.ceil(cur_poly.length * t);
+    for (var j=1; j<=max_j; j++) {
+      var jj = j % cur_poly.length;
+      ctx.lineTo(cur_poly[jj][0], cur_poly[jj][1]);
+    }
     ctx.stroke();
+    var vp = proj(vect);
+    var circ_c = 0.36;
+    if (t > 0) {
+      ctx.save()
+      ctx.translate(vp[0], vp[1]);
+      for (var j=0; j<4; j++) {
+        // var s1 = 0.36 * params.rad / 2 + (1 - Math.sin(t * Math.PI / 2)) * params.rad / 2;
+        var s1 = circ_c * 1.3 * params.rad / 2 * Math.sin(t * Math.PI / 2);
+        var s2 = params.rad / 30;
+        ctx.rotate(Math.PI / 2);
+        ctx.save();
+        ctx.lineWidth = 1;
+        ctx.translate(s1, s1);
+        // ctx.strokeStyle = 'rgb(255, 104, 28)';
+        ctx.strokeStyle = 'white';
+        ctx.beginPath();
+        ctx.moveTo(-s2, 0);
+        ctx.lineTo(0, 0);
+        ctx.lineTo(0, -s2);
+        ctx.stroke();
+        ctx.restore();
+      }
+      ctx.restore();
+    }
     if (img) {
       ctx.save();
-      var vp = proj(vect);
-      var c = 0.13 * size / img.width;
-      ctx.setTransform(-c * v2[1], -c * v2[2], c * v1[1], c * v1[2], vp[0], vp[1]);
+      var c = circ_c / img.width * circ_coeff;
+      ctx.setTransform(-c * v2[0], -c * v2[1], c * v1[0], c * v1[1], vp[0], vp[1]);
       ctx.drawImage(img, -img.width / 2, -img.height / 2);
       ctx.restore();
     }
+    var line_segments;
     return cur_poly;
   }
 
@@ -252,16 +323,15 @@ function Sphere(id, size, items) {
       trans_tri_mid.push(v0[0] + v1[0] + v2[0]);
     }
     var tri_order = sortIndices(trans_tri_mid);
-    ctx.clearRect(0, 0, size, size);
+    var vert_order = sortIndices(vertices);
+    ctx.clearRect(0, 0, params.width, params.height);
     var line_pad1 = 0.28;
     var line_pad2 = 0.32;
     ctx.lineWidth = 1.5;
     for (var i=0; i<vertices.length; i++) {
       var tv = vertices[i];
       if (tv[0] <= 0) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-        ctx.strokeStyle = 'rgba(0,0,0,0)';
-        draw_poly(tv, dir, null, 'white', 'white');
+        draw_poly(tv, dir, null, -1);
       }
     }
     ctx.lineWidth = 2;
@@ -271,7 +341,8 @@ function Sphere(id, size, items) {
       var v1 = proj(vertices[tri[1]]);
       var v2 = proj(vertices[tri[2]]);
       if (trans_tri_mid[tri_order[i]] > 0) {
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        var op_c = Math.sin(tri_order[i] + (+new Date()) / 500);
+        ctx.fillStyle = 'rgba(255, 255, 255, ' + (0.4 + op_c * 0.1) + ')';
         ctx.strokeStyle = 'white';
       } else {
         ctx.fillStyle = 'rgba(229, 229, 229, 0)';
@@ -306,23 +377,17 @@ function Sphere(id, size, items) {
       }
     }
     polygons = [];
-    for (var i=0; i<vertices.length; i++) {
+    for (var ii=0; ii<vertices.length; ii++) {
+      var i = vert_order[ii];
       var tv = vertices[i];
       if (tv[0] > 0) {
-        if (selected_poly == i && rotating) {
-          ctx.fillStyle = 'rgb(162, 185, 215)';
-        } else {
-          ctx.fillStyle = 'white';
-        }
-        if (selected_poly == i) {
-          ctx.strokeStyle = 'rgb(80, 80, 255)';
-        } else {
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
-        }
-        polygons[i] = draw_poly(tv, dir, items[i].img, 'white', 'white');
-      } else {
-        polygons[i] = [];
+        if (selected_poly == i) continue;
+        polygons[i] = draw_poly(tv, dir, data.items[i].img, data.items[i].t)
       }
+    }
+    var i = selected_poly;
+    if (i != -1 && vertices[i][0] > 0) {
+      polygons[i] = draw_poly(vertices[i], dir, data.items[i].img, data.items[i].t);
     }
   }
 
@@ -372,11 +437,12 @@ function Sphere(id, size, items) {
     var rect = canvas.getBoundingClientRect();
     rel_pos = [x - rect.left * pxratio, y - rect.top * pxratio];
     in_sphere = len(
-      [rel_pos[0] - size/2, rel_pos[1] - size/2]
-    ) <= size / 2;
+      [rel_pos[0] - params.cx, rel_pos[1] - params.cy]
+    ) <= params.rad;
     selected_poly = -1;
     for (var i=0; i<polygons.length; i++) {
       var cur_poly = polygons[i];
+      if (!cur_poly) continue;
       if (inside(rel_pos, cur_poly)) {
         console.log('selected item = ' + i);
         selected = false;
@@ -396,8 +462,7 @@ function Sphere(id, size, items) {
 
   function onmouseup() {
     if (rotating && selected_poly != -1) {
-      var item = items[selected_poly];
-      item.action.call(item);
+      data.onclick(data.items[selected_poly], selected_poly);
     }
     rotating = false;
   }
@@ -425,15 +490,16 @@ function Sphere(id, size, items) {
   }
 
   var delta_opt_len = 0.004;
-  var last_delta = [
+  var default_last_delta = [
     delta_opt_len / Math.sqrt(2),
     delta_opt_len / Math.sqrt(2)
-  ];
+  ]
+  var last_delta = default_last_delta;
   function onmousemove(x, y) {
     update_pos(x, y);
     if (rotating) {
-      var c = 1/size/2;
-      last_delta = [-c * mousedelta[0], c * mousedelta[1]];
+      var c = 1/params.rad/4;
+      last_delta = [-c * mousedelta[0], c * mousedelta[1], 0];
       rotate_vertices(last_delta[0], last_delta[1]);
     }
     if (selected_poly != -1) {
@@ -459,19 +525,42 @@ function Sphere(id, size, items) {
   var prev_frame = +new Date();
 
   function animate() {
+    var tdelta = Math.min((+new Date()) - prev_frame, 500);
+    prev_frame = +new Date();
     if (this1.play) {
-      if (!document.hidden) {
-        if (selected_poly == -1 && !rotating) {
-          var tdelta = (+new Date()) - prev_frame;
-          prev_frame = +new Date();
-          var a = 0.01;
-          last_delta[0] = last_delta[0] * Math.cos(a) - last_delta[1] * Math.sin(a);
-          last_delta[1] = last_delta[0] * Math.sin(a) + last_delta[1] * Math.cos(a);
-          last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 50));
-          rotate_vertices(last_delta[0], last_delta[1]);
+      if (!in_sphere && !rotating) {
+        // autorotate
+        var a = 0.01;
+        last_delta[0] = last_delta[0] * Math.cos(a) - last_delta[1] * Math.sin(a);
+        last_delta[1] = last_delta[0] * Math.sin(a) + last_delta[1] * Math.cos(a);
+        if (len(last_delta) < delta_opt_len / 100) {
+          last_delta = mul(default_last_delta, 1 / 6);
+        } else if (len(last_delta) < delta_opt_len / 6) {
+          last_delta = mul(last_delta, delta_opt_len / 6 / len(last_delta));
         }
-        draw();
+        last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 50));
+        rotate_vertices(last_delta[0], last_delta[1]);
+      } else if (in_sphere && !rotating) {
+        last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta / 50));
+        rotate_vertices(last_delta[0], last_delta[1]);
       }
+      var d = tdelta / 500;
+      for (var i=0; i<vertices.length; i++) {
+        if (vertices[i][0] < 0) {
+          data.items[i].t = 0;
+        } else {
+          if (i == selected_poly) {
+            data.items[i].t = Math.min(
+              data.items[i].t + d, 1
+            );
+          } else {
+            data.items[i].t = Math.max(
+              data.items[i].t - d, 0
+            );
+          }
+        }
+      }
+      draw();
     }
     requestAnimationFrame(animate);
   }

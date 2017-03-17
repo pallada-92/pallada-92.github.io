@@ -9,7 +9,7 @@
     /* position: fixed; */
   }
   html {
-    background: url(bg1.jpg);
+    background: #0083C2;
   }
 </style>
 </head>
@@ -21,8 +21,17 @@
   <script src="sphere.js"></script>
   <script>
     window.onload = function() {
-      new Sphere('sphere', Math.min(window.innerHeight,
-         window.innerWidth)- 50, sphere_items);
+      new Sphere({
+        id: 'sphere',
+        width: 800,
+        height: 600,
+        cx: 300,
+        cy: 300,
+        rad: 250,
+        popup_x: 600,
+        popup_y: 200,
+        popup_w: 200,
+      }, new SphereData());
     }
   </script>
 </body>
