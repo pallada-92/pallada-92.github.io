@@ -409,15 +409,18 @@ function Sphere(id, size, items) {
       mousedown_pos = [x, y];
       last_mouse_pos = [x, y];
       rotating = true;
+      return true;
     }
+    return false;
   }
   canvas.onmousedown = function(e) {
     onmousedown(e.clientX, e.clientY);
   }
   canvas.ontouchstart = function(e) {
-    onmousedown(e.touches[0].clientX, e.touches[0].clientY);
-    e.preventDefault();
-    return false;
+    if (onmousedown(e.touches[0].clientX, e.touches[0].clientY)) {
+      e.preventDefault();
+      return false;
+    }
   }
 
   var delta_opt_len = 0.004;
@@ -437,14 +440,16 @@ function Sphere(id, size, items) {
     } else {
       canvas.style.cursor = 'default';
     }
+    return rotating;
   }
   window.addEventListener('mousemove', function(e) {
     onmousemove(e.clientX, e.clientY);
   });
   window.addEventListener('touchmove', function(e) {
-    onmousemove(e.touches[0].clientX, e.touches[0].clientY);
-    e.preventDefault();
-    return false;
+    if(onmousemove(e.touches[0].clientX, e.touches[0].clientY)) {
+      e.preventDefault();
+      return false;
+    }
   });
   
 
