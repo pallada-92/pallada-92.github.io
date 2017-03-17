@@ -665,13 +665,13 @@ function Sphere(params, data) {
         } else if (len(last_delta) < delta_opt_len / 6) {
           last_delta = mul(last_delta, delta_opt_len / 6 / len(last_delta));
         }
-        last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 50));
+        last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 100));
         rotate_vertices(last_delta[0], last_delta[1]);
       } else if (in_sphere && !rotating) {
-        last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta / 50));
+        last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta / 100));
         rotate_vertices(last_delta[0], last_delta[1]);
       }
-      var d = tdelta / 500;
+      var d = tdelta / 1000;
       for (var i=0; i<vertices.length; i++) {
         if (vertices[i][0] < 0) {
           data.items[i].t = 0;
