@@ -158,6 +158,12 @@ function Sphere(params, data) {
     return Math.sqrt(vec[0] * vec[0] + vec[1] * vec[1] + (vec[2] * vec[2] || 0));
   }
 
+  function sign(x) {
+    if (x > 0) return 1;
+    if (x < 0) return -1;
+    return 0;
+  }
+  
   function outer(u, v) {
     return [
       u[1] * v[2] - u[2] * v[1],
@@ -178,7 +184,7 @@ function Sphere(params, data) {
     }
     var t = dot(vec, dir);
     var res1 = dir;
-    var v1 = mul(vec, -Math.sign(t));
+    var v1 = mul(vec, -sign(t));
     var t1 = dot(vec, dir);
     if (Math.abs(t) > 0.001) {
       var beta = - dot(v1, v1) / dot(v1, dir);
