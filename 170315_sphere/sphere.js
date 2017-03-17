@@ -1,8 +1,11 @@
 function Sphere(id, size, items) {
 
   var canvas = document.getElementById(id);
-  canvas.width = size;
-  canvas.height = size;
+  canvas.style.width = size + 'px';
+  canvas.style.height = size + 'px';
+  var pxratio = window.devicePixelRatio;
+  canvas.width = size * pxratio;
+  canvas.height = size * pxratio;
   var ctx = canvas.getContext('2d');
 
   // 0 - north pole, 1..5 - top, 6..10 - bottom, 11 - south pole
@@ -413,6 +416,7 @@ function Sphere(id, size, items) {
   }
   canvas.ontouchstart = function(e) {
     onmousedown(e.touches[0].clientX, e.touches[0].clientY);
+    e.preventDefault();
     return false;
   }
 
@@ -439,6 +443,7 @@ function Sphere(id, size, items) {
   });
   window.addEventListener('touchmove', function(e) {
     onmousemove(e.touches[0].clientX, e.touches[0].clientY);
+    e.preventDefault();
     return false;
   });
   

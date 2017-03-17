@@ -6,7 +6,7 @@
 <title>Сфера</title>
 <style>
   body, html {
-    position: fixed;
+    /* position: fixed; */
   }
   body {
     background: url('bg1.jpg');
@@ -22,7 +22,8 @@
   <script src="sphere.js"></script>
   <script>
     window.onload = function() {
-      new Sphere('sphere', window.innerHeight - 50, sphere_items);
+      new Sphere('sphere', Math.min(window.innerHeight,
+         window.innerWidth)- 50, sphere_items);
     }
   </script>
 </body>
