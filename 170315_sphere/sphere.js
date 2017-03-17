@@ -413,6 +413,7 @@ function Sphere(id, size, items) {
   }
   canvas.ontouchstart = function(e) {
     onmousedown(e.touches[0].clientX, e.touches[0].clientY);
+    return false;
   }
 
   var delta_opt_len = 0.004;
@@ -438,6 +439,7 @@ function Sphere(id, size, items) {
   });
   window.addEventListener('touchmove', function(e) {
     onmousemove(e.touches[0].clientX, e.touches[0].clientY);
+    return false;
   });
   
 
