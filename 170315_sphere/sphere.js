@@ -659,7 +659,7 @@ function Sphere(params, data) {
         // autorotate
         var a = 0.01;
         last_delta[0] = last_delta[0] * Math.cos(a) - last_delta[1] * Math.sin(a);
-        last_delta[1] = last_delta[0] * Math.sin(a) + last_delta[1] * Mathcos(a);
+        last_delta[1] = last_delta[0] * Math.sin(a) + last_delta[1] * Math.cos(a);
         if (len(last_delta) < delta_opt_len / 100) {
           last_delta = mul(default_last_delta, 1 / 6);
         } else if (len(last_delta) < delta_opt_len / 6) {
