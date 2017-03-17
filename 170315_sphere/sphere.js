@@ -415,10 +415,10 @@ function Sphere(id, size, items) {
     return false;
   }
   canvas.onmousedown = function(e) {
-    onmousedown(e.clientX, e.clientY);
+    onmousedown(e.clientX * pxratio, e.clientY * pxratio);
   }
   canvas.ontouchstart = function(e) {
-    if (onmousedown(e.touches[0].clientX, e.touches[0].clientY)) {
+    if (onmousedown(e.touches[0].clientX * pxratio, e.touches[0].clientY * pxratio)) {
       e.preventDefault();
       return false;
     }
@@ -444,10 +444,10 @@ function Sphere(id, size, items) {
     return rotating;
   }
   window.addEventListener('mousemove', function(e) {
-    onmousemove(e.clientX, e.clientY);
+    onmousemove(e.clientX * pxratio, e.clientY * pxratio);
   });
   window.addEventListener('touchmove', function(e) {
-    if(onmousemove(e.touches[0].clientX, e.touches[0].clientY)) {
+    if(onmousemove(e.touches[0].clientX * pxratio, e.touches[0].clientY * pxratio)) {
       e.preventDefault();
       return false;
     }
