@@ -3,7 +3,7 @@ function Sphere(params, data) {
   var canvas = document.getElementById(params.id);
   canvas.style.width = params.width + 'px';
   canvas.style.height = params.height + 'px';
-  var pxratio = window.devicePixelRatio;
+  var pxratio = window.devicePixelRatio || 1;
   params.width *= pxratio;
   params.height *= pxratio;
   canvas.width = params.width;
