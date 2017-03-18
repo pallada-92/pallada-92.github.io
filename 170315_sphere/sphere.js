@@ -616,7 +616,7 @@ function Sphere(params, data) {
     }
   }
 
-  var delta_opt_len = 0.004;
+  var delta_opt_len = 0.003;
   var default_last_delta = [
     delta_opt_len / Math.sqrt(2),
     delta_opt_len / Math.sqrt(2)
