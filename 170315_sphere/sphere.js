@@ -616,7 +616,7 @@ function Sphere(params, data) {
     }
   }
 
-  var delta_opt_len = 0.002;
+  var delta_opt_len = 0.004;
   var default_last_delta = [
     delta_opt_len / Math.sqrt(2),
     delta_opt_len / Math.sqrt(2)
@@ -666,10 +666,10 @@ function Sphere(params, data) {
           last_delta = mul(last_delta, delta_opt_len / 6 / len(last_delta));
         }
         last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 50));
-        rotate_vertices(last_delta[0], last_delta[1]);
+        rotate_vertices(last_delta[0] * tdelta / 50, last_delta[1] * tdelta / 50);
       } else if (in_sphere && !rotating) {
         last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta / 50));
-        rotate_vertices(last_delta[0], last_delta[1]);
+        rotate_vertices(last_delta[0] * tdelta / 50, last_delta[1] * tdelta / 50);
       }
       var d = tdelta / 500;
       for (var i=0; i<vertices.length; i++) {
