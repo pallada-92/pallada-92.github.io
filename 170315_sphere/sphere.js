@@ -154,6 +154,10 @@ function Sphere(params, data) {
     return [vec[0] * a, vec[1] * a, vec[2] * a];
   }
 
+  function sub(vec1, vec2) {
+    return add(vec1, mul(vec2, -1));
+  }
+
   function len(vec) {
     return Math.sqrt(vec[0] * vec[0] + vec[1] * vec[1] + (vec[2] * vec[2] || 0));
   }
@@ -253,6 +257,7 @@ function Sphere(params, data) {
     return lines;
   }
 
+  var font_family = 'Helvetica';
   function draw_vertex(vect, dir, img, t, selected, title, text) {
     ctx.save();
     var circ_coeff = 1;
@@ -299,14 +304,14 @@ function Sphere(params, data) {
       ctx.restore();
       var pp = 0.07;
       var text_w = params.popup_w * (1 - pp * 2 * 1.5);
-      ctx.font = '15px Helvetica';
+      ctx.font = params.popup_font_size + 'px ' + font_family;
       var text_lines = splittext(text, text_w);
-      ctx.font = 'bold 15px Helvetica';
+      ctx.font = 'bold ' + params.popup_font_size + 'px ' + font_family;
       var title_lines = splittext(title, text_w);
-      var lineheight = 20;
-      var block_height = 20 + lineheight * (text_lines.length + title_lines.length);
+      var lineheight = params.popup_font_size * 20 / 15;
+      var block_height = lineheight * (1 + text_lines.length + title_lines.length);
       ctx.save();
-      ctx.lineWidth = 3;
+      ctx.lineWidth = 2;
       ctx.strokeStyle = 'rgb(255, 104, 28)';
       ctx.fillStyle = 'rgba(0, 70, 129, 0.9)';
       draw_poly(
@@ -320,12 +325,20 @@ function Sphere(params, data) {
         t
       );
       ctx.closePath();
-      ctx.stroke();
+      ctx.save();
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetX = -5;
+      ctx.shadowOffsetY = 5;
       ctx.fill();
+      ctx.restore();
+      ctx.stroke();
       ctx.clip();
       ctx.fillStyle = 'white';
-      var shift1 = 4;
-      ctx.font = 'bold 15px Helvetica';
+      var shift1 = 4 / 15 * params.popup_font_size;
+      var shift2 = 2 / 15 * params.popup_font_size;
+      ctx.font = 'bold ' + params.popup_font_size + 'px ' + font_family;
+      ctx.textAlign = 'left';
       for (var i=0; i<title_lines.length; i++) {
         ctx.fillText(
           title_lines[i].slice(0, Math.round(title_lines[i].length * t)),
@@ -333,12 +346,12 @@ function Sphere(params, data) {
           params.popup_y - block_height / 2 + lineheight * (i + 1) + shift1
         );
       }
-      ctx.font = '15px Helvetica';
+      ctx.font = params.popup_font_size + 'px ' + font_family;
       for (var i=0; i<text_lines.length; i++) {
         ctx.fillText(
           text_lines[i].slice(0, Math.round(text_lines[i].length * t)),
           params.popup_x + (params.popup_w - text_w) / 2,
-          params.popup_y - block_height / 2 + lineheight * (i + 1 + title_lines.length) + shift1 + 2
+          params.popup_y - block_height / 2 + lineheight * (i + 1 + title_lines.length) + shift1 + shift2
         );
       }
       ctx.restore();
@@ -365,10 +378,10 @@ function Sphere(params, data) {
     ctx.closePath();
     ctx.save();
     if (t > 0) {
-      ctx.shadowColor = 'rgba(100, 100, 100, 0.5)';
-      ctx.shadowBlur = t * 10;
-      ctx.shadowOffsetX = - t * 10;
-      ctx.shadowOffsetY = t * 10;
+      ctx.shadowColor = 'rgba(255, 255, 255, 1)';
+      ctx.shadowBlur = t * 30;
+      ctx.shadowOffsetX = - t * 10 * 0;
+      ctx.shadowOffsetY = t * 10 * 0;
     }
     ctx.fill();
     ctx.restore();
@@ -425,6 +438,77 @@ function Sphere(params, data) {
   }
   rotate_vertices(0.7 / Math.PI, 0.45 / Math.PI);
 
+  function rgba(r, g, b, a) {
+    return 'rgba(' + [Math.round(r), Math.round(g), Math.round(b), a].join(', ') + ')';
+  }
+
+  function make_gauss_grad(rad, r, g, b, a) {
+    var canvas = document.createElement('canvas');
+    canvas.width = rad * 2;
+    canvas.height = rad * 2;
+    var ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, rad * 2, rad * 2);
+    var gradient = ctx.createRadialGradient(0, 0, rad * 2, 0, 0, 0);
+    var stops = 500;
+    gradient.addColorStop(0, 'transparent');
+    gradient.addColorStop(0.5, 'transparent');
+    for (var i=0; i<stops; i++) {
+      var c = 1 - i / stops;
+      c = Math.exp(- c * c * 20);
+      if (i < 400) {
+        c *= i/400;
+      }
+      gradient.addColorStop(0.5 + i / stops / 2, rgba(c * r, c * g, c * b, c * a));
+    }
+    ctx.fillStyle = gradient;
+    ctx.translate(rad, rad);
+    ctx.fillRect(-rad, -rad, rad * 2, rad * 2);
+    return canvas;
+  }
+  var gauss_grad = make_gauss_grad(params.rad / 0.5, 255, 255, 255, 1);
+
+  for (var i=0; i<data.menu.length; i++) {
+    data.menu[i].hover_t = 0;
+    data.menu[i].click_t = 0;
+    data.menu[i].clicked = false;
+  }
+  function draw_menu() {
+    ctx.font = 'bold ' + params.menu_font_size + 'px ' + font_family;
+    for (var i=0; i<data.menu.length; i++) {
+      var x = params.cx + params.menu_rad * Math.cos(-data.menu[i].angle);
+      var y = params.cy + params.menu_rad * Math.sin(-data.menu[i].angle);
+      var lines = data.menu[i].title.split('\n');
+      var line_height = params.menu_font_size * 20 / 15;
+      var text_w = 0;
+      var text_h = (lines.length + 1) * line_height;
+      for (var j=0; j<lines.length; j++) {
+        var line = lines[j];
+        var text_w = Math.max(text_w, ctx.measureText(line).width);
+      }
+      ctx.save();
+      var grad_x = data.menu[i].align == 'left' ? 1 : -1;
+      ctx.fillStyle = gauss_grad;
+      ctx.translate(x + grad_x * text_w / 2, y);
+      data.menu[i].cx = x + grad_x * text_w / 2;
+      data.menu[i].cy = y;
+      ctx.globalAlpha = 0.25 + data.menu[i].click_t * 0.25;
+      ctx.drawImage(gauss_grad, -gauss_grad.width/2, -gauss_grad.height/2);
+      ctx.restore();
+      ctx.save();
+      ctx.translate(x + grad_x * text_w / 2, y);
+      var s = 1 + Math.sin(data.menu[i].hover_t * Math.PI / 2) * 0.25;
+      ctx.scale(s, s);
+      ctx.translate(0, - text_h / 2);
+      ctx.fillStyle = 'white';
+      ctx.textAlign = data.menu[i].align;
+      for (var j=0; j<lines.length; j++) {
+        var line = lines[j];
+        ctx.fillText(line, - grad_x * text_w / 2, line_height * (j + 1));
+      }
+      ctx.restore();
+    }
+  }
+
   var polygons = [];
   var selected_poly = -1;
   function draw() {
@@ -472,9 +556,9 @@ function Sphere(params, data) {
           var v2 = proj(vertices[tri[(j + 1) % 3]]);
           var line_pad = tri[j] > 11 && tri[(j + 1) % 3] > 11 ?
               line_pad1 : line_pad2;
-          var d = mul(add(v2, mul(v1, -1)), line_pad);
+          var d = mul(sub(v2, v1), line_pad);
           var v1n = add(v1, d);
-          var v2n = add(v2, mul(d, -1));
+          var v2n = sub(v2, d);
           if (stroke) {
             ctx.beginPath();
             ctx.moveTo(v1n[0], v1n[1]);
@@ -491,19 +575,20 @@ function Sphere(params, data) {
         }
       }
     }
+    draw_menu();
     polygons = [];
     for (var ii=0; ii<vertices.length; ii++) {
       var i = vert_order[ii];
       var tv = vertices[i];
       if (tv[0] > 0) {
-        if (selected_poly == i) continue;
+        if (selected_poly == i || menu_navigate_to == i) continue;
         polygons[i] = draw_vertex(
           tv, dir, data.items[i].img, data.items[i].t, false,
           data.items[i].title, data.items[i].text
         )
       }
     }
-    var i = selected_poly;
+    var i = menu_navigate_to == -1 ? selected_poly : menu_navigate_to;
     if (i != -1 && vertices[i][0] > 0) {
       polygons[i] = draw_vertex(
         vertices[i], dir, data.items[i].img, data.items[i].t, true,
@@ -539,11 +624,13 @@ function Sphere(params, data) {
   var in_sphere = false;
   var mousedist = 0;
   var rotating = false;
+  var selected_menu = -1;
   var mousedown_pos = [0, 0];
   var last_mouse_pos = [0, 0];
   var rel_pos = [0, 0]
   var mouseclick_radius = 50;
   var mousedelta = [0, 0];
+  var menu_navigate_to = -1;
 
   function update_pos(x, y) {
     mousedist = len([
@@ -579,6 +666,30 @@ function Sphere(params, data) {
         }
       }
     }
+    selected_menu = -1;
+    var min_menu_dist = params.menu_click_rad;
+    if (!in_sphere) {
+      for (var i=0; i<data.menu.length; i++) {
+        var l = len([data.menu[i].cx - rel_pos[0], data.menu[i].cy - rel_pos[1]]);
+        if (l < min_menu_dist) {
+          selected_menu = i;
+          min_menu_dist = l;
+        }
+      }
+    }
+    if (selected_poly != -1) {
+      menu_navigate_to = -1;
+    }
+    /*
+    for (var i=0; i<data.menu.length; i++) {
+      if (i != selected_menu) {
+        if (data.menu[i].clicked) {
+          data.menu[i].clicked = false;
+          menu_navigate_to = -1;
+        }
+      }
+    }
+    */
   }
 
   function onmouseup() {
@@ -596,6 +707,26 @@ function Sphere(params, data) {
       mousedown_pos = [x, y];
       last_mouse_pos = [x, y];
       rotating = true;
+      menu_navigate_to = -1;
+      return true;
+    }
+    if (selected_menu != -1) {
+      data.menu[selected_menu].click_t = 1;
+      data.menu[selected_menu].clicked = true;
+      var min_min_dist = 0.6;
+      var min_dist = 10;
+      var min_vertex = undefined;
+      for (var i=0; i<vertices.length; i++) {
+        if (data.items[i].cls != data.menu[selected_menu].cls) {
+          continue;
+        }
+        var l = len(sub(vertices[i], [1, 0, 0]));
+        if (l > min_min_dist && l < min_dist) {
+          min_dist = l;
+          min_vertex = i;
+        }
+      }
+      menu_navigate_to = min_vertex;
       return true;
     }
     return false;
@@ -623,7 +754,7 @@ function Sphere(params, data) {
       last_delta = [-c * mousedelta[0], c * mousedelta[1], 0];
       rotate_vertices(last_delta[0], last_delta[1]);
     }
-    if (selected_poly != -1) {
+    if (selected_poly != -1 || selected_menu != -1) {
       canvas.style.cursor = 'pointer';
     } else {
       canvas.style.cursor = 'default';
@@ -649,7 +780,11 @@ function Sphere(params, data) {
     var tdelta = Math.min((+new Date()) - prev_frame, 500);
     prev_frame = +new Date();
     if (this1.play) {
-      if (!in_sphere && !rotating) {
+      if (menu_navigate_to != -1) {
+        var d = sub([1, 0, 0], vertices[menu_navigate_to]);
+        last_delta[0] = -d[1] * tdelta / 50 / 20;
+        last_delta[1] = d[2] * tdelta / 50 / 20;
+      } else if (!in_sphere && !rotating) {
         // autorotate
         var a = 0.01;
         last_delta[0] = last_delta[0] * Math.cos(a) - last_delta[1] * Math.sin(a);
@@ -660,17 +795,16 @@ function Sphere(params, data) {
           last_delta = mul(last_delta, delta_opt_len / 6 / len(last_delta));
         }
         last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 50));
-        rotate_vertices(last_delta[0], last_delta[1]);
       } else if (in_sphere && !rotating) {
         last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta / 50));
-        rotate_vertices(last_delta[0], last_delta[1]);
       }
+      rotate_vertices(last_delta[0], last_delta[1]);
       var d = tdelta / 500;
       for (var i=0; i<vertices.length; i++) {
         if (vertices[i][0] < 0) {
           data.items[i].t = 0;
         } else {
-          if (i == selected_poly) {
+          if (i == selected_poly || menu_navigate_to == i) {
             data.items[i].t = Math.min(
               data.items[i].t + d, 1
             );
@@ -679,6 +813,15 @@ function Sphere(params, data) {
               data.items[i].t - d, 0
             );
           }
+        }
+      }
+      var d = tdelta / 500;
+      for (var i=0; i<data.menu.length; i++) {
+        data.menu[i].click_t = Math.max(0, data.menu[i].click_t - d);
+        if (selected_menu == i) {
+          data.menu[i].hover_t = Math.min(1, data.menu[i].hover_t + d);
+        } else {
+          data.menu[i].hover_t = Math.max(0, data.menu[i].hover_t - d);
         }
       }
       draw();

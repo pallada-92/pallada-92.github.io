@@ -23,21 +23,25 @@
     var r;
     var w = window.innerWidth - 50;
     var h = window.innerHeight - 50;
-    if (w / 1000 * 600 > h) {
-      r = h / 600;
+    if (w / 1200 * 500 > h) {
+      r = h / 500;
     } else {
-      r = w / 1000
+      r = w / 1200
     }
     window.onload = function() {
       new Sphere({
         id: 'sphere',
-        width: 1000 * r,
-        height: 600 * r,
-        cx: 300 * r,
+        width: Math.round(1100 * r),
+        height: Math.round(600 * r),
+        cx: 440 * r,
         cy: 300 * r,
-        rad: 250 * r,
+        rad: 200 * r,
+        menu_rad: 230 * r,
+        menu_click_rad: 50 * r,
+        menu_font_size: Math.ceil(17 * r),
+        popup_font_size: Math.ceil(15 * r),
         popup: true,
-        popup_x: 550 * r,
+        popup_x: 690 * r,
         popup_y: 200 * r,
         popup_w: 400 * r,
       }, new SphereData());
