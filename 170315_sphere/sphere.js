@@ -14,6 +14,11 @@ function Sphere(params, data) {
   params.popup_x *= pxratio;
   params.popup_y *= pxratio;
   params.popup_w *= pxratio;
+  params.menu_rad *= pxratio;
+  params.mouse_click_rad *= pxratio;
+  params.menu_font_size *= pxratio;
+  params.popup_font_size *= pxratio;
+  
   var ctx = canvas.getContext('2d');
 
   // 0 - north pole, 1..5 - top, 6..10 - bottom, 11 - south pole
@@ -801,10 +806,8 @@ function Sphere(params, data) {
           last_delta = mul(last_delta, delta_opt_len / 6 / len(last_delta));
         }
         last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 50));
-        rotate_vertices(last_delta[0] * tdelta / 50, last_delta[1] * tdelta / 50);
       } else if (in_sphere && !rotating) {
         last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta / 50));
-        rotate_vertices(last_delta[0] * tdelta / 50, last_delta[1] * tdelta / 50);
       }
       rotate_vertices(last_delta[0], last_delta[1]);
       var d = tdelta / 500;
