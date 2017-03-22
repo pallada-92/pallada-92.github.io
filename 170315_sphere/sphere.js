@@ -797,7 +797,7 @@ function Sphere(params, data) {
         last_delta[1] = d[2] / 20;
       } else if (!in_sphere && !rotating) {
         // autorotate
-        var a = 0.01;
+        var a = 0.001;
         last_delta[0] = last_delta[0] * Math.cos(a) - last_delta[1] * Math.sin(a);
         last_delta[1] = last_delta[0] * Math.sin(a) + last_delta[1] * Math.cos(a);
         if (len(last_delta) < delta_opt_len / 100) {
@@ -805,9 +805,9 @@ function Sphere(params, data) {
         } else if (len(last_delta) < delta_opt_len / 6) {
           last_delta = mul(last_delta, delta_opt_len / 6 / len(last_delta));
         }
-        last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05));
+        last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 50));
       } else if (in_sphere && !rotating) {
-        last_delta = mul(last_delta, Math.pow(0.2, 0.05));
+        last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta / 50));
       }
       rotate_vertices(last_delta[0] * tdelta / 100, last_delta[1] * tdelta / 100);
       var d = tdelta / 500;
