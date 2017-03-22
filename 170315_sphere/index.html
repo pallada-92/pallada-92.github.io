@@ -30,15 +30,14 @@
     }
     window.onerror = function (errorMsg, url, lineNumber) {
       alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
-      alert(window.last_rgba);
     }
     window.onload = function() {
       new Sphere({
         id: 'sphere',
         width: Math.round(1100 * r),
-        height: Math.round(600 * r),
+        height: Math.round(650 * r),
         cx: 440 * r,
-        cy: 300 * r,
+        cy: 325 * r,
         rad: 200 * r,
         menu_rad: 230 * r,
         menu_click_rad: 100 * r,
