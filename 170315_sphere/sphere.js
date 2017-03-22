@@ -450,8 +450,8 @@ function Sphere(params, data) {
   rotate_vertices(0.7 / Math.PI, 0.45 / Math.PI);
 
   function rgba(r, g, b, a) {
-    window.last_rgba = 'rgba(' + [Math.round(r), Math.round(g), Math.round(b), 2].join(', ') + ')';
-    return 'rgba(' + [Math.round(r), Math.round(g), Math.round(b), 2].join(', ') + ')';
+    window.last_rgba = 'rgba(' + [Math.round(r), Math.round(g), Math.round(b), a].join(', ') + ')';
+    return 'rgba(' + [Math.round(r), Math.round(g), Math.round(b), a].join(', ') + ')';
   }
 
   function make_gauss_grad(rad, r, g, b, a) {
