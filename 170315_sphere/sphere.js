@@ -15,7 +15,7 @@ function Sphere(params, data) {
   params.popup_y *= pxratio;
   params.popup_w *= pxratio;
   params.menu_rad *= pxratio;
-  params.mouse_click_rad *= pxratio;
+  params.menu_click_rad *= pxratio;
   params.menu_font_size *= pxratio;
   params.popup_font_size *= pxratio;
   
@@ -450,7 +450,6 @@ function Sphere(params, data) {
   rotate_vertices(0.7 / Math.PI, 0.45 / Math.PI);
 
   function rgba(r, g, b, a) {
-    window.last_rgba = 'rgba(' + [Math.round(r), Math.round(g), Math.round(b), a.toFixed(3)].join(', ') + ')';
     return 'rgba(' + [Math.round(r), Math.round(g), Math.round(b), a.toFixed(3)].join(', ') + ')';
   }
 
