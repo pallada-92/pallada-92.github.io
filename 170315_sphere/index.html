@@ -28,6 +28,9 @@
     } else {
       r = w / 1200
     }
+    window.onerror = function (errorMsg, url, lineNumber) {
+      alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+    }
     window.onload = function() {
       new Sphere({
         id: 'sphere',
