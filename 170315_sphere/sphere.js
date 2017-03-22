@@ -3,7 +3,7 @@ function Sphere(params, data) {
   var canvas = document.getElementById(params.id);
   canvas.style.width = params.width + 'px';
   canvas.style.height = params.height + 'px';
-  var pxratio = window.devicePixelRatio;
+  var pxratio = window.devicePixelRatio || 1;
   params.width *= pxratio;
   params.height *= pxratio;
   canvas.width = params.width;
@@ -162,6 +162,12 @@ function Sphere(params, data) {
     return Math.sqrt(vec[0] * vec[0] + vec[1] * vec[1] + (vec[2] * vec[2] || 0));
   }
 
+  function sign(x) {
+    if (x > 0) return 1;
+    if (x < 0) return -1;
+    return 0;
+  }
+  
   function outer(u, v) {
     return [
       u[1] * v[2] - u[2] * v[1],
@@ -182,7 +188,7 @@ function Sphere(params, data) {
     }
     var t = dot(vec, dir);
     var res1 = dir;
-    var v1 = mul(vec, -Math.sign(t));
+    var v1 = mul(vec, -sign(t));
     var t1 = dot(vec, dir);
     if (Math.abs(t) > 0.001) {
       var beta = - dot(v1, v1) / dot(v1, dir);
@@ -741,7 +747,7 @@ function Sphere(params, data) {
     }
   }
 
-  var delta_opt_len = 0.004;
+  var delta_opt_len = 0.003;
   var default_last_delta = [
     delta_opt_len / Math.sqrt(2),
     delta_opt_len / Math.sqrt(2)
@@ -795,8 +801,10 @@ function Sphere(params, data) {
           last_delta = mul(last_delta, delta_opt_len / 6 / len(last_delta));
         }
         last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 50));
+        rotate_vertices(last_delta[0] * tdelta / 50, last_delta[1] * tdelta / 50);
       } else if (in_sphere && !rotating) {
         last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta / 50));
+        rotate_vertices(last_delta[0] * tdelta / 50, last_delta[1] * tdelta / 50);
       }
       rotate_vertices(last_delta[0], last_delta[1]);
       var d = tdelta / 500;
