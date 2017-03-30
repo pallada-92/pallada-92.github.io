@@ -71,32 +71,34 @@ function Sphere(params, data) {
     return add(mul(v1, 1/2), mul(v2, 1/2));
   }
   
-  var pair_map = {};
-  var base_triangles = triangles;
-  var triangles = [];
-  for (var i=0; i<base_triangles.length; i++) {
-    var tri = base_triangles[i];
-    var pairs = []
-    for (var j=0; j<3; j++) {
-      var t;
-      if (tri[j] > tri[(j + 1) % 3]) {
-        t = tri[j] + '-' + tri[(j + 1) % 3];
-      } else {
-        t = tri[(j + 1) % 3] + '-' + tri[j];
+  if (!params.less_vertices) {
+    var pair_map = {};
+    var base_triangles = triangles;
+    var triangles = [];
+    for (var i=0; i<base_triangles.length; i++) {
+      var tri = base_triangles[i];
+      var pairs = []
+      for (var j=0; j<3; j++) {
+        var t;
+        if (tri[j] > tri[(j + 1) % 3]) {
+          t = tri[j] + '-' + tri[(j + 1) % 3];
+        } else {
+          t = tri[(j + 1) % 3] + '-' + tri[j];
+        }
+        if (!pair_map[t]) {
+          var v1 = vertices[tri[j]];
+          var v2 = vertices[tri[(j + 1) % 3]];
+          pair_map[t] = vertices.push(
+            normalize(middle(v1, v2))
+          ) - 1;
+        }
+        pairs[j] = pair_map[t];
       }
-      if (!pair_map[t]) {
-        var v1 = vertices[tri[j]];
-        var v2 = vertices[tri[(j + 1) % 3]];
-        pair_map[t] = vertices.push(
-          normalize(middle(v1, v2))
-        ) - 1;
-      }
-      pairs[j] = pair_map[t];
+      triangles.push([tri[0], pairs[0], pairs[2]]);
+      triangles.push([tri[1], pairs[1], pairs[0]]);
+      triangles.push([tri[2], pairs[2], pairs[1]]);
+      triangles.push([pairs[0], pairs[1], pairs[2]]);
     }
-    triangles.push([tri[0], pairs[0], pairs[2]]);
-    triangles.push([tri[1], pairs[1], pairs[0]]);
-    triangles.push([tri[2], pairs[2], pairs[1]]);
-    triangles.push([pairs[0], pairs[1], pairs[2]]);
   }
   
   function rotate(vect, axis, angle) {
@@ -269,7 +271,7 @@ function Sphere(params, data) {
   }
 
   var font_family = 'Helvetica';
-  function draw_vertex(vect, dir, img, t, selected, title, text) {
+  function draw_vertex(vect, dir, img, t, selected, title, text, border) {
     ctx.save();
     var circ_coeff = 1;
     if (t > 0) {
@@ -300,9 +302,9 @@ function Sphere(params, data) {
     var vp = proj(vect);
     if (t > 0 && selected && params.popup)  {
       ctx.save();
-      ctx.lineWidth = 2;
+      ctx.lineWidth = params.popup_font_size / 15 * 2;
       ctx.setLineDash([2, 2]);
-      ctx.strokeStyle = 'rgb(255, 104, 28)';
+      ctx.strokeStyle = border;
       draw_poly(
         [[0.25, 0.5], [0.25, 0], [0.25, 0.5], [0.25, 0]],
         params.popup_x,
@@ -323,7 +325,7 @@ function Sphere(params, data) {
       var block_height = lineheight * (1 + text_lines.length + title_lines.length);
       ctx.save();
       ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgb(255, 104, 28)';
+      ctx.strokeStyle = border;
       ctx.fillStyle = 'rgba(0, 70, 129, 0.9)';
       draw_poly(
         [[pp, -0.5], [1 - pp * 2, 0], [pp, 0.5], [-pp, 0.5], [-0.1, 0],
@@ -379,7 +381,7 @@ function Sphere(params, data) {
       } else {
         ctx.fillStyle = 'white';
       }
-      ctx.strokeStyle = 'rgb(255, 104, 28)';
+      ctx.strokeStyle = border;
     }
     ctx.beginPath();
     ctx.moveTo(cur_poly[0][0], cur_poly[0][1]);
@@ -595,7 +597,7 @@ function Sphere(params, data) {
         if (selected_poly == i || menu_navigate_to == i) continue;
         polygons[i] = draw_vertex(
           tv, dir, data.items[i].img, data.items[i].t, false,
-          data.items[i].title, data.items[i].text
+          data.items[i].title, data.items[i].text, data.items[i].border
         )
       }
     }
@@ -603,7 +605,7 @@ function Sphere(params, data) {
     if (i != -1 && vertices[i][0] > 0) {
       polygons[i] = draw_vertex(
         vertices[i], dir, data.items[i].img, data.items[i].t, true,
-        data.items[i].title, data.items[i].text
+        data.items[i].title, data.items[i].text, data.items[i].border
       );
     }
   }
@@ -740,6 +742,7 @@ function Sphere(params, data) {
       menu_navigate_to = min_vertex;
       return true;
     }
+    menu_navigate_to = -1;
     return false;
   }
   canvas.onmousedown = function(e) {
@@ -752,7 +755,7 @@ function Sphere(params, data) {
     }
   }
 
-  var delta_opt_len = 0.003;
+  var delta_opt_len = 0.010;
   var default_last_delta = [
     delta_opt_len / Math.sqrt(2),
     delta_opt_len / Math.sqrt(2)
@@ -788,7 +791,7 @@ function Sphere(params, data) {
   var prev_frame = +new Date();
 
   function animate() {
-    var tdelta = Math.min((+new Date()) - prev_frame, 500);
+    var tdelta = Math.min((+new Date()) - prev_frame, 500) / 50;
     prev_frame = +new Date();
     if (this1.play) {
       if (menu_navigate_to != -1) {
@@ -797,20 +800,22 @@ function Sphere(params, data) {
         last_delta[1] = d[2] / 20;
       } else if (!in_sphere && !rotating) {
         // autorotate
-        var a = 0.001;
+        //var a = 0.1 * Math.sin((+new Date()) / 1000 / 5) * tdelta;
+        var a = [1, 0, 0, 0.5, 0, 0, 0.8, 0, 0, 0.7, 0, 0][Math.floor(+new Date() / 1000 / 15 % 1 * 11)] * 0.03 * tdelta;
         last_delta[0] = last_delta[0] * Math.cos(a) - last_delta[1] * Math.sin(a);
         last_delta[1] = last_delta[0] * Math.sin(a) + last_delta[1] * Math.cos(a);
+        console.log(Math.atan2(last_delta[1], last_delta[0]));
         if (len(last_delta) < delta_opt_len / 100) {
           last_delta = mul(default_last_delta, 1 / 6);
         } else if (len(last_delta) < delta_opt_len / 6) {
           last_delta = mul(last_delta, delta_opt_len / 6 / len(last_delta));
         }
-        last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta / 50));
+        last_delta = mul(last_delta, Math.pow(delta_opt_len / len(last_delta), 0.05 * tdelta));
       } else if (in_sphere && !rotating) {
-        last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta / 50));
+        last_delta = mul(last_delta, Math.pow(0.2, 0.05 * tdelta));
       }
-      rotate_vertices(last_delta[0] * tdelta / 100, last_delta[1] * tdelta / 100);
-      var d = tdelta / 500;
+      rotate_vertices(last_delta[0] * tdelta / 2, last_delta[1] * tdelta / 2);
+      var d = tdelta / 10;
       for (var i=0; i<vertices.length; i++) {
         if (vertices[i][0] < 0) {
           data.items[i].t = 0;
@@ -826,7 +831,7 @@ function Sphere(params, data) {
           }
         }
       }
-      var d = tdelta / 500;
+      var d = tdelta / 10;
       for (var i=0; i<data.menu.length; i++) {
         data.menu[i].click_t = Math.max(0, data.menu[i].click_t - d);
         if (selected_menu == i) {
@@ -838,6 +843,10 @@ function Sphere(params, data) {
       draw();
     }
     requestAnimationFrame(animate);
+  }
+
+  this.deselect = function() {
+    menu_navigate_to = -1;
   }
 
   animate();

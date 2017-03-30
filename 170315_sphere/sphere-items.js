@@ -1,8 +1,15 @@
 function SphereData() {
   
+  var colors = {
+    orange: 'rgb(255, 104, 28)',
+    gray: 'gray',
+    blue: 'blue',
+  };
+
   var sphere_item_classes = {
     1: {
       cls: 1,
+      border: colors.orange,
       icon: 'icons/ico_1.png',
       link: 'http://google.com/',
       title: 'УПРАВЛЕНИЕ ПРОЦЕССАМИ',
@@ -10,6 +17,7 @@ function SphereData() {
     },
     2: {
       cls: 2,
+      border: colors.gray,
       icon: 'icons/ico_2.png',
       link: 'http://google.com/',
       title: 'УПРАВЛЕНИЕ ДОКУМЕНТАМИ',
@@ -17,6 +25,7 @@ function SphereData() {
     },
     3: {
       cls: 3,
+      border: colors.blue,
       icon: 'icons/ico_3.png',
       link: 'http://google.com/',
       title: 'СИСТЕМА ХРАНЕНИЯ ДОКУМЕНТОВ',
@@ -24,6 +33,7 @@ function SphereData() {
     },
     4: {
       cls: 4,
+      border: colors.orange,
       icon: 'icons/ico_4.png',
       link: 'http://google.com/',
       title: 'УПРАВЛЕНЧЕСКАЯ ОТЧЕТНОСТЬ',
@@ -31,6 +41,7 @@ function SphereData() {
     },
     5: {
       cls: 5,
+      border: colors.gray,
       icon: 'icons/ico_5.png',
       link: 'http://google.com/',
       title: 'УПРАВЛЕНИЕ ОТНОШЕНИЯМИ С КЛИЕНТАМИ',
@@ -38,6 +49,7 @@ function SphereData() {
     },
     6: {
       cls: 6,
+      border: colors.blue,
       icon: 'icons/ico_6.png',
       link: 'http://google.com/',
       title: 'СТАНЦИЯ СКАНИРОВАНИЯ',
@@ -45,6 +57,7 @@ function SphereData() {
     },
     7: {
       cls: 7,
+      border: colors.orange,
       icon: 'icons/ico_7.png',
       link: 'http://google.com/',
       title: 'УПРАВЛЕНИЕ ПРОЦЕССАМИ',
@@ -52,6 +65,7 @@ function SphereData() {
     },
     8: {
       cls: 8,
+      border: colors.gray,
       icon: 'icons/ico_8.png',
       link: 'http://google.com/',
       title: 'УПРАВЛЕНЧЕСКАЯ ОТЧЕТНОСТЬ',
