@@ -100,7 +100,7 @@ function Sphere(params, data) {
       triangles.push([pairs[0], pairs[1], pairs[2]]);
     }
   }
-  
+
   function rotate(vect, axis, angle) {
     var c1 = (axis + 1) % 3;
     var c2 = (axis + 2) % 3;
@@ -113,6 +113,35 @@ function Sphere(params, data) {
     return res;
   }
 
+  var orbits = [];
+  if (params.orbits) {
+    var orbit_pts = 100;
+    var orbit_count = 10;
+    for (var i=0; i<orbit_count; i++) {
+      var radius = 1.2 + Math.random() * 1.5;
+      var phi1 = Math.random() * 2 * Math.PI;
+      var phi2 = Math.random() * 2 * Math.PI;
+      var phi3 = Math.random() * 2 * Math.PI;
+      var pts = [];
+      for (var j=0; j<=orbit_pts; j++) {
+        var a = 2 * Math.PI / orbit_pts * j;
+        var pt = [radius * Math.cos(a), radius * Math.sin(a), 0];
+        pt = rotate(pt, 0, phi1);
+        pt = rotate(pt, 1, phi2);
+        pt = rotate(pt, 2, phi3);
+        pts.push(pt);
+      }
+      orbits.push({
+        pts: pts,
+        radius: radius,
+        blur: Math.random(),
+        width: Math.random(),
+        alpha: Math.random(),
+        opacity: Math.random(),
+      })
+    }
+  }
+  
   function inside(point, vs) {
     // http://stackoverflow.com/questions/22521982/js-check-if-point-inside-a-polygon
     var x = point[0], y = point[1];
@@ -494,6 +523,7 @@ function Sphere(params, data) {
     ctx.restore();
     ctx.beginPath();
     ctx.moveTo(cur_poly[0][0], cur_poly[0][1]);
+    ctx.lineWidth = 2 * params.line_coeff;
     var max_j = Math.ceil(cur_poly.length * t);
     for (var j=1; j<=max_j; j++) {
       var jj = j % cur_poly.length;
@@ -555,6 +585,17 @@ function Sphere(params, data) {
       trans_vert.push(vert);
     }
     vertices = trans_vert;
+    for (var i=0; i<orbits.length; i++) {
+      var orbit = orbits[i];
+      var trans_pts = [];
+      for (var j=0; j<orbit.pts.length; j++) {
+        var pt = orbit.pts[j];
+        pt = rotate(pt, 2, rot_x * Math.PI);
+        pt = rotate(pt, 1, rot_y * Math.PI);
+        trans_pts.push(pt);
+      }
+      orbit.pts = trans_pts;
+    }
   }
   rotate_vertices(0.7 / Math.PI, 0.45 / Math.PI);
 
@@ -628,6 +669,38 @@ function Sphere(params, data) {
     }
   }
 
+  function draw_orbits(foreground) {
+    for (var i=0; i<orbits.length; i++) {
+      var orbit = orbits[i];
+      var prev_p = null;
+      for (var j=0; j<orbit.pts.length; j++) {
+        var p = orbit.pts[j];
+        var len_p = len([p[1], p[2]]);
+        var back_coeff = 1;
+        if (p[0] < 0) {
+          back_coeff = (len_p - 1) / (orbit.radius - 1);
+        }
+        if (back_coeff < 0 || !prev_p) {
+          prev_p = p;
+          continue
+        }
+        var front_coeff = 1;
+        if (p[0] > 0) {
+          front_coeff = 1 + p[0] * 5;
+        }
+        ctx.lineWidth = orbit.blur * params.line_coeff * back_coeff * front_coeff;
+        ctx.strokeStyle = 'rgba(255, 255, 255, ' + orbit.alpha * back_coeff / front_coeff + ')';
+        ctx.beginPath();
+        var prev_proj = proj(prev_p);
+        var cur_proj = proj(p)
+        ctx.moveTo(prev_proj[0], prev_proj[1]);
+        ctx.lineTo(cur_proj[0], cur_proj[1]);
+        ctx.stroke();
+        prev_p = p;
+      }
+    }
+  }
+
   var polygons = [];
   var selected_poly = -1;
   function draw() {
@@ -643,6 +716,7 @@ function Sphere(params, data) {
     var tri_order = sortIndices(trans_tri_mid);
     var vert_order = sortIndices(vertices);
     ctx.clearRect(0, 0, params.width, params.height);
+    //draw_orbits(false);
     ctx.lineWidth = 2 * params.line_coeff;
     for (var i=0; i<triangles.length; i++) {
       var tri = triangles[tri_order[i]];
@@ -692,6 +766,7 @@ function Sphere(params, data) {
         )
       }
     }
+    draw_orbits(true);
     var i = menu_navigate_to == -1 ? selected_poly : menu_navigate_to;
     if (i != -1 && vertices[i][0] > 0) {
       polygons[i] = draw_vertex(
