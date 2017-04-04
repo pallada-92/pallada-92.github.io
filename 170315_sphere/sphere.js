@@ -642,7 +642,7 @@ function Sphere(params, data) {
       if (i < 400) {
         //c *= i/400;
       }
-      gradient.addColorStop(0.6 + i / stops * 0.1, rgba(c * r, c * g, c * b, c * a));
+      gradient.addColorStop(0.63 + i / stops * 0.1, rgba(c * r, c * g, c * b, c * a));
     }
     ctx.fillStyle = gradient;
     ctx.translate(params.cx, params.cy);
@@ -747,9 +747,9 @@ function Sphere(params, data) {
     u = Math.abs(Math.sin(u) + Math.sin(2 * u)) / 2;
     ctx.globalAlpha = 0.8 + 0.2 * u;
     ctx.translate(params.cx, params.cy);
-    u = (+new Date()) / 500;
+    u = (+new Date()) / 700;
     u = Math.sin(u);
-    var s = 1 + 0.02 * u;
+    var s = 1.05 + 0.05 * u;
     ctx.scale(s, s);
     ctx.translate(-params.cx, -params.cy);
     ctx.drawImage(gauss_grad2, 0, 0);
