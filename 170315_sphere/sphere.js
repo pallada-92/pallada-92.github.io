@@ -573,7 +573,11 @@ function Sphere(params, data) {
       );
       ctx.restore();
     }
-    return cur_poly;
+    if (vect[0] < 0) {
+      return [];
+    } else {
+      return cur_poly;
+    }
   }
 
   function rotate_vertices(rot_x, rot_y) {
@@ -883,7 +887,7 @@ function Sphere(params, data) {
     }
     selected_menu = -1;
     var min_menu_dist = params.menu_click_rad;
-    if (!in_sphere) {
+    if (!in_sphere && selected_poly == -1) {
       for (var i=0; i<data.menu.length; i++) {
         var l = len([data.menu[i].cx - rel_pos[0], data.menu[i].cy - rel_pos[1]]);
         if (l < min_menu_dist) {
@@ -910,12 +914,11 @@ function Sphere(params, data) {
 
   function onmousedown(x, y) {
     update_pos(x, y);
-    if (selected_menu == -1) {
-      menu_navigate_to = -1;
-    } else {
+    if (selected_menu != -1) {
       data.menu[selected_menu].click_t = 1;
     }
-    if (in_sphere) {
+    set_navigate_to();
+    if (in_sphere || selected_poly != -1) {
       mousedown_pos = [x, y];
       last_mouse_pos = [x, y];
       rotating = true;
@@ -933,20 +936,7 @@ function Sphere(params, data) {
     }
   }
 
-  var delta_opt_len = 0.010;
-  var default_last_delta = [
-    delta_opt_len / Math.sqrt(2),
-    delta_opt_len / Math.sqrt(2)
-  ]
-  var last_delta = default_last_delta;
-  function onmousemove(x, y) {
-    update_pos(x, y);
-    if (rotating) {
-      var c = 1/params.rad/4;
-      last_delta = [-c * mousedelta[0], c * mousedelta[1], 0];
-      rotate_vertices(last_delta[0], last_delta[1]);
-      return true;
-    }
+  function set_navigate_to() {
     if (selected_menu != -1) {
       if (
         menu_navigate_to != -1 &&
@@ -974,6 +964,23 @@ function Sphere(params, data) {
     } else {
       menu_navigate_to = -1;
     }
+  }
+
+  var delta_opt_len = 0.010;
+  var default_last_delta = [
+    delta_opt_len / Math.sqrt(2),
+    delta_opt_len / Math.sqrt(2)
+  ]
+  var last_delta = default_last_delta;
+  function onmousemove(x, y) {
+    update_pos(x, y);
+    if (rotating) {
+      var c = 1/params.rad/4;
+      last_delta = [-c * mousedelta[0], c * mousedelta[1], 0];
+      rotate_vertices(last_delta[0], last_delta[1]);
+      return true;
+    }
+    set_navigate_to();
     if (selected_poly != -1 || selected_menu != -1) {
       canvas.style.cursor = 'pointer';
     } else {
@@ -1004,7 +1011,7 @@ function Sphere(params, data) {
         var d = sub([1, 0, 0], vertices[menu_navigate_to]);
         last_delta[0] = -d[1] / 20;
         last_delta[1] = d[2] / 20;
-      } else if (!in_sphere && !rotating) {
+      } else if (!in_sphere && !rotating && selected_poly == -1) {
         // autorotate
         //var a = 0.1 * Math.sin((+new Date()) / 1000 / 5) * tdelta;
         var a = [1, 0, 0, 0.5, 0, 0, 0.8, 0, 0, 0.7, 0, 0][Math.floor(+new Date() / 1000 / 25 % 1 * 11)] * 0.03 * tdelta;
