@@ -558,9 +558,9 @@ function Sphere(params, data) {
       var is = params.icon_size;
       var is2 = Math.round(is/2);
       var ipos = icons.indexOf(img_path);
-      var c = circ_size * 2 / is * 0.9;
+      var c = circ_size * 2 / is * 1.0;
       ctx.setTransform(-c * v2[0], -c * v2[1], c * v1[0], c * v1[1], vp[0], vp[1]);
-      var version = Math.ceil(1.5 / (c * (len(v1) + len(v2))));
+      var version = Math.floor(1.5 / (c * (len(v1) + len(v2))));
       while (!icons_versions[version] && version > 1) {
         version--;
       }
@@ -603,7 +603,7 @@ function Sphere(params, data) {
     return 'rgba(' + [Math.round(r), Math.round(g), Math.round(b), a.toFixed(3)].join(', ') + ')';
   }
 
-  function make_gauss_grad(rad, r, g, b, a) {
+  function make_gauss_grad1(rad, r, g, b, a) {
     var canvas = document.createElement('canvas');
     canvas.width = rad * 2;
     canvas.height = rad * 2;
@@ -626,7 +626,31 @@ function Sphere(params, data) {
     ctx.fillRect(-rad, -rad, rad * 2, rad * 2);
     return canvas;
   }
-  var gauss_grad = make_gauss_grad(params.rad / 0.5, 255, 255, 255, 1);
+
+  function make_gauss_grad2(r, g, b, a) {
+    var canvas = document.createElement('canvas');
+    canvas.width = params.width;
+    canvas.height = params.height;
+    var ctx = canvas.getContext('2d');
+    var gradient = ctx.createRadialGradient(0, 0, params.rad * 3, 0, 0, 0);
+    var stops = 500;
+    gradient.addColorStop(0, 'transparent');
+    gradient.addColorStop(0.05, 'transparent');
+    for (var i=0; i<stops; i++) {
+      var c = 1 - i / stops;
+      c = Math.exp(- c * c / 2);
+      if (i < 400) {
+        //c *= i/400;
+      }
+      gradient.addColorStop(0.6 + i / stops * 0.1, rgba(c * r, c * g, c * b, c * a));
+    }
+    ctx.fillStyle = gradient;
+    ctx.translate(params.cx, params.cy);
+    ctx.fillRect(-params.cx, -params.cy, params.width, params.height);
+    return canvas;
+  }
+  var gauss_grad1 = make_gauss_grad1(params.rad / 0.5, 255, 255, 255, 1);
+  var gauss_grad2 = make_gauss_grad2(255, 255, 255, 0.5);
 
   for (var i=0; i<data.menu.length; i++) {
     data.menu[i].hover_t = 0;
@@ -647,12 +671,12 @@ function Sphere(params, data) {
       }
       ctx.save();
       var grad_x = data.menu[i].align == 'left' ? 1 : -1;
-      ctx.fillStyle = gauss_grad;
+      // ctx.fillStyle = gauss_grad;
       ctx.translate(x + grad_x * text_w / 2, y);
       data.menu[i].cx = x + grad_x * text_w / 2;
       data.menu[i].cy = y;
       ctx.globalAlpha = 0.25 + data.menu[i].click_t * 0.25;
-      ctx.drawImage(gauss_grad, -gauss_grad.width/2, -gauss_grad.height/2);
+      ctx.drawImage(gauss_grad1, -gauss_grad1.width/2, -gauss_grad1.height/2);
       ctx.restore();
       ctx.save();
       ctx.translate(x + grad_x * text_w / 2, y);
@@ -718,6 +742,18 @@ function Sphere(params, data) {
     ctx.clearRect(0, 0, params.width, params.height);
     //draw_orbits(false);
     ctx.lineWidth = 2 * params.line_coeff;
+    ctx.save();
+    var u = (+new Date()) / 500;
+    u = Math.abs(Math.sin(u) + Math.sin(2 * u)) / 2;
+    ctx.globalAlpha = 0.8 + 0.2 * u;
+    ctx.translate(params.cx, params.cy);
+    u = (+new Date()) / 500;
+    u = Math.sin(u);
+    var s = 1 + 0.02 * u;
+    ctx.scale(s, s);
+    ctx.translate(-params.cx, -params.cy);
+    ctx.drawImage(gauss_grad2, 0, 0);
+    ctx.restore();
     for (var i=0; i<triangles.length; i++) {
       var tri = triangles[tri_order[i]];
       var v0 = proj(vertices[tri[0]]);
@@ -725,7 +761,7 @@ function Sphere(params, data) {
       var v2 = proj(vertices[tri[2]]);
       if (trans_tri_mid[tri_order[i]] > 0) {
         var op_c = Math.sin(tri_order[i] + (+new Date()) / 500);
-        ctx.fillStyle = 'rgba(255, 255, 255, ' + (0.4 + op_c * 0.1) + ')';
+        ctx.fillStyle = 'rgba(255, 255, 255, ' + (0.4 * 0 + op_c * 0.3) + ')';
         ctx.strokeStyle = 'white';
       } else {
         continue;
