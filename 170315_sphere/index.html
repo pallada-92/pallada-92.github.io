@@ -7,6 +7,8 @@
 <style>
   body, html {
     /* position: fixed; */
+    margin: 0px;
+    padding: 0px;
   }
   html {
     background: #0083C2;
@@ -21,8 +23,8 @@
   <script src="sphere.js"></script>
   <script>
     var r;
-    var w = window.innerWidth - 50;
-    var h = window.innerHeight - 50;
+    var w = window.innerWidth - 1;
+    var h = window.innerHeight - 5;
     if (w / 1200 * 500 > h) {
       r = h / 500;
     } else {
@@ -34,8 +36,8 @@
     window.onload = function() {
       new Sphere({
         id: 'sphere',
-        width: Math.round(1100 * r),
-        height: Math.round(650 * r),
+        width: Math.round(w),
+        height: Math.round(h),
         cx: 440 * r,
         cy: 325 * r,
         rad: 200 * r,

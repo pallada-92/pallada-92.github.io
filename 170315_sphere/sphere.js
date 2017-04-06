@@ -971,6 +971,13 @@ function Sphere(params, data) {
     delta_opt_len / Math.sqrt(2),
     delta_opt_len / Math.sqrt(2)
   ]
+  function set_opt_len(l) {
+    delta_opt_len = l;
+    default_last_delta = [
+      delta_opt_len / Math.sqrt(2),
+      delta_opt_len / Math.sqrt(2)
+    ];
+  }
   var last_delta = default_last_delta;
   function onmousemove(x, y) {
     update_pos(x, y);
@@ -1006,6 +1013,7 @@ function Sphere(params, data) {
   function animate() {
     var tdelta = Math.min((+new Date()) - prev_frame, 500) / 50;
     prev_frame = +new Date();
+    set_opt_len(0.003 + (1 + Math.sin((+new Date()) / 1000)) / 2 * 0.015);
     if (this1.play) {
       if (menu_navigate_to != -1) {
         var d = sub([1, 0, 0], vertices[menu_navigate_to]);
