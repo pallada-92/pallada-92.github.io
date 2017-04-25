@@ -1,5 +1,7 @@
 function Sphere(params, data) {
 
+  var stack_size = 0;
+  this.stack_size = function() {return stack_size};
   var canvas = document.getElementById(params.id);
   canvas.style.width = params.width + 'px';
   canvas.style.height = params.height + 'px';
@@ -249,10 +251,6 @@ function Sphere(params, data) {
       Math.round((icon_pos + 0.5) * params.icon_size - img.width / 2),
       Math.round(0.5 * params.icon_size - img.height / 2)
     );
-    console.log(
-      Math.round((icon_pos + 0.5) * params.icon_size - img.width / 2),
-      Math.round(0.5 * params.icon_size - img.height / 2)
-    );
     if (icons_loaded.length == icons.length) {
       generate_icons_versions();
     }
@@ -388,7 +386,7 @@ function Sphere(params, data) {
   var font_family = 'Helvetica';
   function draw_popup(vec, border, title, text, t) {
     var vp = vec;
-    ctx.save();
+    ctx.save(); stack_size += 1;
     ctx.lineWidth = 2 * params.line_coeff;
     ctx.setLineDash([2, 2]);
     ctx.strokeStyle = border;
@@ -401,7 +399,7 @@ function Sphere(params, data) {
       t
     );
     ctx.stroke();
-    ctx.restore();
+    ctx.restore(); stack_size -= 1;
     var pp = 0.07;
     var text_w = params.popup_w * (1 - pp * 2 * 1.5);
     ctx.font = params.popup_font_size + 'px ' + font_family;
@@ -410,7 +408,7 @@ function Sphere(params, data) {
     var title_lines = splittext(title, text_w);
     var lineheight = params.popup_font_size * 20 / 15;
     var block_height = lineheight * (1 + text_lines.length + title_lines.length);
-    ctx.save();
+    ctx.save(); stack_size += 1;
     ctx.lineWidth = 2 * params.line_coeff;
     ctx.strokeStyle = border;
     ctx.fillStyle = 'rgba(0, 70, 129, 0.9)';
@@ -425,13 +423,13 @@ function Sphere(params, data) {
       t
     );
     ctx.closePath();
-    ctx.save();
+    ctx.save(); stack_size += 1;
     ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
     ctx.shadowBlur = 10;
     ctx.shadowOffsetX = -5;
     ctx.shadowOffsetY = 5;
     ctx.fill();
-    ctx.restore();
+    ctx.restore(); stack_size -= 1;
     ctx.stroke();
     ctx.clip();
     ctx.fillStyle = 'white';
@@ -454,7 +452,7 @@ function Sphere(params, data) {
         params.popup_y - block_height / 2 + lineheight * (i + 1 + title_lines.length) + shift1 + shift2
       );
     }
-    ctx.restore();
+    ctx.restore(); stack_size -= 1;
   }
 
   function draw_vertex(vect, dir, img_path, t, selected, title, text, border) {
@@ -494,7 +492,7 @@ function Sphere(params, data) {
     if (t > 0 && selected && params.popup)  {
       draw_popup(vp, border, title, text, t);
     }
-    ctx.save();
+    ctx.save(); stack_size += 1;
     if (t == 0) {
       ctx.fillStyle = 'white';
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
@@ -512,7 +510,7 @@ function Sphere(params, data) {
       ctx.lineTo(cur_poly[j][0], cur_poly[j][1]);
     }
     ctx.closePath();
-    ctx.save();
+    ctx.save(); stack_size += 1;
     if (t > 0) {
       ctx.shadowColor = 'rgba(255, 255, 255, 1)';
       ctx.shadowBlur = t * 30;
@@ -520,7 +518,7 @@ function Sphere(params, data) {
       ctx.shadowOffsetY = t * 10 * 0;
     }
     ctx.fill();
-    ctx.restore();
+    ctx.restore(); stack_size -= 1;
     ctx.beginPath();
     ctx.moveTo(cur_poly[0][0], cur_poly[0][1]);
     ctx.lineWidth = 2 * params.line_coeff;
@@ -532,14 +530,14 @@ function Sphere(params, data) {
     ctx.stroke();
     var circ_c = 0.36;
     if (t > 0) {
-      ctx.save()
+      ctx.save(); stack_size += 1;
       ctx.translate(vp[0], vp[1]);
       for (var j=0; j<4; j++) {
         // var s1 = 0.36 * params.rad / 2 + (1 - Math.sin(t * Math.PI / 2)) * params.rad / 2;
         var s1 = circ_c * 1.3 * params.rad / 2 * Math.sin(t * Math.PI / 2);
         var s2 = params.rad / 30;
         ctx.rotate(Math.PI / 2);
-        ctx.save();
+        ctx.save(); stack_size += 1;
         ctx.lineWidth = 1 * params.line_coeff;
         ctx.translate(s1, s1);
         // ctx.strokeStyle = 'rgb(255, 104, 28)';
@@ -549,12 +547,12 @@ function Sphere(params, data) {
         ctx.lineTo(0, 0);
         ctx.lineTo(0, -s2);
         ctx.stroke();
-        ctx.restore();
+        ctx.restore(); stack_size -= 1;
       }
-      ctx.restore();
+      ctx.restore(); stack_size -= 1;
     }
     if (img_path && icons_versions[1]) {
-      ctx.save();
+      ctx.save(); stack_size += 1;
       var is = params.icon_size;
       var is2 = Math.round(is/2);
       var ipos = icons.indexOf(img_path);
@@ -571,8 +569,9 @@ function Sphere(params, data) {
         -is2, -is2,
         is, is
       );
-      ctx.restore();
+      ctx.restore(); stack_size -= 1;
     }
+    ctx.restore(); stack_size -= 1;
     if (vect[0] < 0) {
       return [];
     } else {
@@ -673,7 +672,7 @@ function Sphere(params, data) {
         var line = lines[j];
         var text_w = Math.max(text_w, ctx.measureText(line).width);
       }
-      ctx.save();
+      ctx.save(); stack_size += 1;
       var grad_x = data.menu[i].align == 'left' ? 1 : -1;
       // ctx.fillStyle = gauss_grad;
       ctx.translate(x + grad_x * text_w / 2, y);
@@ -681,8 +680,8 @@ function Sphere(params, data) {
       data.menu[i].cy = y;
       ctx.globalAlpha = 0.25 + data.menu[i].click_t * 0.25;
       ctx.drawImage(gauss_grad1, -gauss_grad1.width/2, -gauss_grad1.height/2);
-      ctx.restore();
-      ctx.save();
+      ctx.restore(); stack_size -= 1;
+      ctx.save(); stack_size += 1;
       ctx.translate(x + grad_x * text_w / 2, y);
       var s = 1 + Math.sin(data.menu[i].hover_t * Math.PI / 2) * 0.25;
       ctx.scale(s, s);
@@ -693,7 +692,7 @@ function Sphere(params, data) {
         var line = lines[j];
         ctx.fillText(line, - grad_x * text_w / 2, line_height * (j + 1));
       }
-      ctx.restore();
+      ctx.restore(); stack_size -= 1;
     }
   }
 
@@ -746,7 +745,7 @@ function Sphere(params, data) {
     ctx.clearRect(0, 0, params.width, params.height);
     //draw_orbits(false);
     ctx.lineWidth = 2 * params.line_coeff;
-    ctx.save();
+    ctx.save(); stack_size += 1;
     var u = (+new Date()) / 500;
     u = Math.abs(Math.sin(u) + Math.sin(2 * u)) / 2;
     ctx.globalAlpha = 0.8 + 0.2 * u;
@@ -757,7 +756,7 @@ function Sphere(params, data) {
     ctx.scale(s, s);
     ctx.translate(-params.cx, -params.cy);
     ctx.drawImage(gauss_grad2, 0, 0);
-    ctx.restore();
+    ctx.restore(); stack_size -= 1;
     for (var i=0; i<triangles.length; i++) {
       var tri = triangles[tri_order[i]];
       var v0 = proj(vertices[tri[0]]);

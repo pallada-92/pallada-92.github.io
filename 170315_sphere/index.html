@@ -34,7 +34,7 @@
       alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
     }
     window.onload = function() {
-      new Sphere({
+      window.sphere = new Sphere({
         id: 'sphere',
         width: Math.round(w),
         height: Math.round(h),
