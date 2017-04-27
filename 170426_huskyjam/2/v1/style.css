@@ -1,0 +1,45 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.bigimage-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.bigimage, .menubg {
+    position: absolute;
+    height: calc(100vh + 20px);
+    background-attachment: fixed;
+    background-image: url("bg.jpg");
+    background-repeat: no-repeat;
+	background-color: rgb(50, 71, 92);
+    background-position: 50% 100%;
+    background-size: cover;
+}
+
+.bigimage {
+    top: -20px;
+    left: -20px;
+    right: -20px;
+}
+
+.menu {
+    position: relative;
+    height: 100px;
+    overflow: hidden;
+}
+
+.menubg {
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    filter: blur(7px);
+}
+
+.content {
+    font-family: Helvetica;
+    text-align: center;
+}
