@@ -1,0 +1,362 @@
+/* width 1180 */
+
+@font-face {
+    font-family: "GloberThin";
+    src: url("fonts/GloberThin.woff2");
+}
+
+@font-face {
+    font-family: "GloberRegular";
+    src: url("fonts/GloberRegular.woff2");
+}
+
+@font-face {
+    font-family: "GloberBold";
+    src: url("fonts/GloberBold.woff2");
+}
+
+@font-face {
+    font-family: "GloberSemiBold";
+    src: url("fonts/GloberSemiBold.woff2");
+}
+
+@font-face {
+    font-family: "GloberxBold";
+    src: url("fonts/GloberxBold.woff2");
+}
+
+/* ------- COMMON -------- */
+
+body {
+    margin: 0px;
+    padding: 0px;
+    min-width: 1024px;
+}
+
+.orange-bg {
+    background: rgb(243, 147, 35);
+}
+
+a.orange-bg:hover {
+    background: rgb(253, 157, 45);
+}
+
+.blue-bg {
+    background: rgb(2, 174, 240);
+}
+
+a.blue-bg:hover {
+    background: rgb(12, 184, 250);
+}
+
+.violet-bg {
+    background: rgb(144, 39, 142);
+}
+
+a.violet-bg:hover {
+    background: rgb(154, 49, 152);
+}
+
+.green-bg {
+    background: rgb(156, 187, 67);
+}
+
+a.green-bg:hover {
+    background: rgb(166, 197, 77);
+}
+
+/* ------- HEADER -------- */
+
+#header {
+    position: relative;
+    margin: 0px auto;
+    width: calc(100vw - 20px);
+    max-width: calc(1180px);
+    min-width: calc(1024px - 20px);
+    height: 126px;
+}
+
+#header .logo {
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    width: 333px;
+    height: 80px;
+    background: url("i/logo.png") -14px -4px no-repeat;
+}
+
+#header .title {
+    position: absolute;
+    left: 328px;
+    top: 39px;
+    width: 500px;
+    height: 75px;
+    color: rgb(42, 42, 42);
+    text-transform: uppercase;
+}
+
+#header .title .row:first-child {
+    font-weight: bold;
+    font-family: "GloberThin";
+    font-size: 20px;
+}
+
+#header .title .row:last-child {
+    font-family: "GloberBold";
+    font-size: 25px;
+}
+
+#header .social {
+    position: absolute;
+    top: 17px;
+    right: 4px;
+    width: 300px;
+    height: 47px;
+    text-align: right;
+}
+
+#header .social a {
+    display: inline-block;
+    width: 47px;
+    height: 47px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+#header .social a:hover {
+    filter: brightness(1.1);
+}
+
+#header .social .twitter {
+    background-image: url("i/social_twitter.png");
+}
+
+#header .social .facebook {
+    background-image: url("i/social_facebook.png");
+}
+
+#header .social .blogger {
+    background-image: url("i/social_blogger.png");
+}
+
+#header .social .gplus {
+    background-image: url("i/social_gplus.png");
+}
+
+#header .social .youtube {
+    background-image: url("i/social_youtube.png");
+}
+
+#header .select-lang {
+    position: absolute;
+    top: 83px;
+    right: 10px;
+    width: 200px;
+    color: rgb(180, 180, 180);
+    text-align: right;
+    font-family: "GloberRegular";
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+#header .select-lang .mid {
+    margin: 0px 9px;
+}
+
+#header .select-lang .selected {
+    color: rgb(52, 50, 57);
+}
+
+#header .select-lang a {
+    text-decoration: none;
+    color: rgb(180, 180, 180);
+}
+
+#header .select-lang a:hover {
+    color: rgb(150, 150, 150);
+}
+
+
+/* ------- MENU -------- */
+
+#menu {
+    display: table;
+    width: 1180px;
+    max-width: calc(100vw - 20px);
+    min-width: calc(1024px - 20px);
+    margin: 0px auto;
+    height: 58px;
+}
+
+#menu .item {
+    font-size: 21px;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    width: 25%;
+    box-sizing: border-box;
+    border-left: 10px solid white;
+    border-right: 10px solid white;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px;
+    font-family: "GloberBold";
+    white-space: nowrap;
+}
+
+/* ------- JUMBOTRON -------- */
+
+#jumbotron {
+    position: relative;
+    min-height: calc(1024px * 0.4);
+    height: 593px;
+    max-height: 40vw;
+}
+
+#jumbotron .right-grad,
+#jumbotron .left-grad {
+    position: absolute;
+    top: 0px;
+    width: 50%;
+    bottom: 0px;
+    background-repeat: repeat-x;
+    background-position: 50% 50%;
+    background-size: contain;
+}
+
+#jumbotron .left-grad {
+    left: 0px;
+    background-image: url("i/heart_grad_left.png");
+}
+
+#jumbotron .right-grad {
+    right: 0px;
+    background-image: url("i/heart_grad_right.png");
+}
+
+#jumbotron .bigimage {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url("i/heart.png") 50% 50% / auto 100% no-repeat;
+}
+
+#jumbotron .arrow-left,
+#jumbotron .arrow-right {
+    position: absolute;
+    top: calc(50% - 70px/2);
+    height: 70px;
+    width: 40px;
+    /* background-size: 35px auto; */
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+#jumbotron .arrow-left {
+    left: 5%;
+    background-image: url("i/arrow_left.png");
+}
+
+#jumbotron .arrow-right {
+    right: 5%;
+    background-image: url("i/arrow_right.png");
+}
+
+#jumbotron .arrow-left:hover,
+#jumbotron .arrow-right:hover {
+    filter: invert(100%);
+}
+
+/* ------- DESCRIPTIONS -------- */
+
+#descriptions {
+    display: table; 
+    width: calc(1180px + 80px);
+    max-width: calc(100vw - 50px);
+    min-width: 1024px;
+    margin: 0px auto;
+    border-spacing: 50px;
+}
+
+#descriptions .row {
+    display: table-row;
+}
+
+#descriptions .block {
+    display: table-cell;
+    width: 40%;
+}
+
+#descriptions .block .header {
+    height: 60px;
+    padding-left: 29px;
+    /* padding-right: calc(192px + 29px); */
+    box-sizing: border-box;
+    padding-top: 3px;
+    font: 20px / 60px "GloberBold";
+    text-transform: uppercase;
+    color: white;
+    background-position: 100% 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#descriptions .leisure-bg {
+    background-image: url("i/thumb_leisure.png");
+}
+
+#descriptions .mice-bg {
+    background-image: url("i/thumb_mice.png");
+}
+
+#descriptions .luxury-bg {
+    background-image: url("i/thumb_luxury.png");
+}
+
+#descriptions .spa-health-bg {
+    background-image: url("i/thumb_leisure.png");
+}
+
+#descriptions .block .description {
+    margin-top: 34px;
+    font: bold 19px "GloberThin";
+    color: rgb(42, 42, 42);
+}
+
+#descriptions .block .visit-link {
+    display: block;
+    margin-top: 15px;
+    font: bold 15px "GloberRegular";
+    text-transform: uppercase;
+    color: rgb(42, 42, 42);
+}
+
+#descriptions .block .visit-link:hover {
+    color: rgb(100, 100, 100);
+}
+
+/* ------- FOOTER -------- */
+
+#footer {
+    position: relative;
+    background: rgb(29, 33, 36);
+}
+
+#footer .content {
+    width: 1180px;
+    max-width: 100%;
+    min-width: 1024px;
+    box-sizing: border-box;
+    margin: 0px auto;
+    padding: 20px;
+    font-family: "GloberRegular";
+    font-size: 15px;
+    color: rgb(152, 152, 154);
+}
+
+#footer strong {
+    font-weight: normal;
+    color: white;
+}
+
