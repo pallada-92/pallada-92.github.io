@@ -2,27 +2,32 @@
 
 @font-face {
     font-family: "GloberThin";
-    src: url("fonts/GloberThin.woff2");
+    src: url("fonts/GloberThin.woff2") format('woff2'),
+         url("fonts/GloberThin.woff") format('woff');
 }
 
 @font-face {
     font-family: "GloberRegular";
-    src: url("fonts/GloberRegular.woff2");
+    src: url("fonts/GloberRegular.woff2") format('woff2'),
+         url("fonts/GloberRegular.woff") format('woff');
 }
 
 @font-face {
     font-family: "GloberBold";
-    src: url("fonts/GloberBold.woff2");
+    src: url("fonts/GloberBold.woff2") format('woff2'),
+         url("fonts/GloberBold.woff") format('woff');
 }
 
 @font-face {
     font-family: "GloberSemiBold";
-    src: url("fonts/GloberSemiBold.woff2");
+    src: url("fonts/GloberSemiBold.woff2") format('woff2'),
+         url("fonts/GloberSemiBold.woff") format('woff');
 }
 
 @font-face {
     font-family: "GloberxBold";
-    src: url("fonts/GloberxBold.woff2");
+    src: url("fonts/GloberxBold.woff2") format('woff2'),
+         url("fonts/GloberxBold.woff") format('woff');
 }
 
 /* ------- COMMON -------- */
