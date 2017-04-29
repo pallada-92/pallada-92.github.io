@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <title>cherry</title>
+</head>
+<body style="margin: 0px; padding: 0px; overflow: hidden">
+  <canvas id="cherry-fall-canvas"/>
+  <script style="position: absolute" src="index.js"></script>
+  <script>
+    window.onload = function() {
+      window.cherry_fall_params = {
+        canvas: document.getElementById('cherry-fall-canvas'),
+        width: window.innerWidth,
+        height: window.innerHeight,
+        drop_height: -100,
+        radius: 45,
+        a: 100000,
+      }
+      window.p = cherry_fall_params;
+      window.cherry_fall = new CherryFall(cherry_fall_params);
+    }
+  </script>
+</body>
+</html>
+ 
