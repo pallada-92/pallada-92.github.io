@@ -762,7 +762,9 @@ function Sphere(params, data) {
     var s = 1.05 + 0.05 * u;
     ctx.scale(s, s);
     ctx.translate(-params.cx, -params.cy);
-    ctx.drawImage(gauss_grad2, 0, 0);
+    if (!params.no_glow) {
+      ctx.drawImage(gauss_grad2, 0, 0);
+    }
     ctx.restore(); stack_size -= 1;
     for (var i=0; i<triangles.length; i++) {
       var tri = triangles[tri_order[i]];
@@ -1012,9 +1014,10 @@ function Sphere(params, data) {
       return false;
     }
   });
-  
+
 
   this.play = true;
+  this.ondraw = function() {};
   var this1 = this;
   var prev_frame = +new Date();
 
@@ -1069,6 +1072,7 @@ function Sphere(params, data) {
         }
       }
       this.draw();
+      this.ondraw();
     }
     requestAnimationFrame(this.animate.bind(this));
   }

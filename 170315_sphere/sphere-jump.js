@@ -34,14 +34,15 @@ function SphereJump(params) {
     return - Math.cos((x + 1) * Math.PI / 2);
   }
   this.calc_note = function() {
-    var note = {};
+    this.note = {};
+    var note = this.note;
     note.img = this.images['bg_pc_small.png'];
     note.h = this.h * 1.2;
     note.w = note.img.width * note.h / note.img.height;
     note.x0 = this.w - note.w * 1.05;
     note.y0 = 0;
     note.cx = note.x0 + note.w * 0.6;
-    note.cy = note.y0 + note.h * 0.33;
+    note.cy = note.y0 + note.h * 0.315;
     note.rad = note.h * 0.5;
     return note;
   }
@@ -60,9 +61,9 @@ function SphereJump(params) {
     var pt2 = [note.cx, note.cy];
     var pt = [
       this.w / 2 + t * (note.cx - this.w / 2),
-      note.cy - t * (1 - t) * 1 * note.cy + 100 * (1 - t),
+      note.cy - t * (1 - t) * 1 * note.cy + this.h * 0.75 * (1 - t),
     ]
-    var size_coeff = (1 + t) / 2;
+    var size_coeff = (2 + t) / 3;
     var sphere_x, sphere_y;
     ctx.drawImage(
       img,
@@ -93,6 +94,7 @@ function SphereJump(params) {
   
   this.start_animation = function() {
     var f = function() {
+      console.log('phase1');
       var ctx = this.ctx;
       ctx.clearRect(0, 0, this.w, this.h);
       ctx.save();
@@ -101,34 +103,43 @@ function SphereJump(params) {
       t = Math.floor(this.t / dt) * dt;
       this.draw(0, 1);
       if (this.t >= 1) {
-        this.draw(1);
+        this.sphere.ondraw = function() {
+          console.log('phase2');
+          var ctx = this.ctx;
+          ctx.clearRect(0, 0, this.w, this.h);
+          this.draw(0, 1);
+          this.draw(1, 0);
+        }.bind(this);
         this.sphere.animate();
       } else {
-        ctx.globalAlpha = (1 - (this.t - t) / dt) * this.t;
+        console.log(11);
+        ctx.globalAlpha = (1 - (this.t - t) / dt) * (1 + this.t) / 2;
         var s = ctx.globalAlpha;
         this.draw(this.half_easing(Math.min(1, t)));
         t += dt;
-        ctx.globalAlpha = (1 - (t - this.t) / dt) * this.t;
+        ctx.globalAlpha = (1 - (t - this.t) / dt) * (1 + this.t) / 2;
         s += ctx.globalAlpha;
         // console.log(s);
         this.draw(this.half_easing(Math.min(1, t)));
         ctx.restore();
         this.t += params.speed;
+        setTimeout(function() {
+          requestAnimationFrame(f);
+        }, 1000 * params.speed);
       }
-      setTimeout(function() {
-        requestAnimationFrame(f);
-      }, 1000 * params.speed);
     }.bind(this);
     f();
   }
   this.images_loaded = function() {
+    var note = this.calc_note();
+    var r = note.rad / 180;
     this.sphere = new Sphere({
       canvas: this.offscr,
-      width: 500,
-      height: 500,
-      cx: 250,
-      cy: 250,
-      rad: 110,
+      width: 500 * r,
+      height: 500 * r,
+      cx: 250 * r,
+      cy: 250 * r,
+      rad: 110 * r,
       line_coeff: 1,
       less_vertices: false,
       circ_rel_size: 0.19,
@@ -140,6 +151,7 @@ function SphereJump(params) {
       popup: false,
       no_autoplay: true,
       onload: this.sphere_loaded.bind(this),
+      no_glow: false,
     }, {
       onclick: function() {},
       menu: [],

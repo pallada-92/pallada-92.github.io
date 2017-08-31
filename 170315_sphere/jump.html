@@ -24,7 +24,7 @@
     }
     window.onload = function() {
      window.sphere_jump = new SphereJump({
-        id: 'sphere',
+        id: 'sphere', // id блока canvas. При загрузке устанавливает размер canvas, равный размеру родительского блока, после чего его не меняет. Т.е. у родительского блока должно быть overflow: hidden.
         items: new SphereData().items,
         speed: 1 / 20,
       });
