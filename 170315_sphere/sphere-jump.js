@@ -79,15 +79,16 @@ function SphereJump(params) {
     var pt2 = [note_cx, note_cy];
     var pt = [
       this.w / 2 + t * (note_cx - this.w / 2),
-      note_cy + t * (1 - t) * 4 * note_cy - 100 * (1 - t),
+      note_cy - t * (1 - t) * 1 * note_cy + 100 * (1 - t),
     ]
+    var size_coeff = (1 + t) / 2;
     var sphere_x, sphere_y;
     ctx.drawImage(
       img,
       pt[0] - sphere_w / 2,
       pt[1] - sphere_h / 2,
-      sphere_w,
-      sphere_h,
+      sphere_w * size_coeff,
+      sphere_h * size_coeff,
     )
     /*
     ctx.arc(note_cx, note_cy, 10, 0, 2 * Math.PI, false);
