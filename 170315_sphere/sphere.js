@@ -565,6 +565,9 @@ function Sphere(params, data) {
       var c = circ_size * 2 / is * 1.0;
       ctx.setTransform(-c * v2[0], -c * v2[1], c * v1[0], c * v1[1], vp[0], vp[1]);
       var version = Math.floor(1.5 / (c * (len(v1) + len(v2))));
+      if (version < 1) {
+        version = 1;
+      }
       while (!icons_versions[version] && version > 1) {
         version--;
       }
