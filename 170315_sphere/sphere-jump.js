@@ -102,6 +102,7 @@ function SphereJump(params) {
       this.draw(0, 1);
       if (this.t >= 1) {
         this.draw(1);
+        this.sphere.animate();
       } else {
         ctx.globalAlpha = (1 - (this.t - t) / dt) * this.t;
         var s = ctx.globalAlpha;
