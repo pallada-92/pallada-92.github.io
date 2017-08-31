@@ -94,7 +94,6 @@ function SphereJump(params) {
   
   this.start_animation = function() {
     var f = function() {
-      console.log('phase1');
       var ctx = this.ctx;
       ctx.clearRect(0, 0, this.w, this.h);
       ctx.save();
@@ -104,7 +103,6 @@ function SphereJump(params) {
       this.draw(0, 1);
       if (this.t >= 1) {
         this.sphere.ondraw = function() {
-          console.log('phase2');
           var ctx = this.ctx;
           ctx.clearRect(0, 0, this.w, this.h);
           this.draw(0, 1);
@@ -112,7 +110,6 @@ function SphereJump(params) {
         }.bind(this);
         this.sphere.animate();
       } else {
-        console.log(11);
         ctx.globalAlpha = (1 - (this.t - t) / dt) * (1 + this.t) / 2;
         var s = ctx.globalAlpha;
         this.draw(this.half_easing(Math.min(1, t)));
@@ -157,11 +154,9 @@ function SphereJump(params) {
       menu: [],
       items: params.items,
     });
-    console.log('ok1');
     this.images_loaded = function() {};
   }
   this.sphere_loaded = function() {
-    console.log('ok2');
     this.sphere.draw();
     this.start_animation();
   }

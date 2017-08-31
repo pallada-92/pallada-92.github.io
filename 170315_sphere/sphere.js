@@ -257,7 +257,6 @@ function Sphere(params, data) {
       Math.round(0.5 * params.icon_size - img.height / 2)
     );
     if (icons_loaded.length == icons.length) {
-      console.log('ok4');
       generate_icons_versions();
       this.onload();
     }
@@ -883,7 +882,7 @@ function Sphere(params, data) {
       var cur_poly = polygons[i];
       if (!cur_poly) continue;
       if (inside(rel_pos, cur_poly)) {
-        console.log('selected item = ' + i);
+        // console.log('selected item = ' + i);
         var selected = false;
         if (rotating) {
           if (mousedist < mouseclick_radius) {
