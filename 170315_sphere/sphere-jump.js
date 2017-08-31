@@ -10,30 +10,7 @@ function SphereJump(params) {
   this.recalc_canvas_size();
   this.ctx = this.canvas.getContext('2d');
   this.offscr = document.createElement('canvas');
-  /* this.sphere = new Sphere(
-    {
-      canvas: this.offscr,
-      width: Math.round(w),
-      height: Math.round(h),
-      cx: 440 * r,
-      cy: 325 * r,
-      rad: 200 * r,
-      line_coeff: r,
-      less_vertices: false,
-      circ_rel_size: 0.19,
-      circ_exp: 0.5, 
-      vect0_shift: 0.1,
-      icon_size: 150,
-      orbits: true,
-      hide_menu: true,
-      popup: false,
-    }, {
-      onclick: function() {},
-      menu: [],
-      items: params.items,
-    }
-  ); */
-  this.images = {'bg_pc_small.png': null, 'sphere_static.png': null};
+  this.images = {'bg_pc_small.png': null};
   for (var i in params.items) {
     this.images[params.items[i].icon] = null;
   }
@@ -56,30 +33,34 @@ function SphereJump(params) {
   this.half_easing = function(x) {
     return - Math.cos((x + 1) * Math.PI / 2);
   }
+  this.calc_note = function() {
+    var note = {};
+    note.img = this.images['bg_pc_small.png'];
+    note.h = this.h * 1.2;
+    note.w = note.img.width * note.h / note.img.height;
+    note.x0 = this.w - note.w * 1.05;
+    note.y0 = 0;
+    note.cx = note.x0 + note.w * 0.6;
+    note.cy = note.y0 + note.h * 0.33;
+    note.rad = note.h * 0.5;
+    return note;
+  }
   this.draw = function(t, draw_note) {
     var ctx = this.ctx;
-    var img;
-    img = this.images['bg_pc_small.png'];
-    var note_h = this.h * 1.2;
-    var note_w = img.width * note_h / img.height;
-    var note_x0 = this.w - note_w * 1.05;
-    var note_y0 = 0;
-    var note_cx = note_x0 + note_w * 0.6;
-    var note_cy = note_y0 + note_h * 0.33;
-    var note_rad = note_h * 0.27;
+    var note = this.calc_note();
     if (draw_note) {
-      ctx.drawImage(img, note_x0, note_y0, note_w, note_h);
+      ctx.drawImage(note.img, note.x0, note.y0, note.w, note.h);
       return;
     }
-    img = this.images['sphere_static.png'];
-    var sphere_w = note_rad * 2;
-    var sphere_h = note_rad * 2 / img.width * img.height;
-    var pt0 = [this.w - note_cx, note_cy];
+    img = this.offscr;
+    var sphere_w = note.rad * 2;
+    var sphere_h = note.rad * 2 / img.width * img.height;
+    var pt0 = [this.w - note.cx, note.cy];
     var pt1 = [this.w / 2, this.h * 0.7];
-    var pt2 = [note_cx, note_cy];
+    var pt2 = [note.cx, note.cy];
     var pt = [
-      this.w / 2 + t * (note_cx - this.w / 2),
-      note_cy - t * (1 - t) * 1 * note_cy + 100 * (1 - t),
+      this.w / 2 + t * (note.cx - this.w / 2),
+      note.cy - t * (1 - t) * 1 * note.cy + 100 * (1 - t),
     ]
     var size_coeff = (1 + t) / 2;
     var sphere_x, sphere_y;
@@ -90,11 +71,6 @@ function SphereJump(params) {
       sphere_w * size_coeff,
       sphere_h * size_coeff,
     )
-    /*
-    ctx.arc(note_cx, note_cy, 10, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'black';
-    ctx.fill();
-    */
   }
   this.t = 0;
   var requestAnimationFrame = window.requestAnimationFrame;
@@ -145,8 +121,36 @@ function SphereJump(params) {
     f();
   }
   this.images_loaded = function() {
-    this.start_animation();
+    this.sphere = new Sphere({
+      canvas: this.offscr,
+      width: 500,
+      height: 500,
+      cx: 250,
+      cy: 250,
+      rad: 110,
+      line_coeff: 1,
+      less_vertices: false,
+      circ_rel_size: 0.19,
+      circ_exp: 0.5, 
+      vect0_shift: 0.1,
+      icon_size: 150,
+      orbits: true,
+      hide_menu: true,
+      popup: false,
+      no_autoplay: true,
+      onload: this.sphere_loaded.bind(this),
+    }, {
+      onclick: function() {},
+      menu: [],
+      items: params.items,
+    });
+    console.log('ok1');
     this.images_loaded = function() {};
+  }
+  this.sphere_loaded = function() {
+    console.log('ok2');
+    this.sphere.draw();
+    this.start_animation();
   }
   this.start_loading();
 }

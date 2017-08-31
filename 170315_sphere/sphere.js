@@ -240,6 +240,12 @@ function Sphere(params, data) {
     ];
   }
 
+  this.onload = function() {
+    console.log('ok3');
+    if (params.onload) {
+      params.onload();
+    }
+  };
   var icons_loaded = [];
   function icon_onload(img) {
     if (icons_loaded.indexOf(img.path) != -1) return;
@@ -252,7 +258,9 @@ function Sphere(params, data) {
       Math.round(0.5 * params.icon_size - img.height / 2)
     );
     if (icons_loaded.length == icons.length) {
+      console.log('ok4');
       generate_icons_versions();
+      this.onload();
     }
   }
 
@@ -316,7 +324,7 @@ function Sphere(params, data) {
     var item = data.items[i];
     item.img = new Image();
     item.img.path = item.icon;
-    item.img.onload = icon_onload.bind(null, item.img);
+    item.img.onload = icon_onload.bind(this, item.img);
     if (icons.indexOf(item.icon) == -1) {
       icons.push(item.icon);
     }
@@ -730,7 +738,7 @@ function Sphere(params, data) {
 
   var polygons = [];
   var selected_poly = -1;
-  function draw() {
+  this.draw = function() {
     dir = [[0, 0, 1], [0, 1, 0]];
     var trans_tri_mid = [];
     for (var i=0; i<triangles.length; i++) {
@@ -1011,7 +1019,7 @@ function Sphere(params, data) {
   var this1 = this;
   var prev_frame = +new Date();
 
-  function animate() {
+  this.animate = function() {
     var tdelta = Math.min((+new Date()) - prev_frame, 500) / 50;
     prev_frame = +new Date();
     set_opt_len(0.003 + (1 + Math.sin((+new Date()) / 1000)) / 2 * 0.015);
@@ -1061,17 +1069,19 @@ function Sphere(params, data) {
           data.menu[i].hover_t = Math.max(0, data.menu[i].hover_t - d);
         }
       }
-      draw();
+      this.draw();
     }
-    requestAnimationFrame(animate);
+    requestAnimationFrame(this.animate.bind(this));
   }
 
   this.deselect = function() {
     menu_navigate_to = -1;
   }
 
-  animate();
-
+  if (params.no_autoplay) {
+    this.animate();
+  }
+  
 }
 
 
