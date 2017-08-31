@@ -241,7 +241,6 @@ function Sphere(params, data) {
   }
 
   this.onload = function() {
-    console.log('ok3');
     if (params.onload) {
       params.onload();
     }
@@ -1078,7 +1077,7 @@ function Sphere(params, data) {
     menu_navigate_to = -1;
   }
 
-  if (params.no_autoplay) {
+  if (!params.no_autoplay) {
     this.animate();
   }
   
