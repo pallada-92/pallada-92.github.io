@@ -569,13 +569,15 @@ function Sphere(params, data) {
       while (!icons_versions[version] && version > 1) {
         version--;
       }
-      ctx.drawImage(
-        icons_versions[version],
-        ipos * is, 0,
-        is, is,
-        -is2, -is2,
-        is, is
-      );
+      if (icons_versions[version]) {
+        ctx.drawImage(
+          icons_versions[version],
+          ipos * is, 0,
+          is, is,
+          -is2, -is2,
+          is, is
+        );
+      }
       ctx.restore(); stack_size -= 1;
     }
     ctx.restore(); stack_size -= 1;
