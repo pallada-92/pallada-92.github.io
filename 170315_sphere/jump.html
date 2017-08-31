@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<meta charset="utf-8">
+<title>Внедрения</title>
+</head>
+<body style="margin: 0px; padding: 0px">
+
+  <div style="position: relative; margin-top: 80px; height: 152px; background-color: rgb(38, 116, 178); background-image: url(bg-slide-inner.jpg); background-size: cover; overflow: hidden">
+    <!-- <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background-image: url(bg_cloud330.png); background-position: top; opacity: 0.3"></div> -->
+    <div style="position: relative; height: 100%; width: 964px; max-width: 100vw; margin: 0px auto; overflow: hidden">
+      <canvas id="sphere" style="position: absolute; right: 0px"></canvas>
+    </div>
+    <div style="position: absolute; top: 40px; width: 100%; height: 100%; text-align: center; text-transform: uppercase; font-size: 33px; font-family: Helvetica, sans-serif; font-weight: bold; color: white">Внедрения</div>
+  </div>
+
+  <script src="sphere-items.js"></script>
+  <script src="sphere.js"></script>
+  <script src="sphere-jump.js"></script>
+  <script>
+    window.onerror = function (errorMsg, url, lineNumber) {
+      alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+    }
+    window.onload = function() {
+     window.sphere_jump = new SphereJump({
+        id: 'sphere',
+        items: new SphereData().items
+      });
+    }
+  </script>
+</body>
+</html>

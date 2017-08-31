@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<meta charset="utf-8">
+<title>Сфера</title>
+<style>
+  body, html {
+    /* position: fixed; */
+  }
+  html {
+    background: #0083C2;
+  }
+</style>
+</head>
+<body>
+  <center>
+    <canvas id="sphere"></canvas>
+  </center>
+  <script src="sphere-items1.js"></script>
+  <script src="sphere1.js"></script>
+  <script>
+    var r;
+    var w = window.innerWidth - 50;
+    var h = window.innerHeight - 50;
+    if (w / 1200 * 500 > h) {
+      r = h / 500;
+    } else {
+      r = w / 1200
+    }
+    window.onerror = function (errorMsg, url, lineNumber) {
+      alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+    }
+    window.onload = function() {
+      new Sphere({
+        id: 'sphere',
+        width: Math.round(1100 * r),
+        height: Math.round(650 * r),
+        cx: 440 * r,
+        cy: 325 * r,
+        rad: 200 * r,
+        less_vertices: false,
+        menu_rad: 230 * r,
+        menu_click_rad: 100 * r,
+        menu_font_size: Math.ceil(17 * r),
+        popup_font_size: Math.ceil(15 * r),
+        popup: true,
+        popup_x: 690 * r,
+        popup_y: 200 * r,
+        popup_w: 400 * r,
+      }, new SphereData());
+    }
+  </script>
+</body>
+</html>
