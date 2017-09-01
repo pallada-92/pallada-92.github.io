@@ -94,16 +94,16 @@ function SphereJump(params) {
     for (var i=0; i<params.sphere_count; i++) {
       total_alpha += calc_max_alpha(divide(i, params.sphere_count - 1));
     }
-    total_alpha = params.sphere_count - 1;
+    total_alpha = params.sphere_count;
     var cur_alpha = total_alpha * (t / params.duration / 1000);
     // console.log(total_alpha, cur_alpha);
     var active_step;
-    for (var i=0; i<params.sphere_count - 1; i++) {
+    for (var i=0; i<params.sphere_count; i++) {
       var rel_pos = divide(i, params.sphere_count - 1);
       var max_alpha = calc_max_alpha(rel_pos);
       if (cur_alpha <= 0) break;
       ctx.save();
-      ctx.globalAlpha = max_alpha; // * clamp(0, 1, cur_alpha);
+      ctx.globalAlpha = max_alpha * clamp(0, 1, cur_alpha);
       if (!this.steps[i]) {
         var buf = document.createElement('canvas');
         this.steps[i] = buf;
@@ -115,16 +115,15 @@ function SphereJump(params) {
       ctx.restore();
       cur_alpha -= 1;
       active_step = i;
-      // if (cur_alpha <= 0) break;
     }
-    ctx.save();
-    rel_pos = clamp(0, 1, t / params.duration / 1000);
-    ctx.globalAlpha = calc_max_alpha(rel_pos);
-    this.draw_sphere(rel_pos, this.offscr);
-    ctx.restore();
-    if (active_step >= params.sphere_count - 2) {
+    // ctx.save();
+    // rel_pos = clamp(0, 1, t / params.duration / 1000);
+    // ctx.globalAlpha = calc_max_alpha(rel_pos);
+    // this.draw_sphere(rel_pos, this.offscr);
+    // ctx.restore();
+    if (active_step >= params.sphere_count - 1) {
       this.sphere.params.not_draw_orbits = false;
-      // copy_canvas(this.offscr, this.steps[active_step]);
+      copy_canvas(this.offscr, this.steps[active_step]);
     }
   }
   
