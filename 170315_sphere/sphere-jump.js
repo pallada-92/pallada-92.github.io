@@ -114,7 +114,6 @@ function SphereJump(params) {
         ctx.globalAlpha = (1 - (this.t - t) / dt) * (1 + this.t) / 2;
         var s = ctx.globalAlpha;
         this.sphere.anim_step();
-        console.log('ok');
         this.draw(this.half_easing(Math.min(1, t)));
         t += dt;
         ctx.globalAlpha = (1 - (t - this.t) / dt) * (1 + this.t) / 2;
@@ -122,7 +121,6 @@ function SphereJump(params) {
         // console.log(s);
         this.draw(this.half_easing(Math.min(1, t)));
         ctx.restore();
-        console.log('dt');
         this.t += params.step;
         setTimeout(function() {
           requestAnimationFrame(f);
