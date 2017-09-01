@@ -1025,7 +1025,7 @@ function Sphere(params, data) {
   var this1 = this;
   var prev_frame = +new Date();
 
-  this.animate = function() {
+  this.anim_step = function() {
     var tdelta = Math.min((+new Date()) - prev_frame, 500) / 50;
     prev_frame = +new Date();
     set_opt_len(0.003 + (1 + Math.sin((+new Date()) / 1000)) / 2 * 0.015);
@@ -1078,6 +1078,10 @@ function Sphere(params, data) {
       this.draw();
       this.ondraw();
     }
+  }
+
+  this.animate = function() {
+    this.anim_step();
     requestAnimationFrame(this.animate.bind(this));
   }
 

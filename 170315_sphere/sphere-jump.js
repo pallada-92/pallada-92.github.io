@@ -10,7 +10,8 @@ function SphereJump(params) {
   this.recalc_canvas_size();
   this.ctx = this.canvas.getContext('2d');
   this.offscr = document.createElement('canvas');
-  this.images = {'bg_pc_small.png': null};
+  this.images = {};
+  this.images[params.bg_pc] = null; 
   for (var i in params.items) {
     this.images[params.items[i].icon] = null;
   }
@@ -36,7 +37,7 @@ function SphereJump(params) {
   this.calc_note = function() {
     this.note = {};
     var note = this.note;
-    note.img = this.images['bg_pc_small.png'];
+    note.img = this.images[params.bg_pc];
     note.h = this.h * 1.2;
     note.w = note.img.width * note.h / note.img.height;
     note.x0 = this.w - note.w * 1.05;
@@ -112,6 +113,8 @@ function SphereJump(params) {
       } else {
         ctx.globalAlpha = (1 - (this.t - t) / dt) * (1 + this.t) / 2;
         var s = ctx.globalAlpha;
+        this.sphere.anim_step();
+        console.log('ok');
         this.draw(this.half_easing(Math.min(1, t)));
         t += dt;
         ctx.globalAlpha = (1 - (t - this.t) / dt) * (1 + this.t) / 2;
@@ -119,10 +122,11 @@ function SphereJump(params) {
         // console.log(s);
         this.draw(this.half_easing(Math.min(1, t)));
         ctx.restore();
-        this.t += params.speed;
+        console.log('dt');
+        this.t += params.step;
         setTimeout(function() {
           requestAnimationFrame(f);
-        }, 1000 * params.speed);
+        }, 1000 * params.delay);
       }
     }.bind(this);
     f();

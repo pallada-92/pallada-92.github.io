@@ -24,9 +24,14 @@
     }
     window.onload = function() {
      window.sphere_jump = new SphereJump({
-        id: 'sphere', // id блока canvas. При загрузке устанавливает размер canvas, равный размеру родительского блока, после чего его не меняет. Т.е. у родительского блока должно быть overflow: hidden.
+        id: 'sphere', // id блока canvas.
+        // При инициализации устанавливает размер canvas, равный размеру
+        // родительского блока, после чего его не меняет. Т.е. у
+        // родительского блока должно быть что-то вроде overflow: hidden.
         items: new SphereData().items,
-        speed: 1 / 20,
+        bg_pc: 'bg_pc_small.png',
+        delay: 0, // задержка между кадрами движения сферы
+        step: 1 / 20, // какая доля анимации происходит за один кадр.
       });
       window.onload = function() {};
     }
