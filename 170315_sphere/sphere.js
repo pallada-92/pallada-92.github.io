@@ -2,6 +2,7 @@ function Sphere(params, data) {
 
   var stack_size = 0;
   this.stack_size = function() {return stack_size};
+  this.params = params;
   var canvas = params.canvas || document.getElementById(params.id);
   canvas.style.width = params.width + 'px';
   canvas.style.height = params.height + 'px';
@@ -650,6 +651,9 @@ function Sphere(params, data) {
     var stops = 500;
     gradient.addColorStop(0, 'transparent');
     gradient.addColorStop(0.05, 'transparent');
+    if (params.grad_stop) {
+      gradient.addColorStop(params.grad_stop, 'transparent');
+    }
     for (var i=0; i<stops; i++) {
       var c = 1 - i / stops;
       c = Math.exp(- c * c / 2);
@@ -820,7 +824,9 @@ function Sphere(params, data) {
         )
       }
     }
-    draw_orbits(true);
+    if (!params.not_draw_orbits) {
+      draw_orbits(true);
+    }
     var i = menu_navigate_to == -1 ? selected_poly : menu_navigate_to;
     if (i != -1 && vertices[i][0] > 0) {
       polygons[i] = draw_vertex(

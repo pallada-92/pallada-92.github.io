@@ -10,6 +10,7 @@ function SphereJump(params) {
   this.recalc_canvas_size();
   this.ctx = this.canvas.getContext('2d');
   this.offscr = document.createElement('canvas');
+  this.steps = [];
   this.images = {};
   this.images[params.bg_pc] = null; 
   for (var i in params.items) {
@@ -40,60 +41,96 @@ function SphereJump(params) {
     note.img = this.images[params.bg_pc];
     note.h = this.h * 1.2;
     note.w = note.img.width * note.h / note.img.height;
-    note.x0 = this.w - note.w * 1.05;
+    note.x0 = this.w - note.w - params.note_right_margin;
     note.y0 = 0;
     note.cx = note.x0 + note.w * 0.6;
     note.cy = note.y0 + note.h * 0.315;
-    note.rad = note.h * 0.5;
+    note.rad = note.h * 0.24;
     return note;
   }
-  this.draw = function(t, draw_note) {
+  this.draw_note = function() {
     var ctx = this.ctx;
     var note = this.calc_note();
-    if (draw_note) {
-      ctx.drawImage(note.img, note.x0, note.y0, note.w, note.h);
-      return;
-    }
-    img = this.offscr;
-    var sphere_w = note.rad * 2;
-    var sphere_h = note.rad * 2 / img.width * img.height;
+    ctx.drawImage(note.img, note.x0, note.y0, note.w, note.h);
+  }
+  this.draw_sphere = function(t, img) {
+    var ctx = this.ctx;
+    var note = this.calc_note();
     var pt0 = [this.w - note.cx, note.cy];
     var pt1 = [this.w / 2, this.h * 0.7];
     var pt2 = [note.cx, note.cy];
     var pt = [
       this.w / 2 + t * (note.cx - this.w / 2),
-      note.cy - t * (1 - t) * 1 * note.cy + this.h * 0.75 * (1 - t),
+      note.cy - t * (1 - t) * 1 * note.cy + (this.h - note.cy) * (1 - t),
     ]
-    var size_coeff = (2 + t) / 3;
-    var sphere_x, sphere_y;
-    ctx.drawImage(
-      img,
-      pt[0] - sphere_w / 2,
-      pt[1] - sphere_h / 2,
-      sphere_w * size_coeff,
-      sphere_h * size_coeff,
-    )
+    var size_coeff = note.rad / this.sphere.params.rad * (2 + t) / 3;
+    var w = img.width * size_coeff;
+    var h = img.height * size_coeff;
+    ctx.drawImage(img, pt[0] - w / 2, pt[1] - h / 2, w, h);
   }
-  this.t = 0;
-  var requestAnimationFrame = window.requestAnimationFrame;
-  if (!requestAnimationFrame) {
-    requestAnimationFrame = (function() {
-      return window.webkitRequestAnimationFrame ||
-        // comment out if FF4 is slow (it caps framerate at ~30fps:
-        // https://bugzilla.mozilla.org/show_bug.cgi?id=630127)
-        window.mozRequestAnimationFrame || 
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function(
-          /* function FrameRequestCallback */ callback,
-          /* DOMElement Element */ element
-        ) {
-          window.setTimeout(callback, 1000 / 60);
-        };
-    })();
+  function divide(a, b) {
+    if (a == 0 && b == 0) return 1;
+    return a / b;
+  }
+  function clamp(a, b, x) {
+    if (x < a) return a;
+    if (x > b) return b;
+    return x;
+  }
+  function calc_max_alpha(rel_pos) {
+    return Math.pow((rel_pos - 1) / 5 + 1, 5);
+  }
+  function copy_canvas(canvas_from, canvas_to) {
+    var ctx = canvas_to.getContext('2d');
+    ctx.clearRect(0, 0, canvas_to.width, canvas_to.height);
+    ctx.drawImage(canvas_from, 0, 0);
+  }
+  this.draw = function() {
+    var ctx = this.ctx;
+    ctx.clearRect(0, 0, this.w, this.h);
+    this.draw_note();
+    var t = +new Date() - this.anim_start;
+    var total_alpha = 0;
+    for (var i=0; i<params.sphere_count; i++) {
+      total_alpha += calc_max_alpha(divide(i, params.sphere_count - 1));
+    }
+    total_alpha = params.sphere_count - 1;
+    var cur_alpha = total_alpha * (t / params.duration / 1000);
+    // console.log(total_alpha, cur_alpha);
+    var active_step;
+    for (var i=0; i<params.sphere_count - 1; i++) {
+      var rel_pos = divide(i, params.sphere_count - 1);
+      var max_alpha = calc_max_alpha(rel_pos);
+      if (cur_alpha <= 0) break;
+      ctx.save();
+      ctx.globalAlpha = max_alpha; // * clamp(0, 1, cur_alpha);
+      if (!this.steps[i]) {
+        var buf = document.createElement('canvas');
+        this.steps[i] = buf;
+        buf.width = this.offscr.width;
+        buf.height = this.offscr.height;
+        copy_canvas(this.offscr, buf);
+      }
+      this.draw_sphere(rel_pos, this.steps[i]);
+      ctx.restore();
+      cur_alpha -= 1;
+      active_step = i;
+      // if (cur_alpha <= 0) break;
+    }
+    ctx.save();
+    rel_pos = clamp(0, 1, t / params.duration / 1000);
+    ctx.globalAlpha = calc_max_alpha(rel_pos);
+    this.draw_sphere(rel_pos, this.offscr);
+    ctx.restore();
+    if (active_step >= params.sphere_count - 2) {
+      this.sphere.params.not_draw_orbits = false;
+      // copy_canvas(this.offscr, this.steps[active_step]);
+    }
   }
   
+  /*
   this.start_animation = function() {
+    this.sphere.animate();
     var f = function() {
       var ctx = this.ctx;
       ctx.clearRect(0, 0, this.w, this.h);
@@ -106,10 +143,9 @@ function SphereJump(params) {
         this.sphere.ondraw = function() {
           var ctx = this.ctx;
           ctx.clearRect(0, 0, this.w, this.h);
-          this.draw(0, 1);
-          this.draw(1, 0);
+          this.draw_note();
+          this.draw(1);
         }.bind(this);
-        this.sphere.animate();
       } else {
         ctx.globalAlpha = (1 - (this.t - t) / dt) * (1 + this.t) / 2;
         var s = ctx.globalAlpha;
@@ -129,17 +165,19 @@ function SphereJump(params) {
     }.bind(this);
     f();
   }
+  */
+
   this.images_loaded = function() {
     var note = this.calc_note();
-    var r = note.rad / 180;
+    var buf_side = Math.round(note.rad * 6);
     this.sphere = new Sphere({
       canvas: this.offscr,
-      width: 500 * r,
-      height: 500 * r,
-      cx: 250 * r,
-      cy: 250 * r,
-      rad: 110 * r,
-      line_coeff: 1,
+      width: buf_side,
+      height: buf_side,
+      cx: buf_side / 2,
+      cy: buf_side / 2,
+      rad: note.rad,
+      line_coeff: 0.5,
       less_vertices: false,
       circ_rel_size: 0.19,
       circ_exp: 0.5, 
@@ -149,18 +187,20 @@ function SphereJump(params) {
       hide_menu: true,
       popup: false,
       no_autoplay: true,
-      onload: this.sphere_loaded.bind(this),
+      onload: function() {
+        this.anim_start = +new Date();
+        this.sphere.animate();
+      }.bind(this),
       no_glow: false,
+      grad_stop: 0.3,
+      not_draw_orbits: true,
     }, {
       onclick: function() {},
       menu: [],
       items: params.items,
     });
+    this.sphere.ondraw = this.draw.bind(this);
     this.images_loaded = function() {};
-  }
-  this.sphere_loaded = function() {
-    this.sphere.draw();
-    this.start_animation();
   }
   this.start_loading();
 }

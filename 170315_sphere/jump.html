@@ -9,11 +9,15 @@
  
   <div style="position: relative; margin-top: 80px; height: 152px; background-color: rgb(38, 116, 178); background-image: url(bg-slide-inner.jpg); background-size: cover; overflow: hidden">
     <!-- <div style="position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; background-image: url(bg_cloud330.png); background-position: top; opacity: 0.3"></div> -->
-    <div style="position: relative; height: 100%; width: 964px; max-width: 100vw; margin: 0px auto; overflow: hidden">
-      <canvas id="sphere" style="position: absolute; right: 0px"></canvas>
+    <div style="position: relative; width: 964px; max-width: calc(100vw - 50px); margin: 0px auto; height: 100%">
+      <div style="position: absolute; height: 100%; top: 0px; left: -150px; right: -150px; overflow: hidden">
+        <canvas id="sphere" style="position: absolute; right: 0px"></canvas>
+      </div>
     </div>
     <div style="position: absolute; top: 40px; width: 100%; height: 100%; text-align: center; text-transform: uppercase; font-size: 33px; font-family: Helvetica, sans-serif; font-weight: bold; color: white">Внедрения</div>
   </div>
+
+  <div style="width: 964px; background-color: lightgray; height: 200px; margin: 10px auto; max-width: calc(100vw - 50px)"></div>
 
   <script src="sphere-items.js"></script>
   <script src="sphere.js"></script>
@@ -26,12 +30,15 @@
      window.sphere_jump = new SphereJump({
         id: 'sphere', // id блока canvas.
         // При инициализации устанавливает размер canvas, равный размеру
-        // родительского блока, после чего его не меняет. Т.е. у
-        // родительского блока должно быть что-то вроде overflow: hidden.
-        items: new SphereData().items,
-        bg_pc: 'bg_pc_small.png',
-        delay: 0, // задержка между кадрами движения сферы
-        step: 1 / 20, // какая доля анимации происходит за один кадр.
+        // родительского блока, после чего его не меняет.
+        // Поэтому у родительского блока должно быть overflow: hidden.
+        note_right_margin: 150, // отступ ноутбука от правого края
+        items: new SphereData().items, // информация об иконках сферы
+        bg_pc: 'bg_pc_small.png', // url картинки с ноутбуком
+        duration: 3, // продолжительность анимации в секундах
+        sphere_count: window.innerWidth > 1000 ? 5 : // число сфер
+                      window.innerWidth > 800 ? 4 :
+                      window.innerWidth > 600 ? 3 : 1,
       });
       window.onload = function() {};
     }
