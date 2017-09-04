@@ -90,6 +90,7 @@ function SphereJump(params) {
     ctx.clearRect(0, 0, this.w, this.h);
     this.draw_note();
     var t = +new Date() - this.anim_start;
+    t %= params.cycle_duration * 1000;
     var total_alpha = 0;
     for (var i=0; i<params.sphere_count; i++) {
       total_alpha += calc_max_alpha(divide(i, params.sphere_count - 1));
