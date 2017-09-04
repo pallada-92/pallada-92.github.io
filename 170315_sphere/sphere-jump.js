@@ -86,25 +86,26 @@ function SphereJump(params) {
     ctx.drawImage(canvas_from, 0, 0);
   }
   this.draw = function() {
-    var ctx = this.ctx;
+    var t = (+new Date() / 1000 - this.anim_start)
+            % params.cycle_duration,
+        show_t = clamp(0, 1, t / params.move_duration),
+        hide_t = clamp(0, 1,
+          (t - (params.cycle_duration - params.move_duration))
+            / params.move_duration),
+        ctx = this.ctx;
     ctx.clearRect(0, 0, this.w, this.h);
     this.draw_note();
-    var t = +new Date() - this.anim_start;
-    t %= params.cycle_duration * 1000;
-    var total_alpha = 0;
-    for (var i=0; i<params.sphere_count; i++) {
-      total_alpha += calc_max_alpha(divide(i, params.sphere_count - 1));
-    }
-    total_alpha = params.sphere_count;
-    var cur_alpha = total_alpha * (t / params.duration / 1000);
-    // console.log(total_alpha, cur_alpha);
-    var active_step;
     for (var i=0; i<params.sphere_count; i++) {
       var rel_pos = divide(i, params.sphere_count - 1);
-      var max_alpha = calc_max_alpha(rel_pos);
-      if (cur_alpha <= 0) break;
       ctx.save();
-      ctx.globalAlpha = max_alpha * clamp(0, 1, cur_alpha);
+      var cur_alpha = 1;
+      if (show_t < 1) {
+        cur_alpha = show_t * params.sphere_count - i;
+      } else if (hide_t > 0) {
+        cur_alpha = 1 - (hide_t * params.sphere_count - i);
+      }
+      cur_alpha = clamp(0, 1, cur_alpha);
+      ctx.globalAlpha = calc_max_alpha(rel_pos) * cur_alpha;
       if (!this.steps[i]) {
         var buf = document.createElement('canvas');
         this.steps[i] = buf;
@@ -112,60 +113,14 @@ function SphereJump(params) {
         buf.height = this.offscr.height;
         copy_canvas(this.offscr, buf);
       }
+      if (i == params.sphere_count - 1) {
+        this.sphere.params.not_draw_orbits = false;
+        copy_canvas(this.offscr, this.steps[i]);
+      }
       this.draw_sphere(rel_pos, this.steps[i]);
       ctx.restore();
-      cur_alpha -= 1;
-      active_step = i;
-    }
-    // ctx.save();
-    // rel_pos = clamp(0, 1, t / params.duration / 1000);
-    // ctx.globalAlpha = calc_max_alpha(rel_pos);
-    // this.draw_sphere(rel_pos, this.offscr);
-    // ctx.restore();
-    if (active_step >= params.sphere_count - 1) {
-      this.sphere.params.not_draw_orbits = false;
-      copy_canvas(this.offscr, this.steps[active_step]);
     }
   }
-  
-  /*
-  this.start_animation = function() {
-    this.sphere.animate();
-    var f = function() {
-      var ctx = this.ctx;
-      ctx.clearRect(0, 0, this.w, this.h);
-      ctx.save();
-      var t;
-      var dt = 1 / 5;
-      t = Math.floor(this.t / dt) * dt;
-      this.draw(0, 1);
-      if (this.t >= 1) {
-        this.sphere.ondraw = function() {
-          var ctx = this.ctx;
-          ctx.clearRect(0, 0, this.w, this.h);
-          this.draw_note();
-          this.draw(1);
-        }.bind(this);
-      } else {
-        ctx.globalAlpha = (1 - (this.t - t) / dt) * (1 + this.t) / 2;
-        var s = ctx.globalAlpha;
-        this.sphere.anim_step();
-        this.draw(this.half_easing(Math.min(1, t)));
-        t += dt;
-        ctx.globalAlpha = (1 - (t - this.t) / dt) * (1 + this.t) / 2;
-        s += ctx.globalAlpha;
-        // console.log(s);
-        this.draw(this.half_easing(Math.min(1, t)));
-        ctx.restore();
-        this.t += params.step;
-        setTimeout(function() {
-          requestAnimationFrame(f);
-        }, 1000 * params.delay);
-      }
-    }.bind(this);
-    f();
-  }
-  */
 
   this.images_loaded = function() {
     var note = this.calc_note();
@@ -188,7 +143,7 @@ function SphereJump(params) {
       popup: false,
       no_autoplay: true,
       onload: function() {
-        this.anim_start = +new Date();
+        this.anim_start = (+new Date()) / 1000;
         this.sphere.animate();
       }.bind(this),
       no_glow: false,
