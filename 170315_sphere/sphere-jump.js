@@ -89,10 +89,16 @@ function SphereJump(params) {
     var t = (+new Date() / 1000 - this.anim_start)
             % params.cycle_duration,
         show_t = clamp(0, 1, t / params.move_duration),
-        hide_t = clamp(0, 1,
-          (t - (params.cycle_duration - params.move_duration))
-            / params.move_duration),
+        hide_t = clamp(
+          0, 1 - 1 / params.sphere_count,
+          t / params.move_duration - 1
+        ),
         ctx = this.ctx;
+    var tt1 = params.move_duration / params.sphere_count;
+    var tt2 = t - (params.cycle_duration - tt1 - params.pause_between);
+    if (tt2 > 0) {
+      hide_t = clamp(0, 1, 1 - (1 - tt2 / tt1) / params.sphere_count);
+    }
     ctx.clearRect(0, 0, this.w, this.h);
     this.draw_note();
     for (var i=0; i<params.sphere_count; i++) {
