@@ -3,8 +3,8 @@
   var vendors = ['ms', 'moz', 'webkit', 'o'];
   for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
     window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-    window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
-      || window[vendors[x]+'CancelRequestAnimationFrame'];
+    window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] ||
+      window[vendors[x]+'CancelRequestAnimationFrame'];
   }
   
   if (!window.requestAnimationFrame)
@@ -77,7 +77,7 @@ window.Straus = function(params) {
       vec(center, this.points[tr[1]]),
       vec(center, this.points[tr[2]]),
     ];
-  }
+  };
 
   function rgb(c) {
     return 'rgb(' + Math.floor(c[0]) +
@@ -92,19 +92,8 @@ window.Straus = function(params) {
       ', ' + alpha.toFixed(2) + ')';
   }
 
-  function clamp(t, min, max) {
-    if (t > max) return max;
-    if (t < min) return min;
-    return t;
-  }
-
   function cos_easing(t) {
     return (1 - Math.cos(t * Math.PI)) / 2;
-  }
-  
-  function lin(x0, y0, x1, y1, x) {
-    var t = (x - x0) / (x1 - x0);
-    return y0 + t * (y1 - y0);
   }
 
   function blend_colors(c1, c2, t) {
@@ -134,10 +123,6 @@ window.Straus = function(params) {
     return Math.sqrt(
       vec[0] * vec[0] + vec[1] * vec[1]
     );
-  }
-  
-  function dist(pt1, pt2) {
-    return len(vec(pt1, pt2));
   }
 
   function ang(a) {
@@ -293,7 +278,6 @@ window.Straus = function(params) {
   }
 
   this.polar_tests = function() {
-    var pt1 = [2, 2], pt2 = [1, 1], pt3 = [2, 1];
     // console.log(angle([1, 1], [0, 1]), Math.PI / 4);
     // console.log(angle([1, 1], [1, 0]), Math.PI / 4);
     // console.log(tri2polar([pt1, pt2, pt3])[0], pt3);
@@ -322,7 +306,7 @@ window.Straus = function(params) {
     // console.log(angle_dist(-1, 1, -1));
     // console.log(angle_dist(1, -1, 1));
     // console.log(angle_dist(1, , -1));
-  }
+  };
 
   this.polar_tests();
 
@@ -345,7 +329,7 @@ window.Straus = function(params) {
   function gradient(color1, color2, rad, max_rad) {
     var gradient = ctx.createRadialGradient(
       w / 2, h / 2, 0,
-      w / 2, h / 2, max_rad,
+      w / 2, h / 2, max_rad
     );
     gradient.addColorStop(0, color1);
     gradient.addColorStop(Math.min(1, rad / max_rad), color2);
@@ -361,7 +345,7 @@ window.Straus = function(params) {
     ctx.translate(-pt[0], -pt[1]);
     var gradient = ctx.createRadialGradient(
       pt[0], pt[1], 0,
-      pt[0], pt[1], rad,
+      pt[0], pt[1], rad
     );
     gradient.addColorStop(0, rgba(color, alpha));
     gradient.addColorStop(1, rgba(color, 0));
@@ -394,7 +378,7 @@ window.Straus = function(params) {
       blend_colors(
         [233, 190, 198],
         [183, 208, 209],
-        t_orig,
+        t_orig
       ),
       bg_color,
       Math.min(w / 2, h / 2) * params.scale,
@@ -410,11 +394,11 @@ window.Straus = function(params) {
       ctx.globalAlpha = 1 - t;
       draw_shadow(
         ctx, vec(this.centers[0], this.points[37]),
-        70, [0, 0, 0], 0.4, 0.2,
+        70, [0, 0, 0], 0.4, 0.2
       );
       draw_shadow(
         ctx, vec(this.centers[0], this.points[36]),
-        70, [0, 0, 0], 0.4, 0.2,
+        70, [0, 0, 0], 0.4, 0.2
       );
     } else {
       ctx.globalAlpha = t;
@@ -431,6 +415,7 @@ window.Straus = function(params) {
     }
     ctx.restore();
     for (var i in this.triangles) {
+      if (!this.triangles.hasOwnProperty(i)) continue;
       // if (i != 18) continue;
       var color1 = this.colors[i][state];
       var color2 = this.colors[i][state + 1];
@@ -454,7 +439,7 @@ window.Straus = function(params) {
       draw_polar(ctx, polar, color);
     }
     ctx.restore();
-  }
+  };
 
   var running = false;
 
@@ -463,14 +448,14 @@ window.Straus = function(params) {
     this.anim_started = (+new Date()) / 1000;
     running = true;
     this.next_frame();
-  }
+  };
 
   this.on_anim_end = function() {
     running = false;
     if (params.on_anim_end) {
       params.on_anim_end();
     }
-  }
+  };
 
   this.next_frame = function() {
     var t = ((+new Date()) / 1000 - this.anim_started) / params.duration;
@@ -487,7 +472,7 @@ window.Straus = function(params) {
       this.draw(t);
       requestAnimationFrame(this.next_frame.bind(this));
     }
-  }
+  };
 
-}
+};
 
