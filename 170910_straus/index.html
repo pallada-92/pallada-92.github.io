@@ -46,6 +46,7 @@
       });
       document.addEventListener('touchmove', function(e) {
          onmousemove(e.touches[0].pageX, e.touches[0].pageY);
+         e.preventDefault();
       });
       // straus.start_animation();
       document.title = 'Пингвин';
