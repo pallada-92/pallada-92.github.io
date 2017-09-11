@@ -9,16 +9,10 @@
   <!-- <script src="constructor.js"></script> -->
   <script src="straus.js"></script>
   <script>
-    window.addEventListener('error',
-      function (errorMsg, url, lineNumber) {
-        alert(
-          'Error: ' + errorMsg +
-          ' Script: ' + url +
-          ' Line: ' + lineNumber
-        );
-      }
-    );
-    window.addEventListener('load', function() {
+    window.onerror = function (errorMsg, url, lineNumber) {
+      alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+    }
+    window.onload = function() {
       window.straus = new Straus({
         canvas: document.getElementById('canvas'),
         width: 500,
@@ -49,7 +43,7 @@
       <!-- straus.start_animation(); -->
       document.title = 'Пингвин';
       straus.draw(1);
-    });
+    };
   </script>
 </body>
 </html>
