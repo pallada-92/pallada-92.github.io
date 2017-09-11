@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   <meta charset="utf-8">
   <title>Страус</title>
 </head>
@@ -28,9 +29,9 @@
            straus.start_animation();
         }
       });
-      document.addEventListener('mousemove', function(e) {
-        var dx = e.clientX - window.innerWidth / 2;
-        var dy = e.clientY - window.innerHeight / 2;
+      function onmousemove(x, y) {
+        var dx = x - window.innerWidth / 2;
+        var dy = y - window.innerHeight / 2;
         var dist = Math.sqrt(dx * dx + dy * dy);
         var t = Math.min(Math.max(dist / 250 - 0.2, 0), 1);
         if (t < 0.5) {
@@ -39,6 +40,12 @@
           document.title = 'Пингвин';
         }
         straus.draw(t);
+      }
+      document.addEventListener('mousemove', function(e) {
+        onmousemove(e.clientX, e.clientY);
+      });
+      document.addEventListener('touchmove', function(e) {
+         onmousemove(e.touches[0].pageX, e.touches[0].pageY);
       });
       // straus.start_animation();
       document.title = 'Пингвин';
