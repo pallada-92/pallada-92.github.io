@@ -490,3 +490,5 @@ function Straus(params) {
   }
 
 }
+
+alert(Straus);
