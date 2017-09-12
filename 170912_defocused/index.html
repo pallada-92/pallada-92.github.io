@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=0.5, user-scalable=no" /> -->
+  <meta charset="utf-8">
+  <title>Кружочки</title>
+</head>
+<body style="margin: 0px; padding: 0px; overflow: hidden; background-color: rgb(16, 60, 17)">
+  <canvas id="canvas" style="position: absolute; left: calc(50vw - 512px / 2); top: calc(50vh - 287px/2)"></canvas>
+  <!-- <script src="constructor.js"></script> -->
+  <script src="defocused.js"></script>
+  <script>
+    window.onerror = function (errorMsg, url, lineNumber) {
+      alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+    }
+    window.onload = function() {
+      var canvas = document.getElementById('canvas');
+      window.defocused = new Defocused({
+        canvas: canvas,
+        width: 512,
+        height: 287,
+        scale: 1,
+        speed: 5,
+      });
+      defocused.animate();
+      function onmousemove(x, y) {
+        defocused.mouse_pos = [x, y];
+      }
+      function onmouseout() {
+        defocused.mouse_pos = [-1000, -1000];
+      }
+      canvas.addEventListener('mousemove', function(e) {
+        onmousemove(
+          e.pageX - canvas.offsetLeft,
+          e.pageY - canvas.offsetTop,
+        );
+      });
+      canvas.addEventListener('mouseout', function(e) {
+        onmouseout();
+      });
+      //document.addEventListener('touchmove', function(e) {
+        // onmousemove(e.touches[0].pageX, e.touches[0].pageY);
+         //e.preventDefault();
+      //});
+    };
+  </script>
+</body>
+</html>
