@@ -1,3 +1,7 @@
+window.onerror = function (errorMsg, url, lineNumber) {
+  alert('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber);
+}
+
 var circles_count = 200;
 var circles = [];
 
@@ -111,10 +115,17 @@ function draw_hyperloop() {
   }
   var ww = window.innerWidth;
   var wh = window.innerHeight;
-  var cont_height = Math.min(ww * 566 / 1015, wh);
+  var ratio = 1015 / 566;
+  var cont_height;
+  if (ww / ratio < wh) {
+    cont_height = ww / ratio;
+  } else {
+    cont_height = wh;
+  }
+  var cont_width = cont_height * ratio;
   var top = cont_height * 0.401;
   var cell_dist = cont_height * 0.13 / 6;
-  var left = ww / 2 - max_x * cell_dist / 2;
+  var left = cont_width / 2 - max_x * cell_dist / 2;
   for (var i=0; i<all_circs.length; i++) {
     var circ = all_circs[i];
     var svg_circ = circles[cur_circ];
