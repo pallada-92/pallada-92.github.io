@@ -96,6 +96,8 @@ function draw_letter(letter, x, y, color) {
   return res;
 }
 
+var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream; 
+
 function draw_hyperloop() {
   var text = 'HYPERLOOP';
   var cur_x = 0, cur_y = 0;
@@ -113,16 +115,9 @@ function draw_hyperloop() {
     }
     cur_x = max_x + 2;
   }
-  var ww = window.innerWidth;
-  var wh = window.innerHeight;
-  var ratio = 1015 / 566;
-  var cont_height;
-  if (ww / ratio < wh) {
-    cont_height = ww / ratio;
-  } else {
-    cont_height = wh;
-  }
-  var cont_width = cont_height * ratio;
+  var container = document.getElementById('container');
+  var cont_width = container.offsetWidth;
+  var cont_height = container.offsetHeight;
   var top = cont_height * 0.401;
   var cell_dist = cont_height * 0.13 / 6;
   var left = cont_width / 2 - max_x * cell_dist / 2;

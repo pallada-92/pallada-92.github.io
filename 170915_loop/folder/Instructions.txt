@@ -1,0 +1,87 @@
+ADOBE INDESIGN PRINTING INSTRUCTIONS FOR SERVICE PROVIDER REPORT
+
+PUBLICATION NAME: holding page.indd
+
+PACKAGE DATE: 15/09/2017 15:20
+Creation Date: 15/09/2017
+Modification Date: 15/09/2017
+
+CONTACT INFORMATION
+
+Company Name: 
+Contact: 
+Address: 
+
+
+
+
+
+Phone: 
+Fax: 
+Email: 
+
+SPECIAL INSTRUCTIONS AND OTHER NOTES
+
+
+
+
+
+
+External Plug-ins 0
+Non Opaque Objects :None
+
+FONTS
+2 Fonts Used; 0 Missing, 0 Embedded, 0 Incomplete, 0 Protected
+
+Fonts Packaged
+- Name: BPdots-Light; Type: OpenType Type 1, Status: OK
+- Name: RobotoSlab-Regular; Type: TrueType, Status: OK
+
+
+COLOURS AND INKS
+4 Process Inks; 0 Spot Inks
+
+- Name and Type: Process Cyan; Angle: 0.000; Lines/Inch: 0.000
+- Name and Type: Process Magenta; Angle: 0.000; Lines/Inch: 0.000
+- Name and Type: Process Yellow; Angle: 0.000; Lines/Inch: 0.000
+- Name and Type: Process Black; Angle: 0.000; Lines/Inch: 0.000
+
+
+LINKS AND IMAGES
+(Missing & Embedded Links Only)
+Links and Images: 5 Links Found; 0 Modified, 0 Missing 0 Inaccessible
+Images: 0 Embedded, 5 use RGB colour space
+
+
+PRINT SETTINGS
+PPD: N/A, (EPSON WF-7610 Series)
+Printing To: Printer
+Number of Copies: 1
+Reader Spreads: No
+Even/Odd Pages: Both
+Pages: All
+Proof: No
+Tiling: None
+Scale: 100%, 100%
+Page Position: Upper Left
+Print Layers: Visible & Printable Layers
+Printer's Marks: None
+Bleed: 0 px, 0 px, 0 px, 0 px
+Colour: Composite RGB
+Trapping Mode: None
+Send Image Data: Optimised Subsampling
+OPI/DCS Image Replacement: No
+Page Size: 1366 x 768
+Paper Dimensions: 595.276 px x 841.89 px
+Orientation: Landscape
+Negative: No
+Flip Mode: Off
+
+
+FILE PACKAGE LIST
+
+1. holding page.indd; type: Adobe InDesign publication; size: 1552K
+2. holding page.idml; type: InDesign Mark-up Document; size: 80K
+3. holding page.pdf; type: Adobe Acrobat Document; size: 151K
+4. BPdotsLight.otf; type: Font file; size: 30K
+5. RobotoSlab-Regular.ttf; type: Font file; size: 165K
