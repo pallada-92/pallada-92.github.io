@@ -1,0 +1,272 @@
+class TransformShapeIterator extends ShapeIterator {
+    width: number;
+    height: number;
+    constructor(
+        public iter: ShapeIterator,
+        public trans: (PointShape) => PointShape
+    ) {
+        super();
+        [this.width, this.height] = trans([iter.width, iter.height]);
+    }
+    forEach(fun: (s: Shape) => void) {
+        this.iter.forEach((val: Shape) => {
+            if (val.length == 4) {
+                let [x1, y1] = this.trans([val[0], val[1]]);
+                let [x2, y2] = this.trans([val[2], val[3]]);
+                fun([x1, y1, x2, y2] as LineShape);
+            } else {
+                fun(val as PointShape);
+            }
+        });
+    }
+}
+
+class ConfigurableShapeIterator {
+    constructor(
+        public dao: Dao,
+    ) { };
+    players: string[];
+    set_player(player: string) {
+        this.players = [player];
+        return this;
+    }
+    set_team_player(player_id: number, team: string) {
+        this.players = [this.dao.cmd_players(team)[player_id]];
+        return this;
+    }
+    set_team(team_id: string) {
+        this.players = this.dao.cmd_players(team_id);
+        return this;
+    }
+    set_both_teams() {
+        this.players = this.dao.all_players();
+        return this;
+    }
+    time_range: [number, number];
+    set_time_range(t: number, dur: number) {
+        this.time_range = [t, t + dur];
+        return this;
+    }
+    period: number; // 1 -> first, 2 -> second, 3 -> both
+    set_period(period: number) {
+        this.period = period;
+        this.time_range = [0, 100 * 60 * 100];
+        return this;
+    }
+    set_both_periods() {
+        this.period = 3;
+        this.time_range = [0, 100 * 60 * 100];
+        return this;
+    }
+    event_ids: number[];
+    set_all_events() {
+        this.event_ids = d3.range(0, this.dao.event_names.length);
+        return this;
+    }
+    decode_event(event: number | string) {
+        if (typeof event == 'number') {
+            return event;
+        } else {
+            return this.dao.event_names.indexOf(event);
+        }
+    }
+    set_events(event_ids: (number | string)[]) {
+        this.event_ids = event_ids.map((x) => this.decode_event(x));
+        return this;
+    }
+    set_event(event_id: number | string) {
+        this.event_ids = [this.decode_event(event_id)]
+        return this;
+    }
+    transpose: boolean = false;
+    toggle_transpose() {
+        this.transpose = !this.transpose;
+        this.hor_coeff, this.vert_coeff =
+            this.vert_coeff, this.hor_coeff;
+        return this;
+    }
+    hor_coeff: number = 1;
+    vert_coeff: number = 1;
+    set_target_size(target_width: number, target_height: number) {
+        this.hor_coeff = target_width / this.dao.field_width;
+        this.vert_coeff = target_height / this.dao.field_height;
+        if (this.transpose) {
+            this.hor_coeff, this.vert_coeff =
+                this.vert_coeff, this.hor_coeff;
+        }
+        return this;
+    }
+    period_fitness(period: number) {
+        return new TransformShapeIterator(
+            new FitnessShapeIterator(
+                this.dao,
+                this.players,
+                this.time_range,
+                period
+            ),
+            ([x, y]) => [this.vert_coeff * y, this.hor_coeff * x]
+        )
+    }
+    get_fitness(): ShapeIterator {
+        if (this.period == 3) {
+            return new IteratorComposition([
+                this.period_fitness(1),
+                this.period_fitness(2),
+            ]);
+        } else {
+            return this.period_fitness(this.period);
+        }
+    }
+    period_events(period: number) {
+        return new TransformShapeIterator(
+            new EventShapeIterator(
+                this.dao,
+                this.event_ids,
+                this.players,
+                this.time_range,
+                period
+            ),
+            ([x, y]) => [this.vert_coeff * y, this.hor_coeff * x]
+        );
+    }
+    get_events(): ShapeIterator {
+        if (this.period == 3) {
+            return new IteratorComposition([
+                this.period_events(1),
+                this.period_events(2),
+            ]);
+        } else {
+            return this.period_events(this.period);
+        }
+    }
+}
+
+class GenericConvolutionBuffer extends Buffer {
+    matrix: Float64Array;
+    data: Float64Array;
+    w2: number;
+    precalc_matrix(window: number, fun: (d: number) => number) {
+        this.w2 = this.window * 2 + 1;
+        this.matrix = new Float64Array(this.w2 * this.w2);
+        for (let i = 0; i <= this.w2; i++) {
+            for (let j = 0; j <= this.w2; j++) {
+                let x = i - this.window;
+                let y = j - this.window
+                let dist = Math.sqrt(x * x + y * y);
+                this.matrix[j * this.w2 + i] = fun(dist);
+            }
+        }
+    }
+    constructor(
+        public source: Buffer,
+        public fun: (dist: number) => number,
+        public window: number,
+    ) {
+        super();
+        this.precalc_matrix(window, fun);
+        this.width = source.width;
+        this.height = source.height;
+        this.data = new Float64Array(this.width * this.height);
+        for (let x = 0; x < this.width; x++) {
+            for (let y = 0; y < this.height; y++) {
+                let sum = 0;
+                let min_i = Math.max(0, this.window - x)
+                let min_j = Math.max(0, this.window - y)
+                let max_i = Math.min(
+                    this.w2, this.width - x + this.window);
+                let max_j = Math.min(
+                    this.w2, this.height - y + this.window);
+                const this_w2 = this.w2;
+                const this_width = this.width;
+                const this_window = this.window;
+                const this_mat = this.matrix;
+                const this_source_data = this.source['data'];
+                var i, j;
+                for (i = min_i; i < max_i; i++) {
+                    for (j = min_j; j < max_j; j++) {
+                        sum += this_mat[
+                            this_w2 * j + i
+                        ] * this_source_data[
+                            x + i - this_window +
+                            (y + j - this_window) * this_width];
+                    }
+                }
+                this.data[this.width * y + x] = sum;
+            }
+        }
+    }
+    at(x: number, y: number) {
+        return this.data[y * this.width + x];
+    }
+}
+
+class CanvasBuffer extends DrawShapeBuffer {
+    canvas: HTMLCanvasElement;
+    ctx: CanvasRenderingContext2D;
+    fg_color = 'rgb(15, 0, 0)';
+    constructor(
+        public width: number,
+        public height: number,
+        public radius: number,
+    ) {
+        super();
+        this.canvas = document.createElement('canvas');
+        this.canvas.width = this.width;
+        this.canvas.height = this.height;
+        this.ctx = this.canvas.getContext('2d') as
+            CanvasRenderingContext2D;
+        this.ctx.clearRect(0, 0, this.width, this.height);
+        this.ctx.strokeStyle = this.fg_color;
+        this.ctx.globalCompositeOperation = 'lighter';
+        this.ctx.lineWidth = this.radius;
+        //this.ctx.lineCap = 'butt';
+    };
+    draw_line([x1, y1, x2, y2]: LineShape) {
+        let length = Math.sqrt(
+            (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)) + 1;
+        this.ctx.strokeStyle =
+            'rgb(' + (Math.round(10 / length) + 1) + ')';
+        this.ctx.beginPath();
+        this.ctx.moveTo(x1, y1);
+        this.ctx.lineTo(x2, y2);
+        this.ctx.stroke();
+    }
+    draw_point([x, y]: PointShape) { }
+    image_data: Uint8ClampedArray;
+    finalize() {
+        this.image_data = this.ctx.getImageData(
+            0, 0, this.canvas.width, this.canvas.height).data;
+    }
+    at(x: number, y: number) {
+        return this.image_data[
+            y * this.width * 4 + x * 4
+        ]
+    }
+}
+
+class IteratorComposition extends ShapeIterator {
+    width: number;
+    height: number;
+    constructor(
+        public iterators: ShapeIterator[],
+    ) {
+        super();
+        this.width = iterators[0].width;
+        this.height = iterators[0].height;
+    };
+    forEach((s: Shape) => void) {
+
+    while (true) {
+        if (this.cur_iterator_num >= this.iterators.length) {
+            return null;
+        }
+        let val = this.iterators[this.cur_iterator_num].next();
+        if (val == null) {
+            this.cur_iterator_num++;
+        } else {
+            return val;
+        }
+    }
+}
+
+

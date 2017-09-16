@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Dial</title>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script src="dial.js"></script>
+  <script>
+    window.onerror = function (errorMsg, url, lineNumber) {
+      alert(
+        'Error: ' + errorMsg +
+        ' Script: ' + url +
+        ' Line: ' + lineNumber
+      );
+    }
+    window.onload = function() {
+      window.dial = new Dial({
+        canvas: document.getElementById('canvas'),
+        width: 500,
+        height: 300,
+        cx: 250,
+        cy: 250,
+        scale: 1,
+        radius: 200,
+        score_color: [66, 152, 201],
+        score_font: 'bold 100px Helvetica',
+        pointer_radius: 20,
+        pointer_line_width: 13,
+        pointer_color: [255, 255, 255],
+        pointer_border_color: [66, 152, 201],
+        min_value: 0,
+        min_angle: Math.PI,
+        max_value: 500,
+        max_angle: 2 * Math.PI,
+        segment_width: 10,
+        segments_spacing: 6,
+        segments: [{
+          color: [159, 50, 48],
+          min_value: 0,
+          max_value: 100,
+        }, {
+          color: [237, 51, 35],
+          min_value: 100,
+          max_value: 200,
+        }, {
+          color: [244, 168, 59],
+          min_value: 200,
+          max_value: 300,
+        }, {
+          color: [64, 147, 41],
+          min_value: 300,
+          max_value: 400,
+        }, {
+          color: [49, 131, 214],
+          min_value: 400,
+          max_value: 500,
+        }],
+        caption_color: [40, 50, 55],
+        caption_radius: 150,
+        caption_font: '15px Helvetica',
+        captions: [{
+          value: 500 * 1 / 8,
+          text: '0-150 points',
+        }, {
+          value: 500 * 3 / 8,
+          text: '150-300 points',
+        }, {
+          value: 500 * 5 / 8,
+          text: '300-400 points',
+        }, {
+          value: 500 * 7 / 8,
+          text: '400-500 points',
+        }],
+      });
+      dial.start_animation();
+      dial.set_value(200);
+    };
+  </script>
+</body>
+</html>

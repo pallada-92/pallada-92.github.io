@@ -3,7 +3,7 @@ body {
     height: 300vh;
     background-color: rgb(4, 4, 4);
     color: white;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 @media (min-aspect-ratio: 1015/566) {
@@ -97,7 +97,7 @@ body {
     border: 1px solid rgb(0, 252, 254);
     font-family: inherit;
     font-size: inherit;
-    padding: 0.5em;
+    padding: 0.2em;
     color: rgb(51, 52, 56);
 }
 

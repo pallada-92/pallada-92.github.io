@@ -1,0 +1,17 @@
+Resume titles:
+Heatmaps of soccer players paths and actions
+D3 visualizations of 2015—16 Premier League 
+Social network group chat analysis tool
+Jupyter extensions for web application development
+Interactive NY subway map
+Interactive stickers shop
+Geometry problems semantic tree builder
+News titles generator
+Russian passport number correctness checker
+Tool for visualization of crowdsourcing suggestions
+"Killer" social game
+Archive of lectures notes and forum
+How old are Moscow buildings? (static map)
+Graph of bioinformatics scientists collaboration in Russia
+Simple memcached-compatible server 
+Converting TeX sources from Pascal to Javascript

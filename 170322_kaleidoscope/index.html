@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<meta charset="utf-8">
+<title>Калейдоскоп</title>
+<style>
+  html {
+  }
+  body {
+    margin: 0px;
+    padding: 0px;
+  }
+  #kaleidoscope {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background: rgb(23, 23, 23);
+  }
+  #kaleidoscope img.logo {
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */  
+  }
+</style>
+</head>
+<body>
+  <div id="kaleidoscope"></div>
+  <script src="kaleidoscope.js"></script>
+  <script>
+    window.onerror = function (errorMsg, url, lineNumber) {
+      alert('Error: ' + errorMsg + ' Script: ' + url +
+            ' Line: ' + lineNumber);
+    }
+    var supports_canvas = (function(){
+      var elem = document.createElement('canvas');
+      return !!(elem.getContext && elem.getContext('2d'));
+    }());
+    var is_mobile = 761 > window.innerWidth;
+    var kal_params = {
+      id: 'kaleidoscope',
+      width: window.innerWidth,
+      height: window.innerHeight,
+    };
+    var kal;
+    window.onload = function() {
+      var params = kal_params;
+      params.logo_img = new Image();
+      params.logo_img.src = 'logo.png';
+      params.logo_img.onload = function() {
+        kal.load_resource('logo');
+      }
+      setTimeout(function() {
+        kal.load_resource('timer');
+      }, 200);
+      params.loading = true;
+      if (is_mobile || !supports_canvas) {
+        params.fallback = true;
+        params.resources = ['logo', 'fallback_bg', 'timer'];
+        params.fallback_img = new Image();
+        params.fallback_img.src = 'kaleidoscope_bg.jpg';
+        params.fallback_img.onload = function() {
+          kal.load_resource('fallback_bg');
+        }
+      } else {
+        params.fallback = false;
+        params.resources = ['logo', 'bg', 'timer'];
+        params.bg_img = new Image();
+        params.bg_img.src = 'kaleidoscope_bg.jpg';
+        params.bg_img.onload = function() {
+          kal.load_resource('bg');
+        }
+      }
+      kal = new Kaleidoscope(params);
+      kal.mount();
+      kal.start();
+    }
+    window.onresize = function() {
+      kal_params.width = window.innerWidth,
+      kal_params.height = window.innerHeight,
+      kal.update();
+      kal.draw();
+    }
+  </script>
+</body>
+</html>

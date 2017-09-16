@@ -1,9 +1,8 @@
-Python
 Tornado
 Jupyter
-Scikit-learn
 Numpy
 Pandas
+Scikit-learn
 Selenium web driver
 Google App Engine
 SQLite
@@ -18,13 +17,11 @@ SSH
 Processing.org
 QGIS
 
-HTML5
-CSS3
-React
 TypeScript
-JavaScript
-jQuery
 d3.js
+React
+HTML5 & CSS3
+jQuery
 Ramda.js
 SVG
 Canvas
