@@ -1,0 +1,128 @@
+body {
+    font-family: 'Roboto Slab', serif;
+    height: 300vh;
+    background-color: rgb(4, 4, 4);
+    color: white;
+    /* overflow: hidden; */
+}
+
+@media (min-aspect-ratio: 1015/566) {
+    body {
+        font-size: 5.37vh;
+    }
+}
+
+@media (max-aspect-ratio: 1015/566) {
+    body {
+        font-size: 3vw;
+    }
+}
+
+#fixed {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    height: 100vh;
+    max-height: 55.76vw;
+    background-image: url('bg_grad_v.png');
+    background-repeat: repeat-x;
+    background-size: 100vw 101%;
+    overflow: hidden;
+}
+
+#container {
+    position: relative;
+    margin: 0px auto;
+    width: 100%;
+    max-width: 179.32vh;
+    height: 100%;
+    background-image: url('bg_from_pdf.png');
+    background-position: 50% 0%;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+#particles {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+#logo {
+    position: absolute;
+    top: 6.18%;
+    left: 4.9%;
+    width: 11.7%;
+}
+
+#content {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+#pre-block, #post-block1, #post-block2, #post-block3, #post-block4 {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    text-align: center;
+    font-size: 0.34em;
+}
+
+#pre-block {top: 30%;}
+#post-block1 {top: 63%;}
+#post-block2 {top: 77%;}
+#post-block3 {top: 85%;}
+#post-block4 {top: 90%;}
+
+#pre-block, #post-block1 {
+    font-size: 0.75em;
+}
+
+#post-block3 {
+    color: rgb(0, 252, 254);
+}
+
+#post-block4 {
+    font-size: calc(0.34em * 1.19);
+}
+
+#post-block4 input[type="email"], #post-block4 input[type="submit"] {
+    box-sizing: border-box;
+    border: 1px solid rgb(0, 252, 254);
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0.2em;
+    color: rgb(51, 52, 56);
+}
+
+#post-block4 input[type="submit"] {
+    background-color: rgb(0, 252, 254);
+    text-transform: uppercase;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+::-webkit-input-placeholder { /* Chrome */
+    color: rgb(230, 230, 230);
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: rgb(230, 230, 230);
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: rgb(230, 230, 230);
+    opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+    color: rgb(230, 230, 230);
+    opacity: 1;
+}
+
+#subscribe {
+    
+}

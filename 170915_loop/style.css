@@ -1,95 +1,24 @@
 body {
     font-family: 'Roboto Slab', serif;
-    height: 300vh;
     background-color: rgb(4, 4, 4);
     color: white;
-    /* overflow: hidden; */
-}
-
-@media (min-aspect-ratio: 1015/566) {
-    body {
-        font-size: 5.37vh;
-    }
-}
-
-@media (max-aspect-ratio: 1015/566) {
-    body {
-        font-size: 3vw;
-    }
-}
-
-#fixed {
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    height: 100vh;
-    max-height: 55.76vw;
-    background-image: url('bg_grad_v.png');
-    background-repeat: repeat-x;
-    background-size: 100vw 101%;
-    overflow: hidden;
-}
-
-#container {
-    position: relative;
-    margin: 0px auto;
-    width: 100%;
-    max-width: 179.32vh;
-    height: 100%;
-    background-image: url('bg_from_pdf.png');
-    background-position: 50% 0%;
-    background-size: 100% auto;
-    background-repeat: no-repeat;
-}
-
-#particles {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
 }
 
 #logo {
     position: absolute;
-    top: 6.18%;
-    left: 4.9%;
-    width: 11.7%;
-}
-
-#content {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    bottom: 0px;
+    left: calc(50vw - 100px * 1.919 / 2);
+    top: calc(50vh - 100px / 2);
+    width: calc(100px * 1.919);
+    height: 100px;
 }
 
 #pre-block, #post-block1, #post-block2, #post-block3, #post-block4 {
-    position: absolute;
-    left: 0px;
-    right: 0px;
     text-align: center;
-    font-size: 0.34em;
-}
-
-#pre-block {top: 30%;}
-#post-block1 {top: 63%;}
-#post-block2 {top: 77%;}
-#post-block3 {top: 85%;}
-#post-block4 {top: 90%;}
-
-#pre-block, #post-block1 {
-    font-size: 0.75em;
+    opacity: 0;
 }
 
 #post-block3 {
     color: rgb(0, 252, 254);
-}
-
-#post-block4 {
-    font-size: calc(0.34em * 1.19);
 }
 
 #post-block4 input[type="email"], #post-block4 input[type="submit"] {
@@ -99,6 +28,7 @@ body {
     font-size: inherit;
     padding: 0.2em;
     color: rgb(51, 52, 56);
+    margin: 0px;
 }
 
 #post-block4 input[type="submit"] {
@@ -106,6 +36,7 @@ body {
     text-transform: uppercase;
     padding-left: 1em;
     padding-right: 1em;
+    margin: 0px;
 }
 
 ::-webkit-input-placeholder { /* Chrome */
@@ -123,6 +54,7 @@ body {
     opacity: 1;
 }
 
-#subscribe {
-    
+input, textarea {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
