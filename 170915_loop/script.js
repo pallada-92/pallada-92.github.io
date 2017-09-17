@@ -416,6 +416,7 @@ function set_layout() {
   } else {
     mobility = 1 - (1 / ratio - mob1h) / (mob0h - mob1h);
   }
+  // mobility = 1;
   // console.log(mobility);
   var w = mobility < 0 ? 1 / (1 - mobility) : 1,
       pad = 50 / w - 50;
@@ -516,13 +517,22 @@ function set_layout() {
       mobility
     )),
   });
+  var bg_w = len(blend(105, 140, mobility)),
+      bg_h = len(blend(75, 110, mobility)),
+      bg_x = blend(50, 50, mobility) + '%',
+      bg_y = len(blend(-15, 14, mobility)),
+      bg_size = bg_w + ' ' + bg_h + ', 100vw ' + bg_h;
+  if (ratio > 0.5) {
+      bg_size = bg_size + ', ' + bg_w + ' 100vh'
+  } else {
+      bg_size = bg_size + ', ' + bg_w + ' 100px'
+  }
   set_css('body', {
-    backgroundImage: 'url(pod.jpg)',
-    backgroundSize: len(blend(105, 140, mobility)) +
-    ' ' + len(blend(75, 110, mobility)),
-    backgroundPosition: blend(50, 50, mobility) + '% ' + len(blend(-15, 14, mobility)),
-    backgroundRepeat: 'no-repeat',
-    height: len(blend(mob0h, mob1h, mobility)),
+    backgroundImage: 'url(pod_conv.jpg), url(pod_h.png), url(pod_v.png)',
+    backgroundSize: bg_size,
+    backgroundPosition: bg_x + ' ' + bg_y + ', 0 ' + bg_y + ', ' + bg_x + ' 0%',
+    backgroundRepeat: 'no-repeat, no-repeat, no-repeat',
+    // height: len(blend(100 * (mob0h - 0.03), 100 * (mob1h - 0.03), mobility)),
   });
   if (mobility <= 0.3) {
     window.race_is_on = window.race_is_on_1;
@@ -803,7 +813,7 @@ window.hyperloop2 = [[
   ['P', aqua, bigger_rad],
 ]];
 
-window.imgs_to_load = ['pod.jpg', 'bg_grad_v.png'];
+window.imgs_to_load = ['pod_conv.jpg', 'pod_h.png', 'pod_v.png'];
 window.loaded_imgs = [];
 
 window.total_duration = 0;
