@@ -372,7 +372,7 @@ function draw_race_intro(t) {
   );
   var camera1 = place_circles(geom1, window.race_is_on_pos),
       camera2 = place_circles(geom2, window.race_is_on_pos),
-      circles3;
+      circles3, tt;
   if (t < lin_intro_time) {
     tt = t / lin_intro_time;
     var circles1 = transition_circles(geom1, geom2, camera1, camera2, 0.26),
@@ -386,7 +386,7 @@ function draw_race_intro(t) {
   var circles4 = [],
       r = 2 * (1 - t),
       t_speed = 0.5;
-  for (var i=0; i<circles3.length; i++) {
+  for (i=0; i<circles3.length; i++) {
     var cam = circles3[i].camera;
     circles4.push({
       x: cam.cx * (1 + r * Math.cos((i / circles3.length + t * t_speed) * 2 * Math.PI)),
@@ -502,7 +502,7 @@ function expand_pos(pos, factor) {
 }
 
 function map_pos(pos, fun) {
-  var res = {}
+  var res = {};
   for (var key in pos) {
     res[key] = fun(pos[key]);
   }
