@@ -523,9 +523,9 @@ function set_layout() {
       bg_y = len(blend(-15, 14, mobility)),
       bg_size = bg_w + ' ' + bg_h + ', 100vw ' + bg_h;
   if (ratio > 0.5) {
-      bg_size = bg_size + ', ' + bg_w + ' 100vh'
+      bg_size = bg_size + ', ' + bg_w + ' 100vh';
   } else {
-      bg_size = bg_size + ', ' + bg_w + ' 100px'
+      bg_size = bg_size + ', ' + bg_w + ' 100px';
   }
   set_css('body', {
     backgroundImage: 'url(pod_conv.jpg), url(pod_h.png), url(pod_v.png)',
