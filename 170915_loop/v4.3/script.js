@@ -585,7 +585,7 @@ function set_layout() {
   ));
   set_css('post-block2', {
     top: len(blend(
-      43.5,
+      42.5,
       114,
       mobility
     )),
@@ -596,13 +596,13 @@ function set_layout() {
     left: 0,
     right: 0,
     top: len(blend(
-      47,
+      46.21,
       127,
       mobility
     )),
     fontSize: font_size,
     lineHeight: blend(
-      1.6,
+      1.8,
       2.2,
       mobility
     ),
@@ -665,7 +665,7 @@ function set_layout() {
     width: blend(64, 91, mobility) * w,
     height: blend(9, 10, mobility) * w,
   };
-  draw(20);
+  // draw(20);
 }
 
 function onresize() {
@@ -698,7 +698,7 @@ function start_animation(delta) {
 
 function all_loaded() {
   set_layout();
-  // start_animation(0);
+  start_animation(0);
   window.addEventListener('resize', onresize);
 }
 
