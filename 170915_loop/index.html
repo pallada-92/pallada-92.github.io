@@ -10,7 +10,7 @@
         background-image: url(pod_conv.jpg), url(pod_h.png), url(pod_v.png);
         background-position: -10000px -10000px, -10000px -10000px, -10000px -10000px;
         background-repeat: no-repeat, no-repeat, no-repeat;
-        font-family: 'Roboto Slab', serif;
+        font-family:  'Roboto Slab', serif;
         background-color: rgb(4, 4, 4);
         color: white;
         width: 100vw;
@@ -59,6 +59,10 @@
     #post-block3 {
         color: rgb(0, 252, 254);
     }
+
+    #post-block3 .hashtag {
+        /* color: white; */
+    }
     
     #post-block4 input[type="email"], #post-block4 input[type="submit"] {
         box-sizing: border-box;
@@ -105,7 +109,7 @@
   <script src="script.js"></script>
   <script>
     window.scenes = [
-      [4, draw_race_intro],      // 1 sec for first text to appear
+      [4, draw_race_intro],      // 4 sec for the first text to appear
       [2.2],                     // 2.2 sec delay
       [2, draw_race_transition], // 2 sec for transition
       [1],                       // 1 sec delay
@@ -119,18 +123,17 @@
     for the
   </div>
   <div id="post-block1">
-    Loop is delivering the vision of the
-    Hyperloop and
-    you have a chance to
-    be part of the final journey.
+    rLoop is delivering the vision for the Hyperloop.
+    Now you can be part of the engineering revolution.
   </div>
   <div id="post-block2">
-    For over two years, we’ve created the world’s top Hyperloop technology as
-    a decentralised team. And now we are
-    bringing the Hyperloop onto the
-    Blockchain allowing individuals to own it and be part of the future.
+    For over two years, we've created the world's top
+    Hyperloop technology as a decentralised team.
+    Now we are bringing the Hyperloop onto the Blockchain,
+    allowing individuals to own and be part of the future.
   </div>
   <div id="post-block3">
+    <span class="hashtag">#servetheloop</span> <br/>
     Be in the loop and join our email community.
   </div>
   <div id="particles-container">

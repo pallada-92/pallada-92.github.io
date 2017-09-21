@@ -462,8 +462,14 @@ function set_css(elem_id, style) {
 }
 
 function set_lines(count) {
-  var post1 = ['rLoop is delivering the vision of the ', 'Hyperloop and ', 'you have a chance to ', 'be part of the final journey.'],
-      post2 = ['For over two years, we’ve created the world’s top Hyperloop technology as ', 'a decentralised team. And now we are ', 'bringing the Hyperloop onto the ', 'Blockchain allowing individuals to own it and be part of the future. '],
+  var post1 = [
+    'rLoop is delivering the vision for ', 'the Hyperloop. ',
+    'Now you can be ', 'part of the engineering revolution. ',
+  ],
+  post2 = [
+    "For over two years, we've created the world's top Hyperloop technology as ", "a decentralised team. Now we are ",
+    'bringing the Hyperloop onto ', 'the Blockchain, allowing individuals to own and be part of the future. ',
+  ];
       br = '<br />';
   if (count == 2) {
     id('post-block1').innerHTML = [post1[0] + post1[1], post1[2] + post1[3]].join(br);
@@ -579,7 +585,7 @@ function set_layout() {
   ));
   set_css('post-block2', {
     top: len(blend(
-      43.5,
+      42.5,
       114,
       mobility
     )),
@@ -590,11 +596,16 @@ function set_layout() {
     left: 0,
     right: 0,
     top: len(blend(
-      48,
-      128,
+      46.21,
+      127,
       mobility
     )),
     fontSize: font_size,
+    lineHeight: blend(
+      1.8,
+      2.2,
+      mobility
+    ),
   });
   set_css('post-block4', {
     left: 0,
@@ -654,7 +665,7 @@ function set_layout() {
     width: blend(64, 91, mobility) * w,
     height: blend(9, 10, mobility) * w,
   };
-  // draw(10);
+  // draw(20);
 }
 
 function onresize() {
