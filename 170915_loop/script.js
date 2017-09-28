@@ -33,7 +33,7 @@ function id(id) {
 
 function make_svg_circles(count) {
   var svg = id('particles');
-  for (var i=0; i<count; i++) {
+  for (var i=window.svg_circles.length; i<count; i++) {
     var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', 0);
     circle.setAttribute('cy', 0);
@@ -140,6 +140,7 @@ function rgb(c) {
 }
 
 function show_circles(circles) {
+  make_svg_circles(circles.length);
   for (var i=0; i<window.svg_circles.length; i++) {
     var svg_circle = window.svg_circles[i];
     if (i >= circles.length) {
@@ -210,6 +211,14 @@ function set_blocks_opacity(blocks) {
 function blend(a, b, t) {
   t = clamp01(t);
   return a * (1 - t) + b * t;
+}
+
+function blend_colors(rgb1, rgb2, t) {
+  return [
+    blend(rgb1[0], rgb2[0], t),
+    blend(rgb1[1], rgb2[1], t),
+    blend(rgb1[2], rgb2[2], t),
+  ]
 }
 
 function draw_change_color(t) {
@@ -323,6 +332,10 @@ function transition_circles(geom1, geom2, camera1, camera2, t) {
       dest = random_elem(i + 0.13, geom2.circles).slice();
       dest[4] = 0;
     }
+    if (!source) {
+      source = random_elem(i + 0.13, geom1.circles).slice();
+      source[4] = 0;
+    }
     circles.push({
       x: blend(
         source[0],
@@ -336,7 +349,7 @@ function transition_circles(geom1, geom2, camera1, camera2, t) {
       ),
       z: 1 - t * Math.pow(1 - t, 3) * random(i + 0.17) * 9,
       r: blend(source[3], dest[3], t),
-      color: dest[2],
+      color: blend_colors(source[2], dest[2], t),
       camera: camera,
       opacity: blend(source[4], dest[4], t),
     });
@@ -438,18 +451,13 @@ function draw_race_transition(t) {
 }
 
 function draw(t) {
-  var prev_fun;
+  t *= window.speed;
   for (var i=0; i<window.scenes.length; i++) {
-    var dur = window.scenes[i][0],
-        fun = window.scenes[i][1];
+    var scene = merge_dicts(window.merged_default_scene, window.scenes[i]),
+        dur = scene.pause_before + scene.duration + scene.pause_after;
     if (0 <= t && t < dur || t >= dur && i == window.scenes.length - 1) {
-      if (fun) {
-        fun(clamp01(t / dur));
-      } else {
-        prev_fun(1);
-      }
+      scene.fun(clamp01((t - scene.pause_before) / scene.duration));
     }
-    prev_fun = fun;
     t -= dur;
   }
 }
@@ -680,15 +688,33 @@ function draw_frame() {
 
 function next_frame() {
   var time = +new Date() / 1000 - window.animation_started;
+  time *= window.speed;
   draw_frame();
-  if (time <= window.total_duration) {
+  var total_duration = 0;
+  for (var i=0; i<window.scenes.length; i++) {
+    var scene = scene = merge_dicts(window.merged_default_scene, window.scenes[i]);
+    total_duration += scene.pause_before + scene.duration + scene.pause_after;
+  }
+  if (time <= total_duration) {
     requestAnimationFrame(next_frame);
   } else {
     window.animation_active = false;
   }
 }
 
+function merge_dicts(dict1, dict2) {
+  var res = {}
+  for (var key in dict1) {
+    res[key] = dict1[key];
+  }
+  for (var key in dict2) {
+    res[key] = dict2[key];
+  }
+  return res;
+}
+
 function start_animation(delta) {
+  compile_scenes();
   window.animation_started = +new Date() / 1000 - delta;
   if (!window.animation_active) {
     window.animation_active = true;
@@ -696,10 +722,25 @@ function start_animation(delta) {
   }
 }
 
+function dir_onload() {
+  console.info('You can enter commands here to control animation');
+  console.info('start() -- start animation');
+  console.info('speed = 0.5 -- control animation speed');
+  console.info('scenes[i], i=0,1,2 -- control scenes:');
+  console.info('scenes[i].pause_before');
+  console.info('scenes[i].duration');
+  console.info('scenes[i].pause_after');
+  console.info('scenes[i].text_above');
+  console.info('scenes[i].dotted_text = "HYPE*RLOOP*":');
+  console.info('     Use "*" to highlight text');
+  console.info('     Use "\\n" to make line breaks');
+}
+
 function all_loaded() {
-  set_layout();
+  // set_layout();
   start_animation(0);
-  window.addEventListener('resize', onresize);
+  // window.addEventListener('resize', onresize);
+  dir_onload();
 }
 
 function start_loading_imgs() {
@@ -717,11 +758,6 @@ function start_loading_imgs() {
 }
 
 function onload() {
-  window.total_duration = 0;
-  for (var i=0; i<window.scenes.length; i++) {
-    window.total_duration += window.scenes[i][0];
-  }
-  make_svg_circles(200);
   all_loaded();
   // start_loading_imgs();
 }
@@ -730,30 +766,30 @@ window.addEventListener('load', onload);
 
 window.svg_circles = [];
 window.chars = {
-  H: '' +
+  A: '' +
+    ' ### \n' +
     '#   #\n' +
     '#   #\n' +
     '#   #\n' +
     '#####\n' +
     '#   #\n' +
-    '#   #\n' +
     '#   #\n',
-  Y: '' +
-    '#   #\n' +
-    '#   #\n' +
-    '#   #\n' +
-    ' # # \n' +
-    '  #  \n' +
-    '  #  \n' +
-    '  #  \n',
-  P: '' +
+  B: '' +
     '#### \n' +
-    '#   #\n' +
-    '#   #\n' +
-    '#   #\n' +
+    '#   #\n' + 
+    '#   #\n' + 
     '#### \n' +
+    '#   #\n' + 
+    '#   #\n' + 
+    '#### \n',
+  C: '' +
+    ' ### \n' +
+    '#   #\n' +
     '#    \n' +
-    '#    \n',
+    '#    \n' +
+    '#    \n' +
+    '#   #\n' +
+    ' ### \n',
   E: '' +
     '#####\n' +
     '#    \n' +
@@ -762,11 +798,27 @@ window.chars = {
     '#    \n' +
     '#    \n' +
     '#####\n',
-  R: '' +
-    '#### \n' +
+  H: '' +
     '#   #\n' +
     '#   #\n' +
-    '#### \n' +
+    '#   #\n' +
+    '#####\n' +
+    '#   #\n' +
+    '#   #\n' +
+    '#   #\n',
+  I: '' +
+    '#####\n' +
+    '  #  \n' +
+    '  #  \n' +
+    '  #  \n' +
+    '  #  \n' +
+    '  #  \n' +
+    '#####\n',
+  K: '' +
+    '#   #\n' +
+    '#   #\n' +
+    '#  # \n' +
+    '##   \n' +
     '#  # \n' +
     '#   #\n' +
     '#   #\n',
@@ -778,54 +830,14 @@ window.chars = {
     '#    \n' +
     '#    \n' +
     '#####\n',
-  O: '' +
-    ' ### \n' +
+  M: '' +
     '#   #\n' +
-    '#   #\n' +
-    '#   #\n' +
-    '#   #\n' +
-    '#   #\n' +
-    ' ### \n',
-  T: '' +
-    '#####\n' +
-    '  #  \n' +
-    '  #  \n' +
-    '  #  \n' +
-    '  #  \n' +
-    '  #  \n' +
-    '  #  \n',
-  A: '' +
-    ' ### \n' +
-    '#   #\n' +
-    '#   #\n' +
-    '#   #\n' +
-    '#####\n' +
+    '## ##\n' +
+    '## ##\n' +
+    '# # #\n' +
+    '# # #\n' +
     '#   #\n' +
     '#   #\n',
-  C: '' +
-    ' ### \n' +
-    '#   #\n' +
-    '#    \n' +
-    '#    \n' +
-    '#    \n' +
-    '#   #\n' +
-    ' ### \n',
-  I: '' +
-    '#####\n' +
-    '  #  \n' +
-    '  #  \n' +
-    '  #  \n' +
-    '  #  \n' +
-    '  #  \n' +
-    '#####\n',
-  S: '' +
-    ' ####\n' +
-    '#    \n' +
-    '#    \n' +
-    ' ### \n' +
-    '    #\n' +
-    '    #\n' +
-    '#### \n',
   N: '' +
     '#   #\n' +
     '##  #\n' +
@@ -834,6 +846,62 @@ window.chars = {
     '#  ##\n' +
     '#   #\n' +
     '#   #\n',
+  O: '' +
+    ' ### \n' +
+    '#   #\n' +
+    '#   #\n' +
+    '#   #\n' +
+    '#   #\n' +
+    '#   #\n' +
+    ' ### \n',
+  P: '' +
+    '#### \n' +
+    '#   #\n' +
+    '#   #\n' +
+    '#   #\n' +
+    '#### \n' +
+    '#    \n' +
+    '#    \n',
+  R: '' +
+    '#### \n' +
+    '#   #\n' +
+    '#   #\n' +
+    '#### \n' +
+    '#  # \n' +
+    '#   #\n' +
+    '#   #\n',
+  S: '' +
+    ' ####\n' +
+    '#    \n' +
+    '#    \n' +
+    ' ### \n' +
+    '    #\n' +
+    '    #\n' +
+    '#### \n',
+  T: '' +
+    '#####\n' +
+    '  #  \n' +
+    '  #  \n' +
+    '  #  \n' +
+    '  #  \n' +
+    '  #  \n' +
+    '  #  \n',
+  W: '' +
+    '#   #\n' +
+    '# # #\n' +
+    '# # #\n' +
+    '# # #\n' +
+    '# # #\n' +
+    ' # # \n' + 
+    ' # # \n',
+  Y: '' +
+    '#   #\n' +
+    '#   #\n' +
+    '#   #\n' +
+    ' # # \n' +
+    '  #  \n' +
+    '  #  \n' +
+    '  #  \n',
   '.': '' +
     ' \n' +
     ' \n' +
@@ -945,8 +1013,6 @@ window.hyperloop2 = [[
 window.imgs_to_load = ['pod_conv.jpg', 'pod_h.png', 'pod_v.png'];
 window.loaded_imgs = [];
 
-window.total_duration = 0;
-
 window.hyperloop_perm = permutation4lines(window.hyperloop1);
 window.race_is_on_1_perm_1 = permutation4lines(window.race_is_on_1);
 window.race_is_on_1_perm_2 = permutation4lines(window.race_is_on_1);
@@ -972,3 +1038,229 @@ window.hyperloop_pos = {
 };
 
 window.animation_active = false;
+
+function markup_text(str) {
+  var line = [],
+      res = [line],
+      colored = false;
+  for (var i=0; i<str.length; i++) {
+    var ch = str[i];
+    if (ch == '*') {
+      colored = !colored;
+    } else if (ch == '\n') {
+      line = [];
+      res.push(line);
+    } else {
+      line.push([
+        ch,
+        colored ? aqua : white,
+        colored ? 1 : 1,
+      ]);
+    }
+  }
+  return res;
+}
+
+function draw_race_intro_fabric(params) {
+  var text = markup_text(params.text),
+      perm1 = permutation4lines(text),
+      perm2 = permutation4lines(text),
+      position = {
+        top: params.top,
+        width: params.width,
+        height: params.height,
+      };
+  return function(t) {
+    t = cos_easing(clamp01(t));
+    var lin_intro_time = 0.3;
+    var geom1 = lines_geom(text, params.line_spacing);
+    geom1.circles = permute(
+      geom1.circles,
+      perm1,
+    );
+    for (var i=0; i<geom1.circles.length; i++) {
+      geom1.circles[i][4] = random(i + 0.99);
+    }
+    var geom2 = lines_geom(text, params.line_spacing);
+    geom2.circles = permute(
+      geom2.circles,
+      perm2,
+    );
+    var camera1 = place_circles(geom1, position),
+        camera2 = place_circles(geom2, position),
+        circles3, tt;
+    if (t < lin_intro_time) {
+      tt = t / lin_intro_time;
+      var circles1 = transition_circles(geom1, geom2, camera1, camera2, 0.26),
+          circles2 = transition_circles(geom1, geom2, camera1, camera2, 0.25),
+          dt = (1 - lin_intro_time) / 75 / lin_intro_time / 2;
+      circles3 = lin_circles(1, circles1, 1 - dt, circles2, tt);
+    } else {
+      tt = (t - lin_intro_time) / (1 - lin_intro_time);
+      circles3 = transition_circles(geom1, geom2, camera1, camera2, blend(0.25, 1, tt));
+    }
+    var circles4 = [],
+        r = 2 * (1 - t),
+        t_speed = 0.5;
+    for (i=0; i<circles3.length; i++) {
+      var cam = circles3[i].camera;
+      circles4.push({
+        x: cam.cx * (1 + r * Math.cos((i / circles3.length + t * t_speed) * 2 * Math.PI)),
+        y: cam.cy * (1 + r * Math.sin((i / circles3.length + t * t_speed) * 2 * Math.PI)),
+        z: blend(random(i + 0.243), random(i + 0.123), t),
+        opacity: blend(0, 1, t),
+        camera: cam,
+        color: circles3[i].color,
+        r: random(i + 0.283),
+      });
+    }
+    var circles = blend_circles(circles4, circles3, t);
+    show_circles(map(circle_3d, circles));
+  }
+}
+
+function draw_race_transition_fabric(params) {
+  var text1 = markup_text(params.text1),
+      text2 = markup_text(params.text2),
+      perm1 = permutation4lines(text1),
+      perm2 = permutation4lines(text2),
+      position = {
+        top: params.top,
+        width: params.width,
+        height: params.height,
+      };
+  return function(t) {
+    t = cos_easing(t);
+    var geom1 = lines_geom(text1, params.line_spacing),
+        geom2 = lines_geom(text2, params.line_spacing);
+    geom1.circles = permute(geom1.circles, perm1);
+    geom2.circles = permute(geom2.circles, perm2);
+    var camera1 = place_circles(geom1, position),
+        camera2 = place_circles(geom2, position);
+    var circles = transition_circles(geom1, geom2, camera1, camera2, t);
+    show_circles(map(circle_3d, circles));
+  }
+}
+
+window.default_scene = {
+  logo_opacity: 1,
+  logo_left: 2,
+  logo_top: 2,
+  logo_align: 'left',
+  logo_width: 10,
+  text_above_opacity: 1,
+  pause_before: 0,
+  duration: 1,
+  pause_after: 0,
+  dots_text: '',
+  text_above: '',
+  text_above_top: 15,
+  text_above_size: 4,
+  text_above_weight: 300,
+  text_above_opacity: 1,
+  logo_pos_y: 25,
+}
+
+function compile_scenes() {
+  window.merged_default_scene = merge_dicts(window.default_scene, window.scenes_common);
+  var prev_scene = null;
+  for (var i=0; i<window.scenes.length; i++) {
+    var scene = merge_dicts(merged_default_scene, window.scenes[i]);
+    window.scenes[i].fun = compile_scene(prev_scene, scene);
+    prev_scene = scene;
+  }
+}
+
+function compile_scene(prev_scene, scene) {
+  var dots_transition;
+  if (prev_scene === null) {
+    dots_transition = draw_race_intro_fabric({
+      text: scene.dots_text,
+      top: 23,
+      width: 90,
+      height: 10,
+      line_spacing: 1,
+    });
+  } else {
+    dots_transition = draw_race_transition_fabric({
+      text1: prev_scene.dots_text,
+      text2: scene.dots_text,
+      top: 23,
+      width: 90,
+      height: 10,
+      line_spacing: 1,
+    });
+  }
+  return function(t) {
+    var ww = window.innerWidth,
+        wh = window.innerHeight;
+    function len(num) {
+      return num.toFixed(2) + 'vw';
+    }
+    var logo_pos = {
+      left:  scene.logo_left,
+      top: scene.logo_top,
+      width: scene.logo_width,
+      height: scene.logo_width / 11.506 * 6.037,
+    };
+    if (scene.logo_align == 'center') {
+      logo_pos.left = (100 - logo_pos.width) / 2;
+    }
+    set_css('logo', map_pos(logo_pos, len));
+    set_css('logo', {
+      opacity: scene.logo_opacity,
+    });
+    var opacity = 1,
+        text = scene.text_above,
+        prev_text = prev_scene == null ? '' : prev_scene.text_above;
+    if (prev_text != '' && prev_text != scene.text_above) {
+      if (t < 0.5) {
+        text = prev_text;
+        opacity = blend(prev_scene.text_above_opacity, 0, t * 2);
+      } else {
+        opacity = blend(0, scene.text_above_opacity, t * 2 - 1);
+      }
+    }
+    id('pre-block').innerHTML = text
+    set_css('pre-block', {
+      left: 0,
+      right: 0,
+      top: len(scene.text_above_top),
+      fontSize: len(scene.text_above_size),
+      opacity: opacity,
+      fontWeight: scene.text_above_weight,
+    });
+    set_css('post-block1', {
+      top: len(35.6),
+      lineHeight: 1.25,
+      fontSize: len(2.4),
+    });
+    font_size = len(1.05);
+    set_css('post-block2', {
+      visibility: 'none',
+    });
+    set_css('post-block3', {
+      visibility: 'none',
+    });
+    set_css('post-block4', {
+      visibility: 'none',
+    });
+    var bg_w = len(105),
+        bg_h = len(75),
+        bg_x = 50 + '%',
+        bg_y = len(-15),
+        bg_size = bg_w + ' ' + bg_h + ', 100vw ' + bg_h;
+    bg_size = bg_size + ', ' + bg_w + ' 100vh';
+    set_css('body', {
+      backgroundImage: 'url(pod_conv.jpg), url(pod_h.png), url(pod_v.png)',
+      backgroundSize: bg_size,
+      backgroundPosition: bg_x + ' ' + bg_y + ', 0 ' + bg_y + ', ' + bg_x + ' 0%',
+      backgroundRepeat: 'no-repeat, no-repeat, no-repeat',
+    });
+    dots_transition(t);
+  }
+}
+
+function start() {
+  start_animation(0);
+}

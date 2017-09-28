@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>rLoop holding</title>
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet"  property="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300,400" rel="stylesheet"  property="stylesheet"/>
   <style>
     body {
         background-image: url(pod_conv.jpg), url(pod_h.png), url(pod_v.png);
@@ -108,13 +108,30 @@
   </style>
   <script src="script.js"></script>
   <script>
-    window.scenes = [
-      [4, draw_race_intro],      // 4 sec for the first text to appear
-      [2.2],                     // 2.2 sec delay
-      [2, draw_race_transition], // 2 sec for transition
-      [1],                       // 1 sec delay
-      [2, draw_change_color],    // 2 sec to change color
+    window.speed = 0.5;
+    window.scenes_common = {
+        logo_align: 'center',
+        logo_top: 39.5,
+        logo_width: 18,
+    };
+    window.scenes = [{
+        pause_before: 1,
+        duration: 4,
+        pause_after: 2.2,
+        dots_text: 'HYPE*RLOOP*',
+        text_above: 'We are bringing the',
+      }, {
+        duration: 2,
+        pause_after: 1,
+        dots_text: 'BLOCKCHAIN',
+        text_above: 'onto the',
+      }, {
+        duration: 2,
+        pause_after: 0,
+        dots_text: 'OWNTHEHYPE*RLOOP*.COM',
+      }
     ];
+    window.director_mode = true;
   </script>
 </head>
 <body id="body">
