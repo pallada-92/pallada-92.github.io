@@ -45,7 +45,7 @@ function make_browser() {
       ratio = Math.max(ratio, img2h / img2w);
     }
     var ratio_str = Math.floor(ratio * 100) + '%';
-    var ratio_shift = -Math.floor((width - img1w) * ratio);;
+    var ratio_shift = -Math.floor((width - img1w) * ratio);
     if (!elem.data('fit-height')) {
       ratio_shift += width - img1w;
     }
