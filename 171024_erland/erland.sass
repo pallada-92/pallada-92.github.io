@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css?family=Russo+One');
+@import url('https://fonts.googleapis.com/css?family=Vollkorn');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400');
+
+
+$black: #444444
+$white: #dddddd
+$main-font: 'Open Sans'
+$logo-font: 'Russo One'
+
+=no-select
+  -moz-user-select: none
+  -webkit-user-select: none
+  -ms-user-select: none
+  user-select: none
+  cursor: default
+
+html, body
+  margin: 0px
+  font-family: $main-font
+  font-size: 20px
+  background: $black
+
+#content
+  background: white
+
+#header
+  +no-select
+
+  $logo-size: 300px
+    
+  .logo
+    text-align: center
+    font:
+      family: $logo-font
+      size: 30px
+    color: $black
+    padding: 20px
+
+
+$preview-size: 400px  
+$min-editor-width: 400px
+
+#preview
+  width: $preview_size
+  height: $preview_size
+  background: yellow
+
+#configurator
+  background: orange
+
+@media (max-width: $min_editor_width * 2)
+
+  #preview
+    margin: 0px auto
+
+@media (min-width: $min_editor_width * 2)
+
+  #preview
+    position: absolute
+    left: 0px
+    background: yellow
+
+  #configurator
+    margin-left: $preview_size
+    width: calc(100vw - $preview_size)
+    min-height: $preview_size
+
+
+#footer
+  padding:
+    top: 20px
+    bottom: 40px
+  text-align: center
+  color: $white
+    
+  .logo
+    +no-select
+    text-align: center
+    font:
+      family: $logo-font

@@ -1,214 +1,261 @@
-if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-var effectFXAA;
+var camera, controls, scene, font,
+    renderer, dao, raycaster,
+    loader = new THREE.FontLoader(),
+    mouse = new THREE.Vector2();
 
-var mouseX = 0, mouseY = 0,
+window.addEventListener('load', onload1);
 
-	windowHalfX = window.innerWidth / 2,
-	windowHalfY = window.innerHeight / 2,
+function onload1() {
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener('load', function() {
+    dao = new Dao(JSON.parse(this.responseText));
+    loader.load(
+      '/lib/three@0.87.1/fonts/droid/droid_sans_regular.typeface.json',
+      function (font) {
+        window.font = font;
+        init();
+        render();
+      },
+    )
+  });
+  oReq.open('GET', '/170112_match/data.json');
+  oReq.send();
+};
 
-	camera, scene, renderer, material, composer;
-
-init();
-animate();
 
 function init() {
-
-  var i, container;
-
-  container = document.createElement( 'div' );
-  document.body.appendChild( container );
-
-  camera = new THREE.PerspectiveCamera( 33, window.innerWidth / window.innerHeight, 1, 10000 );
-  camera.position.z = 700;
-
   scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x222222);
+  renderer = new THREE.WebGLRenderer({antialias: true});
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  var container = document.getElementById('root');
+  container.appendChild(renderer.domElement);
+  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
+  // camera = new THREE.OrthographicCamera(0, 100, dao.field_height, 0, 1, 10000);
+  camera.position.x = -200;
+  camera.position.y = dao.field_width * 2;
+  camera.position.z = dao.field_height / 2;
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableZoom = true;
+  controls.target = new THREE.Vector3(200, dao.field_width/2, dao.field_height/2);
+  controls.update();
+  controls.addEventListener('change', render);
+  window.addEventListener('resize', onWindowResize, false);
 
-  renderer = new THREE.WebGLRenderer( { antialias: false } );
-  renderer.setPixelRatio( window.devicePixelRatio );
-  renderer.setSize( window.innerWidth, window.innerHeight );
-  renderer.autoClear = false;
+  raycaster = new THREE.Raycaster();
+  raycaster.linePrecision = 3;
+  
+  var players = dao.all_players(),
+      prev_pos = {},
+      geometries = {}, height_geometries = {};
 
-  container.appendChild( renderer.domElement );
-
-  var geometry = new THREE.Geometry(),
-	  geometry2 = new THREE.Geometry(),
-	  geometry3 = new THREE.Geometry(),
-	  points = hilbert3D( new THREE.Vector3( 0,0,0 ), 200.0, 2, 0, 1, 2, 3, 4, 5, 6, 7 ),
-	  colors = [], colors2 = [], colors3 = [];
-
-  for ( i = 0; i < points.length; i ++ ) {
-
-	geometry.vertices.push( points[ i ] );
-
-	colors[ i ] = new THREE.Color( 0xffffff ).setHSL(
-      0.6, 1.0,
-      Math.max(
-        0,
-        ( 200 - points[ i ].x ) / 400
-      ) * 0.5 + 0.5
-    );
-
-	colors2[ i ] = new THREE.Color( 0xffffff ).setHSL(
-      0.2, 1.0, i / points.length 
-    );
-
-	colors3[ i ] = new THREE.Color( 0xffffff ).setHSL(
-      i / points.length, 1.0, 0.5
-    );
-
+  for (var i=0; i<0+1*players.length; i++) {
+    geometries[players[i]] = new THREE.Geometry();
+    height_geometries[players[i]] = new THREE.Geometry();
   }
 
-  geometry2.vertices = geometry3.vertices = geometry.vertices;
-
-  geometry.colors = colors;
-  geometry2.colors = colors2;
-  geometry3.colors = colors3;
-
-  // lines
-
-  material = new THREE.LineBasicMaterial( {
-    // color: 0xffffff,
-    // opacity: 1,
-    linewidth: 4,
-    vertexColors: THREE.VertexColors
-  } );
-
-  var line, p, scale = 0.3, d = 225;
-  var parameters =  [
-	[ material, scale*1.5, [0,0,-d],  geometry ],
-	[ material, scale*1.5, [0,0,0],  geometry2 ],
-	[ material, scale*1.5, [0,0,d],  geometry3 ]
-  ];
-
-  for ( i = 0; i < parameters.length; ++i ) {
-
-	p = parameters[ i ];
-	line = new THREE.Line( p[ 3 ],  p[ 0 ] );
-	line.scale.x = line.scale.y = line.scale.z =  p[ 1 ];
-	line.position.x = p[ 2 ][ 0 ];
-	line.position.y = p[ 2 ][ 1 ];
-	line.position.z = p[ 2 ][ 2 ];
-	scene.add( line );
-
+  function get_color(v) {
+    var c = 0.2;
+    return new THREE.Color(
+      v * c,
+      1 - v * c,
+      1 - v * c,
+    )
   }
 
-  //
+  var text_material = new THREE.MeshBasicMaterial({
+	color: 0xffffff,
+	transparent: true,
+	opacity: 0.5,
+	side: THREE.DoubleSide,
+  });
+  for (var t=0; t<100000; t+=10000) {
+    var shapes = font.generateShapes(t / 1000, 0.1, 1);
+    var geometry = new THREE.ShapeGeometry(shapes);
+    geometry.scale(100, 100, 100);
+    geometry.rotateY(-Math.PI / 2);
+    geometry.translate(t / 100, dao.field_width, dao.field_height);
+    text = new THREE.Mesh(geometry, text_material);
+    scene.add(text);
+  }
+  
+  traj_times = {};
+  for (var t=0; t<100000; t+=100) {
+    var positions = dao.player_positions(1, t);
+    for (var i=0; i<players.length; i++) {
+      var player = players[i],
+          player_pos = positions[player],
+          player_prev_pos = prev_pos[player];
+      if (player_pos && 0) {
+        height_geometries[player].vertices.push(
+	      new THREE.Vector3(t/100, player_pos.Y, player_pos.X),
+	      new THREE.Vector3(t/100, dao.field_width/2, dao.field_height/2),
+        );
+      }
+      if (!player_pos || !player_prev_pos) continue;
+      geometries[player].vertices.push(
+	    new THREE.Vector3((t - 100)/100, player_prev_pos.Y, player_prev_pos.X),
+	    new THREE.Vector3(t/100, player_pos.Y, player_pos.X),
+      );
+      if (!(player in traj_times)) {
+        traj_times[player] = [];
+      }
+      player_pos.T = t;
+      traj_times[player].push(player_pos);
+      geometries[player].colors.push(
+        get_color(player_prev_pos.V),
+        get_color(player_pos.V),
+      );
+      geometries[player].colorsNeedUpdate = true;
+    }
+    prev_pos = positions;
+  }
+  
+  window.sel_player = 'H77';
 
-  stats = new Stats();
-  container.appendChild( stats.dom );
+  for (var i=0; i<players.length; i++) {
+    if (players[i] != sel_player) {
+      var material = new THREE.LineBasicMaterial({
+        color: 0x444444,
+        linewidth: 0.5,
+        transparent: true,
+        opacity: 0.7,
+      });
+    } else {
+      var material = new THREE.LineBasicMaterial({
+        linewidth: 1,
+        vertexColors: THREE.VertexColors,
+      });
+    }
+    var line = new THREE.LineSegments(
+      geometries[players[i]],
+      material
+    );
+    line.userData.type = 'trajectory';
+    line.userData.player = players[i];
+    scene.add(line);
+    var material = new THREE.LineBasicMaterial({
+      color: 0xffffff,
+	  transparent: true,
+	  opacity: 0.1,
+      linewidth: 1,
+    });
+    var line = new THREE.LineSegments(
+      height_geometries[players[i]],
+      material
+    );
+    scene.add(line);
+  }
 
-  //
+  var white_line_material = new THREE.LineBasicMaterial({
+    color: 0xffffff,
+    linewidth: 1,
+  });
+  var geometry = new THREE.BoxGeometry(1000, dao.field_width, dao.field_height),
+      geometry = new THREE.EdgesGeometry( geometry );
+  geometry.translate(500, dao.field_width/2, dao.field_height/2);
+  var box = new THREE.LineSegments(geometry, white_line_material);
+  scene.add(box);
 
-  document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-  document.addEventListener( 'touchstart', onDocumentTouchStart, false );
-  document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+  var events = dao.events(1, 0, 100000),
+      material = new THREE.MeshBasicMaterial({
+        color: 0xbbbbbb
+      }),
+      ball_path = [];
+  for (var i=0; i<events.length; i++) {
+    var event = events[i];
+    if (event.P == sel_player) {
+      var shapes = font.generateShapes(event.title, 0.1, 1);
+      var geometry = new THREE.ShapeGeometry(shapes);
+      geometry.scale(20, 20, 20);
+      geometry.rotateY(-Math.PI / 2);
+      geometry.translate(event.T / 100, event.X, event.Y);
+      text = new THREE.Mesh(geometry, text_material);
+      scene.add(text);
+    }
+    var geometry = new THREE.DodecahedronGeometry(0.3, 0);
+    geometry.translate(event.T/100, event.Y, event.X);
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.userData.type = 'event';
+    mesh.userData.event = event;
+    scene.add(mesh);
+  }
 
-  //
+  var plane = new THREE.Group();
+  plane.name = 'plane';
+  scene.add(plane);
+  
+  var geom = new THREE.Geometry();
+  geom.vertices.push(
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, dao.field_height),
+  );
+  var x_line = new THREE.Line(
+    geom,
+    white_line_material,
+  );
+  x_line.name = 'x_line';
+  plane.add(x_line);
 
-  var renderModel = new THREE.RenderPass( scene, camera );
-  var effectBloom = new THREE.BloomPass( 1.7 );
-  var effectCopy = new THREE.ShaderPass( THREE.CopyShader );
+  var geom = new THREE.Geometry();
+  geom.vertices.push(
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, dao.field_width, 0),
+  );
+  var y_line = new THREE.Line(
+    geom,
+    white_line_material,
+  );
+  y_line.name = 'y_line';
+  plane.add(y_line);
 
-  effectFXAA = new THREE.ShaderPass( THREE.FXAAShader );
+  
+  document.addEventListener(
+    'mousemove',
+    onDocumentMouseMove,
+    false
+  );  
+}
 
-  var width = window.innerWidth || 2;
-  var height = window.innerHeight || 2;
+function update_selected_pos(selected) {
+  var plane = scene.getObjectByName('plane'),
+      x_line = scene.getObjectByName('x_line'),
+      y_line = scene.getObjectByName('y_line');
+  plane.position.setX(selected.T / 100);
+  x_line.position.setY(selected.Y);
+  y_line.position.setZ(selected.X);
+}
 
-  effectFXAA.uniforms[ 'resolution' ].value.set( 1 / width, 1 / height );
-
-  effectCopy.renderToScreen = true;
-
-  composer = new THREE.EffectComposer( renderer );
-
-  composer.addPass( renderModel );
-  composer.addPass( effectFXAA );
-  composer.addPass( effectBloom );
-  composer.addPass( effectCopy );
-
-  window.addEventListener( 'resize', onWindowResize, false );
-
+function onDocumentMouseMove( event ) {
+  event.preventDefault();
+  mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+  mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+  var intersects = raycaster.intersectObjects(
+    scene.children, true
+  );
+  for (var i=0; i<intersects.length; i++) {
+    var inter = intersects[i];
+    if (inter.object.userData.type == 'trajectory') {
+      player = inter.object.userData.player;
+      if (player != sel_player) continue;
+      update_selected_pos(traj_times[player][inter.index / 2]);
+      render();
+      break;
+    }
+  }
 }
 
 function onWindowResize() {
-
-  windowHalfX = window.innerWidth / 2;
-  windowHalfY = window.innerHeight / 2;
-
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-
-  renderer.setSize( window.innerWidth, window.innerHeight );
-
-  effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
-
-  composer.reset();
-
-}
-
-//
-
-function onDocumentMouseMove( event ) {
-
-  mouseX = event.clientX - windowHalfX;
-  mouseY = event.clientY - windowHalfY;
-
-}
-
-function onDocumentTouchStart( event ) {
-
-  if ( event.touches.length > 1 ) {
-
-	event.preventDefault();
-
-	mouseX = event.touches[ 0 ].pageX - windowHalfX;
-	mouseY = event.touches[ 0 ].pageY - windowHalfY;
-
-  }
-
-}
-
-function onDocumentTouchMove( event ) {
-
-  if ( event.touches.length == 1 ) {
-
-	event.preventDefault();
-
-	mouseX = event.touches[ 0 ].pageX - windowHalfX;
-	mouseY = event.touches[ 0 ].pageY - windowHalfY;
-  }
-
-}
-
-//
-
-function animate() {
-
-  requestAnimationFrame( animate );
+  renderer.setSize(window.innerWidth, window.innerHeight);
   render();
-
-  stats.update();
-
 }
 
 function render() {
-
-  camera.position.x += ( mouseX - camera.position.x ) * .05;
-  camera.position.y += ( - mouseY + 200 - camera.position.y ) * .05;
-
-  camera.lookAt( scene.position );
-
-  var time = Date.now() * 0.0005;
-
-  for ( var i = 0; i < scene.children.length; i ++ ) {
-
-	var object = scene.children[ i ];
-	if ( object instanceof THREE.Line ) object.rotation.y = time * ( i % 2 ? 1 : -1 );
-
-  }
-
-  renderer.clear();
-  composer.render();
-
+  renderer.render(scene, camera);
 }
-

@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css?family=Russo+One");
+@import url("https://fonts.googleapis.com/css?family=Vollkorn");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400");
+html, body {
+  margin: 0px;
+  font-family: "Open Sans";
+  font-size: 20px;
+  background: #444444; }
+
+#content {
+  background: white; }
+
+#header {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default; }
+  #header .logo {
+    text-align: center;
+    font-family: "Russo One";
+    font-size: 30px;
+    color: #444444;
+    padding: 20px; }
+
+#preview {
+  width: 400px;
+  height: 400px;
+  background: yellow; }
+
+#configurator {
+  background: orange; }
+
+@media (max-width: 800px) {
+  #preview {
+    margin: 0px auto; } }
+
+@media (min-width: 800px) {
+  #preview {
+    position: absolute;
+    left: 0px;
+    background: yellow; }
+  #configurator {
+    margin-left: 400px;
+    width: calc(100vw - $preview_size);
+    min-height: 400px; } }
+
+#footer {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  text-align: center;
+  color: #dddddd; }
+  #footer .logo {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    text-align: center;
+    font-family: "Russo One"; }

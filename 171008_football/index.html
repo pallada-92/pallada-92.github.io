@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Match visualization</title>
+		<title>three.js</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -14,24 +14,15 @@
 	</head>
 	<body>
 
-		<script src="/lib/three@0.87.1/three.min.js"></script>
+      <div id="root"></div>
 
-		<script src="/lib/three@0.87.1/js/geometries/hilbert3D.js"></script>
+	  <script src="/lib/three@0.87.1/three.min.js"></script>
+	  <script src="/lib/three@0.87.1/js/controls/OrbitControls.js"></script>
+	  <script src="/lib/three@0.87.1/js/Detector.js"></script>
+	  <script src="/lib/three@0.87.1/js/libs/stats.min.js"></script>
 
-		<script src="/lib/three@0.87.1/js/shaders/ConvolutionShader.js"></script>
-		<script src="/lib/three@0.87.1/js/shaders/CopyShader.js"></script>
-		<script src="/lib/three@0.87.1/js/shaders/FXAAShader.js"></script>
+	  <script src="dao.js"></script>
+	  <script src="script.js"></script>
 
-		<script src="/lib/three@0.87.1/js/postprocessing/EffectComposer.js"></script>
-		<!-- <script src="/lib/three@0.87.1/js/postprocessing/MaskPass.js"></script> -->
-		<script src="/lib/three@0.87.1/js/postprocessing/RenderPass.js"></script>
-		<script src="/lib/three@0.87.1/js/postprocessing/ShaderPass.js"></script>
-		<script src="/lib/three@0.87.1/js/postprocessing/BloomPass.js"></script>
-
-		<script src="/lib/three@0.87.1/js/Detector.js"></script>
-		<script src="/lib/three@0.87.1/js/libs/stats.min.js"></script>
-
-		<script src="script.js"></script>
-        
 	</body>
 </html>
