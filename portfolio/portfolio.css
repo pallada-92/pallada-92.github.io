@@ -30,7 +30,7 @@ a:hover {
     display: none;
 }
 
-h1 {
+.title {
     font-size: 22px;
     font-weight: inherit;
     /* font-weight:  500; */
@@ -45,7 +45,7 @@ h1 {
     /* font-style: italic; */
 }
 
-h1 .subtitle {
+.title .subtitle {
     font-size: 16px;
     font-weight: inherit;
 }
@@ -117,7 +117,7 @@ p {
     width: 90%;
 }
 
-.browser .title {
+.browser .heading {
     background-image: url('safari_bg.png');
     background-repeat: repeat-x;
     border-radius: 4px 4px 0px 0px;
@@ -125,12 +125,12 @@ p {
     box-sizing: border-box;
 }
 
-.browser.x100 .title {
+.browser.x100 .heading {
     height: 38px;
     padding-left: 14px;
 } 
 
-.browser.x60 .title {
+.browser.x60 .heading {
     height: calc(38px * 0.6);
     padding-left: calc(14px * 0.6);
 }
@@ -173,4 +173,79 @@ p {
 .browser .page{
     background-position: center center;
     background-repeat: no-repeat;
+}
+
+@media print {
+    .post {
+        margin: 10px 0px 0px 0px;
+        border-top: 1px solid lightgray;
+        padding-top: 20px;
+    }
+    .post.newpage {
+        border-top: none;
+    }
+    .print-100 {
+        width: 70%;
+    }
+    .post .title, .post.subtitle {
+        margin-top: 0px;
+        margin-bottom: 5px;
+    }
+    .post .title {
+        page-break-after: avoid;
+    }
+    .post .title .text {
+        display: inline-block;
+        width: 45%;
+        vertical-align: middle;
+    }
+    .post .title .subtitle {
+        display: inline-block;
+        width: 25%;
+        vertical-align: middle;
+    }
+    .post .title a {
+        white-space: nowrap;
+    }
+    .rows {
+        page-break-inside: avoid;
+        zoom: 0.90;
+        -moz-transform: scale(0.90);
+        -moz-transform-origin: 0 0;
+    }
+    .browser {
+        page-break-inside: avoid;
+        zoom: 0.66;
+        -moz-transform: scale(0.66);
+        -moz-transform-origin: 0 0;
+        margin: 10px auto;
+    }
+    .print-smaller-050 {
+        zoom: 0.50;
+        -moz-transform: scale(0.50);
+        -moz-transform-origin: 0 0;
+    }
+    .print-two-columns {
+        column-count: 2;
+        page-break-inside: avoid;
+    }
+    .long-img {
+        column-count: 2;
+        page-break-inside: avoid;
+    }
+    .print-two-columns .browser,
+    .browser.long-img {
+        zoom: 1;
+        -moz-transform: scale(1);
+        -moz-transform-origin: 0 0;
+    }
+    .newpage {
+        page-break-before: always;
+    }
+    .post.newpage {
+        margin-top: 0px;
+    }
+    .no-print {
+        display: none
+    }
 }

@@ -33,7 +33,7 @@ function make_browser() {
           shift2 = elem.data('shift2').split(' '),
           s2x = +shift2[0], s2y = +shift2[1];
     }
-    var html = '<div class="title">';
+    var html = '<div class="heading">';
     html += '<div class="button red"></div>';
     html += '<div class="button yellow"></div>';
     html += '<div class="button green"></div>';
