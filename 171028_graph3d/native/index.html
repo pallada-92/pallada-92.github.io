@@ -9,11 +9,18 @@
 				margin: 0px;
 				overflow: hidden;
 			}
+            #fullscreen_canvas_3d,
+            #fullscreen_canvas_2d {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+            }
 		</style>
 	</head>
 	<body>
 
-      <canvas id="glCanvas" width="640" height="480"></canvas>
+      <canvas id="fullscreen_canvas_3d" width="640" height="480"></canvas>
+      <canvas id="fullscreen_canvas_2d" width="640" height="480"></canvas>
 
 	  <script src="gl-matrix.js"></script>
 	  <script src="graph.js"></script>
