@@ -45,14 +45,19 @@ function init() {
   container.appendChild(renderer.domElement);
   camera = new THREE.PerspectiveCamera(
     60, window.innerWidth / window.innerHeight,
-    1, 1000000
+    0.1, 3600
   );
   window.addEventListener('resize', onWindowResize, false);
   map_texture.minFilter = THREE.LinearFilter;
-  var map_geo = [[55880.45, 55853.72], [37479.55, 37515.24]],
+  var cx = 0.55, cy = -1,
+      coord_matrix = new THREE.Matrix4(),
+  map_geo = [
+    [37479.55 * cx, 37515.24 * cx],
+    [55880.45 * cy, 55853.72 * cy]
+  ],
       map_geo_center = [
-        map_geo[0][0] + map_geo[0][1],
-        map_geo[1][0] + map_geo[1][1],
+        (map_geo[0][0] + map_geo[0][1]) / 2,
+        (map_geo[1][0] + map_geo[1][1]) / 2,
       ],
       map_px = [
                 [356 / 5950, 5314 / 5950],
@@ -77,11 +82,13 @@ function init() {
         Math.abs(map_geo[0][0] - map_geo[0][1]),
         Math.abs(map_geo[1][0] - map_geo[1][1]),
       );
+  coord_matrix.makeScale(cx, 1, cy);
   camera.position.set(
     map_geo_center[0],
     10,
     map_geo_center[1] + 10,
   );
+  console.log(map_geo_center);
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.addEventListener('change', render);
   controls.enableZoom = true;
@@ -100,10 +107,12 @@ function init() {
   scene.add(map_plane);
   var col = 0xffffff,
       grid_scale =  50,
-      grid_helper = new THREE.GridHelper(10, 10, col, col);
-  grid_helper.position.set(, -0.1, map_geo_center[1]);
-  grid_helper.scale.set(10, 1, 10);
+      grid_helper = new THREE.GridHelper(2000, 200, col, col);
+  grid_helper.applyMatrix(coord_matrix);
+  grid_helper.position.set(37600 * cx, 0.1, 55750 * cy);
+  console.log(grid_helper);
   scene.add(grid_helper);
+  // scene.applyMatrix(matrix);
 }
 
 function onWindowResize() {
