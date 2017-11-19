@@ -1,5 +1,5 @@
 'use strict'
-
+// geomatrix
 /*
 
   tl: 55.880.45, 37.479.55 - верх прибрежного проезда
@@ -94,19 +94,21 @@ function flag(params) {
 var needle_mat = new THREE.LineBasicMaterial({
 	color: 0xffffff,
 }),
-    yellow_mat = new THREE.MeshNormalMaterial({
+    // yellow_mat = new THREE.MeshNormalMaterial({
+    //   side: THREE.DoubleSide,
+    // }),
+    yellow_mat = new THREE.MeshBasicMaterial({
+      color: 'yellow',
       side: THREE.DoubleSide,
     }),
-    /*yellow_mat = new THREE.MeshLambertMaterial({
-      color: 'yellow',
-      
-    });*/
     heatmap_mat = new THREE.MeshBasicMaterial({
       // color: 'yellow',
       transparent: true,
       blending: THREE.AdditiveBlending,
       vertexColors: THREE.VertexColors,
-      side: THREE.DoubleSide,
+      depthTest: false,
+      depthWrite: false,
+      side: THREE.FrontSide,
     }),
     map_mat,
     cur_height_map = {
@@ -116,20 +118,54 @@ var needle_mat = new THREE.LineBasicMaterial({
       gridy: null,
     },
     c = cx / 1000,
-    gridx1 = make_grid_fun(clat - 0.017845, clat + 0.017845, 50),
+    gridx1 = make_grid_fun(clat - 0.017845, clat + 0.017845, 200),
     gridx2 = make_grid_fun(
       gridx1.min * c, gridx1.max * c, gridx1.count),
-    gridy = make_grid_fun(clon - 0.013365, clon + 0.013365, 50),
+    gridy = make_grid_fun(clon - 0.013365, clon + 0.013365, 200),
     hmap = make_heatmap(
       [[clat * c, clon, 2]],
       0.005, 100,
       gridx2, gridy,
-    );
+    ),
+    hmap = make_flats_heatmap(gridx2, gridy, 0.001, c),
+    prices_hmap = make_prices_heatmap(gridx2, gridy, 0.001, c);
+
 cur_height_map.active = true;
 cur_height_map.array = hmap;
 cur_height_map.gridx = gridx1;
 cur_height_map.gridy = gridy;
 
+function make_flats_heatmap(gridx, gridy, rad, c) {
+  var pts = [],
+      results = flats.result;
+  for (var i=0; i<results.length; i++) {
+    var item = results[i];
+    pts.push([item.Lon * c, item.Lat, item.Flats / 1000]);
+  }
+  return make_heatmap(pts, rad, 100, gridx, gridy);
+}
+
+function make_prices_heatmap(gridx, gridy, rad, c) {
+  var pts_s = [],
+      pts_c = [],
+      results = prices.result;
+  for (var i=0; i<results.length; i++) {
+    var item = results[i];
+    pts_s.push([item.Lon * c, item.Lat, item.Price / 100000]);
+    pts_c.push([item.Lon * c, item.Lat, 10]);
+  }
+  console.log(pts_s, pts_c);
+  var h1 = make_heatmap(pts_s, rad, 100, gridx, gridy),
+      h2 = make_heatmap(pts_c, rad, 100, gridx, gridy);
+  for (var i=0; i<h1.length; i++) {
+    if (h2[i] > 100 && h1[i] > 100) {
+      h1[i] = Math.max(0, Math.min(0.08, h1[i] / h2[i] - 0.15));
+    } else {
+      h1[i] = 0;
+    }
+  }
+  return h1;
+}
 
 function needle(params) {
   var geometry = new THREE.Geometry(),
@@ -234,6 +270,7 @@ function add_flats_flags(scene) {
         lat = +t[0], lon = +t[1],
         item = needles[hash];
         // angle = 2 * Math.PI / items.length;
+    // if (item.Flats < 480) continue;
     scene.add(needle({
       lon: lon, lat: lat,
       height: item.Flats / 10,
@@ -253,8 +290,7 @@ function make_grid_fun(min, max, count) {
     // console.log(min, max, count, rmin, rmax);
     // console.log(idx_min, idx_max);
     for (var i=idx_min; i<=idx_max; i++) {
-      var t = (i - idx_min) / (idx_max - idx_min),
-          x = t * (max - min) + min;
+      var x = i / Math.max(0, count - 1) * (max - min) + min;
       pts.push(i, x);
     }
     return pts;
@@ -266,7 +302,7 @@ function make_grid_fun(min, max, count) {
 }
 
 function make_heatmap(pts, rad, coeff, gridx, gridy) {
-  var res = new Uint32Array(gridx.count * gridy.count),
+  var res = new Float32Array(gridx.count * gridy.count),
       zero_rad = rad * 2;
   res.w = gridx.count;
   res.h = gridy.count;
@@ -310,6 +346,18 @@ function add_heatmap_flags(scene, heatmap, gridx, gridy) {
   }
 }
 
+function normalize_heat(heatmap, new_max_val, step) {
+  var old_max_val = -Infinity;
+  for (var i=0; i<heatmap.length; i++) {
+    old_max_val = Math.max(old_max_val, heatmap[i]);
+  }
+  for (var i=0; i<heatmap.length; i++) {
+    heatmap[i] = Math.round(
+      heatmap[i] / old_max_val * new_max_val / step) * step;
+  }
+  heatmap.max_val = new_max_val;
+}
+
 function heatmap_mesh(
   heightmap, heatmap, gridx, gridy, mode, map_px, dz, pallete
 ) {
@@ -331,17 +379,25 @@ function heatmap_mesh(
     for (var iy=0; iy<pts_y.length; iy+=2) {
       var iiy = pts_y[iy],
           y = pts_y[iy + 1],
-          base = iiy * heatmap.w + iix,
-          ty = iy / (pts_y.length - 1);
+          ty = iy / (pts_y.length - 1),
+          base = iiy * heatmap.w + iix;
+          // base2 = (1 * (heatmap.w - 1) - iix) * heatmap.h +
+          // (1 * (heatmap.h - 1) - iiy),
+          // base2 = iix * heatmap.w + iiy,
       positions[base * 3] = x * cx - dx;
       if (typeof(heightmap) == 'undefined') {
         positions[base * 3 + 1] = 0;
       } else {
         positions[base * 3 + 1] = (heightmap[base] + dz) * cz;
       }
+      if (positions[base * 3 + 1] > dz * cz + 1) {
+        // console.log(x, y);
+        // console.log(tx, ty);
+        // console.log(iix, iiy);
+      }
       positions[base * 3 + 2] = y * cy - dy;
       if (mode == 'color') {
-        var color = pallete(heatmap[base]);
+        var color = pallete(heatmap[base] / heatmap.max_val);
         colors[base * 3] = color[0]
         colors[base * 3 + 1] = color[1];
         colors[base * 3 + 2] = color[2];
@@ -358,13 +414,23 @@ function heatmap_mesh(
     for (var iy=0; iy<heatmap.h - 1; iy++) {
       var v1 = iy * heatmap.w + ix,
           v2 = (iy + 1) * heatmap.w + ix;
-      index[i++] = v1;
-      index[i++] = v1 + 1;
-      index[i++] = v2;
+      // if (
+      //   positions[v1 * 3 + 1] == positions[v1 * 3 + 4] &&
+      //   positions[v1 * 3 + 1] == positions[v2 * 3 + 1]
+      // ) {
+        index[i++] = v1;
+        index[i++] = v1 + 1;
+        index[i++] = v2;
+      // 
       //
-      index[i++] = v2 + 1;
-      index[i++] = v2;
-      index[i++] = v1 + 1;
+      // if (
+      //   positions[v2 * 3 + 1] == positions[v2 * 3 + 4] &&
+      //   positions[v2 * 3 + 1] == positions[v1 * 3 + 1]
+      // ) {
+        index[i++] = v2 + 1;
+        index[i++] = v2;
+        index[i++] = v1 + 1;
+      // }
     }
   }
   geometry.setIndex(index);
@@ -412,21 +478,53 @@ function init() {
   map_mat = new THREE.MeshBasicMaterial({
 	map: map_texture,
   });
-  var map_plane = new THREE.Mesh(map_geometry, map_mat),
-      map_mesh = heatmap_mesh(
-        hmap, hmap, gridx1, gridy, 'texture', map_px, 0,
-        (x) => [x / 100, 0, 0],
-      ),
-      hmap_mesh = heatmap_mesh(
-        hmap, hmap, gridx1, gridy, 'color', map_px, 0.01,
-        (x) => [x / 100, 0, 0],
-      );
-  // scene.add(map_plane);
+  make_scene(6);
+}
+
+function make_scene(variant) {
+  function varin() {
+    var args = Array.prototype.slice.call(arguments);
+    return args.indexOf(variant) >= 0;
+  }
+  scene = new THREE.Scene();
+  var map_mesh, hmap_mesh,
+      hmap1, col_fun;
+  if (varin(3)) {
+    normalize_heat(hmap, 20, 4,);
+  } else if (varin(4, 5, 6)) {
+    normalize_heat(hmap, 30, 1,);
+  } else {
+    normalize_heat(hmap, 30, 6,);
+  }
+  hmap1 = varin(2) ? hmap : undefined;
+  map_mesh = heatmap_mesh(
+    hmap1, hmap, gridx1, gridy, 'texture', map_px, 0,
+  );
+  hmap1 = varin(2, 3, 4, 5) ? hmap : undefined;
+  if (varin(2)) {
+    col_fun = (x) => [x / 1.5, 0, 0];
+  } else {
+    col_fun = (x) => [x, 0, 0];
+  }
+  if (varin(1, 2, 3, 5, 6)) {
+    hmap_mesh = heatmap_mesh(
+      hmap1, hmap, gridx1, gridy, 'color', map_px, 0.01,
+      col_fun,
+    );
+    scene.add(hmap_mesh);
+  }
+  if (varin(4, 5, 6)) {
+    col_fun = (x) => [0, 0, x];
+    normalize_heat(prices_hmap, 30, 5,);
+    var prices_hmap_mesh = heatmap_mesh(
+      prices_hmap, prices_hmap, gridx1, gridy, 'color', map_px, 0.01,
+      col_fun,
+    );
+    scene.add(prices_hmap_mesh);
+  }
   scene.add(grid_helper);
-  // scene.add(light);
-  // add_flats_flags(scene);
   scene.add(map_mesh);
-  scene.add(hmap_mesh);
+  cur_height_map.active = varin(2);
   add_cafes_flags(scene);
 }
 
@@ -441,3 +539,9 @@ function render() {
   renderer.render(scene, camera);
 }
 
+window.addEventListener('keydown', (e) => {
+  if ('0123456789'.indexOf(e.key) >= 0) {
+    make_scene(+e.key);
+    render();
+  }
+})
