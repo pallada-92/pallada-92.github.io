@@ -108,18 +108,47 @@ var needle_mat = new THREE.LineBasicMaterial({
       vertexColors: THREE.VertexColors,
       side: THREE.DoubleSide,
     }),
-    map_mat;
+    map_mat,
+    cur_height_map = {
+      active: false,
+      array: null,
+      gridx: null,
+      gridy: null,
+    },
+    c = cx / 1000,
+    gridx1 = make_grid_fun(clat - 0.017845, clat + 0.017845, 50),
+    gridx2 = make_grid_fun(
+      gridx1.min * c, gridx1.max * c, gridx1.count),
+    gridy = make_grid_fun(clon - 0.013365, clon + 0.013365, 50),
+    hmap = make_heatmap(
+      [[clat * c, clon, 2]],
+      0.005, 100,
+      gridx2, gridy,
+    );
+cur_height_map.active = true;
+cur_height_map.array = hmap;
+cur_height_map.gridx = gridx1;
+cur_height_map.gridy = gridy;
 
 
 function needle(params) {
-  var geometry = new THREE.Geometry();
+  var geometry = new THREE.Geometry(),
+      z = getz(params.lat, params.lon);
   geometry.vertices.push(
     new THREE.Vector3(
-      params.lat * cx - dx, 0, params.lon * cy - dy),
+      params.lat * cx - dx, z, params.lon * cy - dy),
 	new THREE.Vector3(
-      params.lat * cx - dx, params.height * cz, params.lon * cy - dy),
+      params.lat * cx - dx, z + params.height * cz, params.lon * cy - dy),
   );
   return new THREE.Line(geometry, needle_mat);
+}
+
+function getz(lat, lon) {
+  if (!cur_height_map.active) return 0;
+  var iix = cur_height_map.gridx(lat, lat)[0],
+      iiy = cur_height_map.gridy(lon, lon)[0],
+      arr = cur_height_map.array;
+  return arr[iiy * arr.w + iix] * cz;
 }
 
 function flag(params) {
@@ -134,10 +163,11 @@ function flag(params) {
     shape.lineTo(cz * seg.maxh, c * (seg.minwmax || 0));
     shape.lineTo(cz * seg.maxh, c * seg.maxwmax);
     shape.closePath();
-    var geometry = new THREE.ShapeGeometry(shape);
+    var geometry = new THREE.ShapeGeometry(shape),
+        z = getz(params.lat, params.lon);
     geometry.rotateZ(Math.PI / 2);
     geometry.rotateY(params.dir);
-    geometry.translate(x, 0, y);
+    geometry.translate(x, z, y);
     var mesh = new THREE.Mesh(geometry, seg.mat);
     res.add(mesh);
   }
@@ -146,7 +176,7 @@ function flag(params) {
 
 function add_cafes_flags(scene) {
   var needles = {},
-  results = cafes.result;
+      results = cafes.result;
   for (var i=0; i<results.length; i++) {
     var item = results[i],
         coords = item.geoData.coordinates,
@@ -281,15 +311,19 @@ function add_heatmap_flags(scene, heatmap, gridx, gridy) {
 }
 
 function heatmap_mesh(
-  heatmap, gridx, gridy, map_px, max_height, step, color
+  heightmap, heatmap, gridx, gridy, mode, map_px, dz, pallete
 ) {
   var geometry = new THREE.BufferGeometry(),
       positions = new Float32Array(gridx.count * gridy.count * 3),
-      colors = new Float32Array(gridx.count * gridy.count * 3),
-      uvs = new Float32Array(gridx.count * gridy.count * 2),
-      index = new Array((gridx.count - 1) * (gridy.count - 1) * 6),
       pts_x = gridx(gridx.min, gridx.max),
-      pts_y = gridy(gridy.min, gridy.max);
+      pts_y = gridy(gridy.min, gridy.max),
+      colors, uvs,
+      index = new Array((gridx.count - 1) * (gridy.count - 1) * 6);
+  if (mode == 'color') {
+    colors = new Float32Array(gridx.count * gridy.count * 3);
+  } else if (mode == 'texture') {
+    uvs = new Float32Array(gridx.count * gridy.count * 2);
+  }
   for (var ix=0; ix<pts_x.length; ix+=2) {
     var iix = pts_x[ix],
         x = pts_x[ix + 1],
@@ -300,15 +334,23 @@ function heatmap_mesh(
           base = iiy * heatmap.w + iix,
           ty = iy / (pts_y.length - 1);
       positions[base * 3] = x * cx - dx;
-      positions[base * 3 + 1] = heatmap[base] * cz;
+      if (typeof(heightmap) == 'undefined') {
+        positions[base * 3 + 1] = 0;
+      } else {
+        positions[base * 3 + 1] = (heightmap[base] + dz) * cz;
+      }
       positions[base * 3 + 2] = y * cy - dy;
-      colors[base * 3] = heatmap[base] * cz / 5;
-      colors[base * 3 + 1] = 0;
-      colors[base * 3 + 2] = 0;
-      uvs[base * 2] =
-        tx * (map_px[0][1] - map_px[0][0]) + map_px[0][0];
-      uvs[base * 2 + 1] =
-        ty * (map_px[1][1] - map_px[1][0]) + map_px[1][0];
+      if (mode == 'color') {
+        var color = pallete(heatmap[base]);
+        colors[base * 3] = color[0]
+        colors[base * 3 + 1] = color[1];
+        colors[base * 3 + 2] = color[2];
+      } else if (mode == 'texture') {
+        uvs[base * 2] =
+          tx * (map_px[0][1] - map_px[0][0]) + map_px[0][0];
+        uvs[base * 2 + 1] =
+          ty * (map_px[1][1] - map_px[1][0]) + map_px[1][0];
+      }
     }
   }
   var i=0;
@@ -328,11 +370,15 @@ function heatmap_mesh(
   geometry.setIndex(index);
   geometry.addAttribute(
     'position', new THREE.BufferAttribute(positions, 3));
-  // geometry.addAttribute(
-    // 'color', new THREE.BufferAttribute(colors, 3));
-  geometry.addAttribute(
-    'uv', new THREE.BufferAttribute(uvs, 2));
-  return new THREE.Mesh(geometry, map_mat);
+  if (mode == 'color') {
+    geometry.addAttribute(
+      'color', new THREE.BufferAttribute(colors, 3));
+    return new THREE.Mesh(geometry, heatmap_mat);
+  } else if (mode == 'texture') {
+    geometry.addAttribute(
+      'uv', new THREE.BufferAttribute(uvs, 2));
+    return new THREE.Mesh(geometry, map_mat);
+  }
 }
 
 function init() {
@@ -366,25 +412,22 @@ function init() {
   map_mat = new THREE.MeshBasicMaterial({
 	map: map_texture,
   });
-  var map_plane = new THREE.Mesh(map_geometry, map_mat);
+  var map_plane = new THREE.Mesh(map_geometry, map_mat),
+      map_mesh = heatmap_mesh(
+        hmap, hmap, gridx1, gridy, 'texture', map_px, 0,
+        (x) => [x / 100, 0, 0],
+      ),
+      hmap_mesh = heatmap_mesh(
+        hmap, hmap, gridx1, gridy, 'color', map_px, 0.01,
+        (x) => [x / 100, 0, 0],
+      );
   // scene.add(map_plane);
   scene.add(grid_helper);
   // scene.add(light);
-  // add_cafes_flags(scene);
   // add_flats_flags(scene);
-  var c = cx / 1000,
-      gridx1 = make_grid_fun(clat - 0.017845, clat + 0.017845, 50),
-      gridx2 = make_grid_fun(
-        gridx1.min * c, gridx1.max * c, gridx1.count),
-      gridy = make_grid_fun(clon - 0.013365, clon + 0.013365, 50),
-      hmap = make_heatmap(
-        [[clat * c, clon, 2]],
-        0.005, 100,
-        gridx2, gridy,
-      );
-  var mesh = heatmap_mesh(hmap, gridx1, gridy, map_px);
-  console.log(mesh);
-  scene.add(mesh);
+  scene.add(map_mesh);
+  scene.add(hmap_mesh);
+  add_cafes_flags(scene);
 }
 
 function onWindowResize() {
