@@ -101,6 +101,10 @@ var needle_mat = new THREE.LineBasicMaterial({
       color: 'yellow',
       side: THREE.DoubleSide,
     }),
+    orange_mat = new THREE.MeshBasicMaterial({
+      color: 'lime',
+      side: THREE.DoubleSide,
+    }),
     heatmap_mat = new THREE.MeshBasicMaterial({
       // color: 'yellow',
       transparent: true,
@@ -122,11 +126,6 @@ var needle_mat = new THREE.LineBasicMaterial({
     gridx2 = make_grid_fun(
       gridx1.min * c, gridx1.max * c, gridx1.count),
     gridy = make_grid_fun(clon - 0.013365, clon + 0.013365, 200),
-    hmap = make_heatmap(
-      [[clat * c, clon, 2]],
-      0.005, 100,
-      gridx2, gridy,
-    ),
     hmap = make_flats_heatmap(gridx2, gridy, 0.001, c),
     prices_hmap = make_prices_heatmap(gridx2, gridy, 0.001, c);
 
@@ -154,11 +153,11 @@ function make_prices_heatmap(gridx, gridy, rad, c) {
     pts_s.push([item.Lon * c, item.Lat, item.Price / 100000]);
     pts_c.push([item.Lon * c, item.Lat, 10]);
   }
-  console.log(pts_s, pts_c);
+  // console.log(pts_s, pts_c);
   var h1 = make_heatmap(pts_s, rad, 100, gridx, gridy),
       h2 = make_heatmap(pts_c, rad, 100, gridx, gridy);
   for (var i=0; i<h1.length; i++) {
-    if (h2[i] > 100 && h1[i] > 100) {
+    if (h2[i] > 100 && h1[i] > 200) {
       h1[i] = Math.max(0, Math.min(0.08, h1[i] / h2[i] - 0.15));
     } else {
       h1[i] = 0;
@@ -221,7 +220,22 @@ function add_cafes_flags(scene) {
       needles[hash] = [];
     }
     item.hash = hash;
+    item.kind = 'cafe';
     needles[hash].push(item);
+  }
+  if ('shops' in window) {
+    results = shops.result;
+    for (var i=0; i<results.length; i++) {
+      var item = results[i],
+          coords = item.geoData.coordinates,
+          hash = coords[0].toFixed(12) + ':' + coords[1].toFixed(12);
+      if (!(hash in needles)) {
+        needles[hash] = [];
+      }
+      item.kind = 'shop';
+      item.hash = hash;
+      needles[hash].push(item);
+    }
   }
   for (var hash in needles) {
     var t = hash.split(':'),
@@ -235,16 +249,23 @@ function add_cafes_flags(scene) {
     for (var i=0; i<items.length; i++) {
       var item = items[i],
           year1 = +item.LicenseBegin.split('.')[2],
-          year2 = +item.LicenseExpire.split('.')[2];
+          year2 = +item.LicenseExpire.split('.')[2],
+          max_year = 20;
+      if ('registration_date' in item) {
+        var reg_date = new Date(item.registration_date);
+        year1 = reg_date.getFullYear();
+        year2 = 2017;
+        max_year = 17
+      }
       scene.add(flag({
         lat: lat, lon: lon, dir: angle * i,
         segments: [
           {
             minh: Math.max(0, year1 - 2000),
-            maxh: Math.min(20, year2 - 2000),
+            maxh: Math.min(max_year, year2 - 2000) / max_year * 20,
             maxwmin: 1, maxwmax: 1,
             minwmin: 0, minwmax: 0,
-            mat: yellow_mat
+            mat: item.kind == 'shop' ? yellow_mat : orange_mat,
           },
         ],
       }));
@@ -478,7 +499,7 @@ function init() {
   map_mat = new THREE.MeshBasicMaterial({
 	map: map_texture,
   });
-  make_scene(6);
+  make_scene(0);
 }
 
 function make_scene(variant) {
@@ -489,22 +510,27 @@ function make_scene(variant) {
   scene = new THREE.Scene();
   var map_mesh, hmap_mesh,
       hmap1, col_fun;
-  if (varin(3)) {
+  if (varin(3, 7)) {
     normalize_heat(hmap, 20, 4,);
   } else if (varin(4, 5, 6)) {
     normalize_heat(hmap, 30, 1,);
-  } else {
-    normalize_heat(hmap, 30, 6,);
+  } else if (varin(7)) {
+    normalize_heat(hmap, 30, 15,);
   }
-  hmap1 = varin(2) ? hmap : undefined;
+  hmap1 = varin(2, 7) ? hmap : undefined;
   map_mesh = heatmap_mesh(
     hmap1, hmap, gridx1, gridy, 'texture', map_px, 0,
   );
-  hmap1 = varin(2, 3, 4, 5) ? hmap : undefined;
+  hmap1 = varin(2, 3, 4, 5, 7) ? hmap : undefined;
   if (varin(2)) {
     col_fun = (x) => [x / 1.5, 0, 0];
   } else {
     col_fun = (x) => [x, 0, 0];
+  }
+  if (varin(7)) {
+    heatmap_mat.depthTest = true;
+  } else {
+    heatmap_mat.depthTest = false;
   }
   if (varin(1, 2, 3, 5, 6)) {
     hmap_mesh = heatmap_mesh(
@@ -513,18 +539,27 @@ function make_scene(variant) {
     );
     scene.add(hmap_mesh);
   }
-  if (varin(4, 5, 6)) {
+  if (varin(4, 5, 6, 7)) {
     col_fun = (x) => [0, 0, x];
-    normalize_heat(prices_hmap, 30, 5,);
+    prices_hmap = make_prices_heatmap(gridx2, gridy, 0.001, c);
+    if (varin()) {
+      normalize_heat(prices_hmap, 30, 10,);
+    } else {
+      normalize_heat(prices_hmap, 30, 5,);
+    }
+    var prices_hmap1 = prices_hmap;
+    if (varin(7)) {
+      prices_hmap1 = hmap;
+    }
     var prices_hmap_mesh = heatmap_mesh(
-      prices_hmap, prices_hmap, gridx1, gridy, 'color', map_px, 0.01,
+      prices_hmap1, prices_hmap, gridx1, gridy, 'color', map_px, 0.01,
       col_fun,
     );
     scene.add(prices_hmap_mesh);
   }
   scene.add(grid_helper);
   scene.add(map_mesh);
-  cur_height_map.active = varin(2);
+  cur_height_map.active = varin(2, 7);
   add_cafes_flags(scene);
 }
 
