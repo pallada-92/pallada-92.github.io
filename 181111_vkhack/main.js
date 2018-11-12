@@ -2,7 +2,7 @@ let loadCount = 4;
 
 let gephiNoverlap = [];
 
-d3.json('https://raw.githubusercontent.com/gotovk/gotovk.github.io/master/assets/graph.json').then((data) => {
+d3.json('https://gist.githubusercontent.com/pallada-92/5f01fb42a770ca0739c555ed9b350f21/raw/e8ad862053034ec4b7067542ae4761269dbcd626/graph.json').then((data) => {
   gephiNoverlap = data;
   loaded();
 })
