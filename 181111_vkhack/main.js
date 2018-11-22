@@ -31,6 +31,58 @@ function showLegend(stationNo) {
   // layer1.setAttribute('transform', `translate(0 -191.17)  scale(${r1 / 10}) translate(${x1}, ${y1}) translate(50 50)`);
 }
 
+const cyrToEn = {
+  "а": "a",
+  "б": "b",
+  "в": "v",
+  "ґ": "g",
+  "г": "g",
+  "д": "d",
+  "е": "e",
+  "ё": "e",
+  "є": "ye",
+  "ж": "zh",
+  "з": "z",
+  "и": "i",
+  "і": "i",
+  "ї": "yi",
+  "й": "i",
+  "к": "k",
+  "л": "l",
+  "м": "m",
+  "н": "n",
+  "о": "o",
+  "п": "p",
+  "р": "r",
+  "с": "s",
+  "т": "t",
+  "у": "u",
+  "ф": "f",
+  "х": "h",
+  "ц": "c",
+  "ч": "ch",
+  "ш": "sh",
+  "щ": "sh'",
+  "ъ": "",
+  "ы": "i",
+  "ь": "",
+  "э": "e",
+  "ю": "yu",
+  "я": "ya",
+};
+
+function translit(text) {
+  let res = '';
+  for (let i=0; i<text.length; i++) {
+    const ch = text[i];
+    const isUpper = ch === ch.toUpperCase();
+    const chl = ch.toLowerCase();
+    const chle = chl in cyrToEn ? cyrToEn[chl] : chl
+    res += isUpper ? chle.toUpperCase() : chle;
+  }
+  return res;
+}
+
 function initialize() {
   lowSVGG.selectAll(".tp").data(regionsCirclesData).enter().append('path')
       .attr("id", ({title}) => 'tp_' + title)
@@ -44,7 +96,7 @@ function initialize() {
       .attr('fill', 'white')
       .append("textPath")
         .attr("xlink:href", ({title}) => "#tp_" + title)
-        .text(({title}) => title);
+        .text(({title}) => translit(title));
   // lowSVGG.call(semaphore);
   lowSVGG.call(drawRegions);
   // upSVGG.call(drawRegionsCircles);
