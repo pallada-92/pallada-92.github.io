@@ -55,9 +55,9 @@ const btnPanelR = 8;
 const btnPanelBL = 37;
 upSVGButtons.append('rect').attr('width', btnPanelW).attr('x', (lWidth - btnPanelW) / 2).attr('y', 10).attr('height', btnPanelH).attr('fill', 'rgba(0, 0, 0, 0.5)').attr('rx', btnPanelR).attr('ry', btnPanelR);
 upSVGButtons.append('rect').attr('id', 'selRect').attr('width', btnPanelW / 3).attr('x', (lWidth - btnPanelW) / 2).attr('y', 10).attr('height', btnPanelH).attr('fill', 'rgba(0, 0, 0, 1)').attr('stroke', 'blue').attr('rx', btnPanelR).attr('ry', btnPanelR);
-upSVGButtons.append('text').text('Карта').attr('transform', `translate(${lWidth * rel}, ${btnPanelBL})`).attr('cursor', 'pointer').on('click', () => mapClick());
-upSVGButtons.append('text').text('Центры').attr('transform', `translate(${lWidth * 0.5}, ${btnPanelBL})`).attr('cursor', 'pointer').on('click', () => centersClick());
-upSVGButtons.append('text').text('Люди').attr('transform', `translate(${lWidth * (1 - rel)}, ${btnPanelBL})`).attr('cursor', 'pointer').on('click', () => peopleClick());
+upSVGButtons.append('text').text('Map').attr('transform', `translate(${lWidth * rel}, ${btnPanelBL})`).attr('cursor', 'pointer').on('click', () => mapClick());
+upSVGButtons.append('text').text('Blood donation centers').attr('transform', `translate(${lWidth * 0.5}, ${btnPanelBL})`).attr('cursor', 'pointer').on('click', () => centersClick());
+upSVGButtons.append('text').text('Donors').attr('transform', `translate(${lWidth * (1 - rel)}, ${btnPanelBL})`).attr('cursor', 'pointer').on('click', () => peopleClick());
 
 let currentMode = 0;
 
@@ -116,7 +116,7 @@ function updatePanel(stationNo) {
   const station = bloodStationsData[stationNo];
   const { semaphore, r1 } = station;
   // rightPanel.style.display = 'block';
-  let html = `<div style="font-size: 25px; margin-top: 0px; margin-bottom: 15px">Пункт сдачи крови №${stationNo}</div>`;
+  let html = `<div style="font-size: 25px; margin-top: 0px; margin-bottom: 15px">Blood donation center №${stationNo}</div>`;
   semaphoreBlood.forEach(([num, resus]) => {
     const numNo = {'I': 0, 'II': 1, 'III': 2, 'IV': 3}[num];
     const resusNo = {'+': 0, '-': 1}[resus];
@@ -126,25 +126,25 @@ function updatePanel(stationNo) {
     </div>`;
     html += `<div style="display: inline-block; font-size: 25px; margin-top: 15px">`
     if (semaphore[numNo][resusNo]) {
-      html += `<input type="button" value="Нужна кровь. Записаться на сдачу" style="width: 300px; cursor: pointer; background: blue; display: inline-block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
+      html += `<input type="button" value="Blood needed" style="width: 300px; cursor: pointer; background: blue; display: inline-block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
     } else {
-      html += `<input type="button" value="Узнать, когда можно сдавать кровь" style="width: 300px; cursor: pointer; background: gray; display: inline-block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
+      html += `<input type="button" value="Blood is not needed. Subscribe to updates" style="width: 300px; cursor: pointer; background: gray; display: inline-block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
     }
     html += `</div></div>`;
   });
   html += '<div style="margin-left: 85px">';
   if (Math.random() > 0.5) {
-    html += `<input type="button" value="Не знаете свою группу крови? Вы все равно можете сдать кровь здесь" style="margin-top: 30px; width: 300px; cursor: pointer; white-space: normal; background: green; display: block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
+    html += `<input type="button" value="Do not know your blood type? You can still donate blood here." style="margin-top: 30px; width: 300px; cursor: pointer; white-space: normal; background: green; display: block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
   }
   html += '</div>';
   html += '<div style="margin-left: 85px">';
-  html += `<input type="button" value="Задать вопрос на форуме" style="margin-top: 30px; width: 300px; cursor: pointer; background: green; display: block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
+  html += `<input type="button" value="Ask question on a forum." style="margin-top: 30px; width: 300px; cursor: pointer; background: green; display: block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
   html += '<div style="margin: 10px; font-size: 15px; color: lightgreen">';
-  html += `Вступайте в сообщество доноров центра сдачи крови №${stationNo}. Нас уже ${Math.round(r1 * r1)}!`;
+  // html += `Become №${stationNo}. Нас уже ${Math.round(r1 * r1)}!`;
   html += '</div>';
   html += '</div>';
   html += '<div style="margin-left: 85px">';
-  html += `<input type="button" value="Сообщить о неточности" style="margin-top: 60px; width: 300px; cursor: pointer; background: gray; display: inline-block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
+  html += `<input type="button" value="Data is incorrect?" style="margin-top: 60px; width: 300px; cursor: pointer; background: gray; display: inline-block; padding: 5px; font-weight: bold; color: white; border: none; border-radius: 5px">`;
   html += '</div>';
   rightPanel.innerHTML = html;
 }

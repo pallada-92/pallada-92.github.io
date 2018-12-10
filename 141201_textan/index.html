@@ -1,0 +1,594 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Visualization test</title>
+<style>
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: white;
+  }
+  #canv {
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    display:block;
+    margin:0px;
+    padding:0px;
+  }
+</style>
+<script src="textan_q1.index.js"></script>
+<script src="textan_q2.index.js"></script>
+<script src="textan_q3.index.js"></script>
+<script src="textan_q4.index.js"></script>
+<script>
+var data = data1;
+var canvas, ctx;
+var mode = 0; // 0 = Начальный экран, 1 = Просмотр статистики слова
+var norm_w = 1000.5; // Серая вертикальная линия
+var norm_h = 500.5; // Серая горизонтальная линия
+var mouse_pos = [0, 0];
+var selected_word = -1;
+var hover_word = -1;
+var hover_rect;
+var hints = [];
+var words_cur_sizes = [];
+var words_cur_coords = [];
+var words_source_sizes = [];
+var words_target_sizes = [];
+var words_source_coords = [];
+var words_target_coords = [];
+var anim_start = 0;
+var anim_end = 0;
+var anim_t = 0;
+var hints_anim_start = 0;
+var hints_anim_end = 0;
+var hints_anim_scale = 1;
+var hints_word = -1;
+var hints_texts = [];
+var hints_show = [];
+var hint_line_length = 40;
+var hint_font_size = 12;
+var hint_char_width;
+var hint_char_height;
+var hint_margin = 2;
+var hint_padding = 4;
+var hints_cur_coords = [];
+var hints_source_coords = [];
+var hints_target_coords = [];
+var words_ids_sorted_by_size = [];
+var words_stats;
+var min_fpc = 100;
+var real_fpc = 0;
+var prev_frame = 0;
+var page_loaded = 0;
+function lin(x0, y0, x1, y1, t) {
+    return y0 + (t - x0) / (x1 - x0) * (y1 - y0);
+}
+function sin_trans(x0, y0, x1, y1, t) {
+    return lin(1, y0, -1, y1, Math.cos(lin(x0, 0, x1, Math.PI, t)));
+}
+function in_rect(rect, pt) {
+    return rect[0] <= pt[0] && rect[1] <= pt[1] && pt[0] <= rect[0] + rect[2] && pt[1] <= rect[1] + rect[3];
+}
+function norm(v){
+  return Math.sqrt(v[0]*v[0] + v[1]*v[1]);
+}
+function vec(p1, p2){
+    return [p2[0] - p1[0], p2[1] - p1[1]];
+}
+function mul(vec, lambda){
+  return [vec[0] * lambda, vec[1] * lambda];
+}
+function sum(vec1, vec2){
+  return [vec1[0] + vec2[0], vec1[1] + vec2[1]];
+}
+function go_away_dest(pos) {
+    var c = [canvas.width/2, canvas.height/2];
+    var v = vec(c, pos);
+    if(norm(v) < 0.001) return [-100, -100];
+    return sum(c, mul(v, 1.2 * norm(c)/norm(v)));
+}
+function rect_center(rect) {
+    return [rect[0] + rect[2] / 2, rect[1] + rect[3] / 2];
+}
+function rects_intersect(rect1, rect2) {
+    var c1 = rect_center(rect1);
+    var c2 = rect_center(rect2);
+    if(Math.abs(c1[0] - c2[0]) > (rect1[2] + rect2[2]) / 2) return false;
+    if(Math.abs(c1[1] - c2[1]) > (rect1[3] + rect2[3]) / 2) return false;
+    return true;
+}
+function rect_inside_rect(rect1, rect2) { // rect1 inside rect2
+    return rect2[0] <= rect1[0] &&
+        rect2[1] <= rect1[1] &&
+        rect1[0] + rect1[2] <= rect2[0] + rect2[2] &&
+        rect1[1] + rect1[3] <= rect2[1] + rect2[3];
+}
+function make_sorted_words() {
+    for(var i=0; i<data.words.length; i++) {
+        words_ids_sorted_by_size[i] = i;
+    }
+    words_ids_sorted_by_size.sort(function(id1, id2){return words_cur_sizes[id1] < words_cur_sizes[id2]});
+}
+function get_words_stats() {
+    var occurences = [];
+    var total_dist = [];
+    for(var i=0; i<data.words.length; i++) {
+        occurences[i] = 0;
+        total_dist[i] = 0;
+    }
+    for(var i=0; i<data.sentences.length; i++) {
+        words_ids = data.sentences[i][2];
+        for(var j=0; j<words_ids.length; j++) {
+            occurences[words_ids[j]] ++;
+            var l = words_ids.length;
+            if(l >= 2) {
+                total_dist[words_ids[j]] += (j * (j+1) / 2 + (l - j) * (l - j - 1) / 2) / (l - 1);
+            }
+        }
+    }
+    var mean_dist = []
+    for(var i=0; i<data.words.length; i++) {
+        mean_dist[i] = Math.max(total_dist[i], 1) / occurences[i];
+    }
+    return {"mean_dist" : mean_dist, "occur" : occurences};
+}
+function find_all(elem, arr) {
+    var res = [];
+    for(var i=0; i<arr.length; i++) {
+        if(arr[i] == elem) {
+            res.push(i);
+        }
+    }
+    return res;
+}
+function dist_to_nearest(pos, arr) {
+    var min_dist = 1000;
+    for(var i=0; i<arr.length; i++) {
+        min_dist = Math.min(Math.abs(pos - arr[i]), min_dist);
+    }
+    return min_dist;
+}
+function get_distance_data(word_id) {
+    var occurences = [];
+    var total_dist = [];
+    for(var i=0; i<data.words.length; i++) {
+        occurences[i] = 0;
+        total_dist[i] = 0;
+    }
+    for(var i=0; i<data.sentences.length; i++) {
+        words_ids = data.sentences[i][2];
+        var ind = words_ids.indexOf(word_id);
+        if(ind == -1) continue;
+        var indexes = find_all(word_id, words_ids);
+        for(var j=0; j<words_ids.length; j++) {
+            total_dist[words_ids[j]] += dist_to_nearest(j, indexes);
+            occurences[words_ids[j]]++;
+        }
+    }
+    var mean_dist = [];
+    for(var i=0; i<data.words.length; i++) {
+        mean_dist[i] = total_dist[i] / occurences[i];
+    }
+    return {"mean_dist" : mean_dist, "occur" : occurences};
+}
+function total_len(str_list) {
+    var res = 0;
+    for(var i=0; i<str_list.length; i++) {
+        res += str_list[i].length;
+    }
+    return res;
+}
+function get_hint_size(str_list) {
+    return [hint_line_length * hint_char_width + hint_margin * 2, Math.ceil(total_len(str_list) / hint_line_length) * hint_char_height + hint_margin * 2];
+}
+function make_hints() {
+    hints_texts = [];
+    if(hover_word == -1) return;
+    for(var i=0; i<data.sentences.length; i++) {
+        if(data.sentences[i][2].indexOf(hover_word) != -1) {
+            if(mode == 1 && data.sentences[i][2].indexOf(selected_word) == -1) continue;
+            var p = [data.sentences[i][0] + ": "];
+            var cur_sent_id = data.sentences[i][0];
+            var prev_sent_id = -1;
+            if(i-1 > 0) {
+                prev_sent_id = data.sentences[i-1][0];
+            }
+            if(cur_sent_id == prev_sent_id) {
+                p[0] += "...";
+            }
+            var begin = 0;
+            for(var j=0; j<data.sentences[i][2].length; j++) {
+                if(data.sentences[i][2][j] == hover_word || data.sentences[i][2][j] == selected_word) {
+                    var word_begin = data.sentences[i][3][2 * j];
+                    var word_end = data.sentences[i][3][2 * j + 1];
+                    p.push(data.sentences[i][1].slice(begin, word_begin));
+                    p.push(data.sentences[i][1].slice(word_begin, word_end));
+                    begin = word_end;
+                }
+            }
+            next_sent_id = -1;
+            if(i+1 < data.sentences.length) {
+                next_sent_id = data.sentences[i+1][0];
+            }
+            var postfix = "";
+            if(next_sent_id == cur_sent_id) {
+                postfix = "...";
+            }
+            p.push(data.sentences[i][1].slice(begin, data.sentences[i][1].length) + postfix);
+            hints_texts.push(p);
+        }
+    }
+}
+function arrange_hints() {
+    var hover_center = rect_center(hover_rect);
+    var rects = [hover_rect];
+    //console.log("arrange", hover_rect);
+    var rad = 1;
+    var seed = 0;
+    for(var i=0; i<hints_texts.length; i++) {
+        var hint_pos;
+        var found;
+        for(var attempt=0; attempt<1000/hints_texts.length; attempt++) {
+            hint_pos = [(2 * pseudo_random(seed) - 1) * rad + hover_center[0], (2 * pseudo_random(seed + 1) - 1) * rad + hover_center[1]];
+            seed += 2;
+            var hint_size = sum(get_hint_size(hints_texts[i]), [hint_padding * 2, hint_padding * 2]);
+            var hint_rect = [hint_pos[0] - hint_size[0] / 2, hint_pos[1] - hint_size[1] / 2].concat(hint_size);
+            if(!rect_inside_rect(hint_rect, [0, 0, canvas.width, canvas.height])) {
+                found = false;
+                rad = Math.min(rad + 3, canvas.width);
+                continue;
+            }
+            found = true;
+            for(var j=0; j<rects.length; j++) {
+                if(rects_intersect(rects[j], hint_rect)) {
+                    found = false;
+                    rad = Math.min(rad + 3, canvas.width);
+                    break;
+                }
+            }
+            if(found) break;
+        }
+        if(found) {
+            rects.push(hint_rect);
+            hints_target_coords[i] = [hint_rect[0] + hint_padding, hint_rect[1] + hint_padding];
+            hints_show[i] = true;
+        } else {
+            hints_show[i] = false;
+        }
+    }
+}
+function pseudo_random(seed) {
+  var r = (Math.sin(seed * 2) + 1) / 2 * 100;
+  return r - Math.floor(r);
+}
+function set_init_target() {
+    mode = 0;
+    var words_rects = [];
+    var words_ids_sorted_by_size = [];
+    for(var i=0; i<data.words.length; i++) {
+        words_target_sizes[i] = Math.max(Math.log(words_stats.occur[i]) * 10, 10);
+        words_ids_sorted_by_size[i] = i;
+    }
+    var seed = 0;
+    words_ids_sorted_by_size.sort(function(a, b) {return words_target_sizes[a] < words_target_sizes[b]});
+    for(var size_pos=0; size_pos<data.words.length; size_pos++) {
+        var i = words_ids_sorted_by_size[size_pos];
+        var new_font = Math.round(words_target_sizes[i]) + 'px Arial';
+        if(ctx.font != new_font) {
+            ctx.font = new_font;
+        }
+        var word_rect_size = [ctx.measureText(data.words[i]).width, Math.round(words_target_sizes[i])];
+        var found = false;
+        var word_rect;
+        var word_pos;
+        for(var attempt=0; attempt<10; attempt++) {
+            word_pos = [pseudo_random(seed) * (canvas.width - word_rect_size[0]), pseudo_random(seed + 1) * (canvas.height - word_rect_size[1])];
+            seed += 2;
+            word_rect = word_pos.concat(word_rect_size);
+            var found = true;
+            for(var j=0; j<words_rects.length; j++) {
+                if(rects_intersect(word_rect, words_rects[j])) {
+                    found = false;
+                    break;
+                }
+            }
+            if(found) break;
+        }
+        if(found) {
+            words_rects.push(word_rect);
+            words_target_coords[i] = word_pos;
+        } else {
+            words_target_coords[i] = go_away_dest(words_cur_coords[i]);
+        }
+    }
+}
+function set_dist_target(word_id) {
+    mode = 1;
+    selected_word = word_id;
+    var dist_data = get_distance_data(word_id);
+    function y_coord(i) {
+        return dist_data.occur[i] * data.words.length / words_stats.occur[i] / words_stats.occur[word_id];
+    }
+    for(var i=0; i<data.words.length; i++) {
+        words_target_sizes[i] = Math.max(Math.log(dist_data.occur[i]) * 10, 10);
+        if(dist_data.occur[i] >= 1) {
+            words_target_coords[i] = [
+                dist_data.mean_dist[i] / words_stats.mean_dist[i] * norm_w,
+                (y_coord(word_id) - y_coord(i)) / (y_coord(word_id) - 1) * norm_h + Math.random() * 30
+            ];
+        } else {
+            words_target_coords[i] = go_away_dest(words_cur_coords[i]);
+        }
+    }
+}
+function start_anim(duration) {
+    anim_start = +new Date();
+    anim_end = anim_start + duration;
+    for(var i=0; i<data.words.length; i++) {
+        words_source_sizes[i] = words_cur_sizes[i];
+        words_source_coords[i] = words_cur_coords[i];
+    }
+}
+function draw() {
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0, canvas.width, canvas.height);
+    ctx.fillStyle = "black";
+    ctx.textBaseline = "top";
+    if(mode == 1) {
+        ctx.strokeStyle = "rgb(200, 200, 200)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, norm_h);
+        ctx.lineTo(canvas.width, norm_h);
+        ctx.moveTo(norm_w, 0);
+        ctx.lineTo(norm_w, canvas.height);
+        ctx.stroke();
+    }
+    hover_word = -1;
+    var drawn = 0;
+    for(var size_pos=0; size_pos<data.words.length; size_pos++) {
+        var i = words_ids_sorted_by_size[size_pos];
+        if(!words_cur_sizes[i] || !words_cur_coords[i]) continue;
+        if(!in_rect([0,0,canvas.width,canvas.height], words_cur_coords[i])) continue;
+        var new_font = Math.round(words_cur_sizes[i]) + 'px Arial';
+        if(ctx.font != new_font) {
+            ctx.font = new_font;
+            drawn++;
+        }
+        var word_rect = words_cur_coords[i].concat([ctx.measureText(data.words[i]).width, Math.round(words_cur_sizes[i])]);
+        if(mouse_pos && in_rect(word_rect, mouse_pos)) {
+            hover_word = i;
+            hover_rect = word_rect;
+        }
+        ctx.fillStyle = "black";
+        ctx.fillText(data.words[i], words_cur_coords[i][0], words_cur_coords[i][1]);
+    }
+    if(hover_word != -1 && hints_word == hover_word) {
+        ctx.fillStyle = "rgba(125,125,125,0." + Math.round(hints_anim_scale * 9) + ")";
+        ctx.fillRect(0,0,canvas.width, canvas.height);
+        for(var i=0; i<hints_texts.length; i++) {
+            if(!hints_show[i]) continue;
+            var c = rect_center(hover_rect);
+            var hint_rect = hints_cur_coords[i].concat(get_hint_size(hints_texts[i]));
+            var hc = rect_center(hint_rect);
+            ctx.strokeStyle = "blue";
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.moveTo(c[0], c[1]);
+            ctx.lineTo(hc[0], hc[1]);
+            ctx.stroke();
+        }
+        ctx.font = "bold " + hint_font_size + "px Courier";
+        for(var i=0; i<hints_texts.length; i++) {
+            if(!hints_show[i]) continue;
+            var c = rect_center(hover_rect);
+            var hint_rect = hints_cur_coords[i].concat(get_hint_size(hints_texts[i]));
+            var hc = rect_center(hint_rect);
+            ctx.save();
+            ctx.translate(hc[0], hc[1]);
+            ctx.scale(hints_anim_scale, hints_anim_scale);
+            ctx.translate(-hint_rect[2]/2, -hint_rect[3]/2);
+            ctx.lineWidth = 1;
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, hint_rect[2], hint_rect[3]);
+            ctx.strokeRect(0, 0, hint_rect[2], hint_rect[3]);
+            ctx.fillStyle = "black";
+            var x = 0, y = 0, sx = 0, sy = 0, hint_text = hints_texts[i], str = "";
+            var part_id = 0, part_pos = 0;
+            while(true) {
+                while(part_id < hint_text.length && part_pos >= hint_text[part_id].length) {
+                    out = true;
+                    part_id ++;
+                    part_pos = 0;
+                    ctx.fillText(str, hint_margin + sx * hint_char_width, hint_margin + sy * hint_char_height);
+                    ctx.fillStyle = part_id % 2 ? "black" : "red";
+                    str = "";
+                    sx = x;
+                    sy = y;
+                }
+                if(part_id >= hint_text.length) {
+                    ctx.fillText(str, hint_margin + sx * hint_char_width, hint_margin + sy * hint_char_height);
+                    break;
+                }
+                if(x >= hint_line_length) {
+                    x = 0;
+                    y += 1;
+                    ctx.fillText(str, hint_margin + sx * hint_char_width, hint_margin + sy * hint_char_height);
+                    str = "";
+                    sx = x;
+                    sy = y;
+                }
+                var c = hint_text[part_id][part_pos];
+                str += c;
+                part_pos++;
+                x += 1;
+            }
+            ctx.restore();
+        }
+    }
+    if(hover_word != -1) {
+        var font_size = Math.round(words_cur_sizes[hover_word]);
+        ctx.font = font_size + 'px Arial';
+        hover_rect = words_cur_coords[hover_word].concat([ctx.measureText(data.words[hover_word] + ": 999").width, font_size]);
+        //console.log("draw", hover_rect);
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 1;
+        ctx.fillStyle = "white";
+        ctx.fillRect(hover_rect[0], hover_rect[1], hover_rect[2], hover_rect[3]);
+        ctx.strokeRect(hover_rect[0], hover_rect[1], hover_rect[2], hover_rect[3]);
+        ctx.fillStyle = "red";
+        ctx.fillText(data.words[hover_word] + ": " + hints_texts.length, hover_rect[0], hover_rect[1]);
+    }
+    if(hover_word) {
+        ctx.font = "15px Courier";
+    }
+    /*
+    ctx.fillStyle = "black";
+    ctx.font = "10px Courier";
+    ctx.fillText(drawn, 0, 0);
+    ctx.fillText(min_fpc, 100, 0);
+    */
+}
+function update(){
+    var t = +new Date();
+    if(anim_start <= t && t <= anim_end) {
+        hints_word = -1;
+        anim_t = lin(anim_start, 0, anim_end, 1, t);
+        for(var i=0; i<data.words.length; i++) {
+            words_cur_coords[i] = [
+                sin_trans(anim_start, words_source_coords[i][0], anim_end, words_target_coords[i][0], t),
+                sin_trans(anim_start, words_source_coords[i][1], anim_end, words_target_coords[i][1], t)
+            ];
+            words_cur_sizes[i] = sin_trans(anim_start, words_source_sizes[i], anim_end, words_target_sizes[i], t);
+        }
+    }
+    if(t > anim_end) {
+        anim_t = 1;
+        for(var i=0; i<data.words.length; i++) {
+            words_cur_coords[i] = words_target_coords[i];
+            words_cur_sizes[i] = words_target_sizes[i];
+        }
+    }
+    if(hover_word != -1) {
+        if(hints_word != hover_word) {
+            make_hints();
+            arrange_hints();
+            hints_anim_start = +new Date();
+            hints_anim_end = hints_anim_start + 300;
+            hints_word = hover_word;
+            for(var i=0; i<hints_texts.length; i++) {
+                hints_source_coords[i] = sum(rect_center(hover_rect), mul(get_hint_size(hints_texts[i]), -1/2));
+            }
+        }
+        var t = +new Date();
+        for(var i=0; i<hints_texts.length; i++) {
+            if(!hints_show[i]) continue;
+            if(hints_anim_start <= t && t <= hints_anim_end) {
+                hints_cur_coords[i] = [
+                    sin_trans(hints_anim_start, hints_source_coords[i][0], hints_anim_end, hints_target_coords[i][0], t),
+                    sin_trans(hints_anim_start, hints_source_coords[i][1], hints_anim_end, hints_target_coords[i][1], t)
+                ];
+            }
+            if(hints_anim_end < t) {
+                hints_cur_coords[i] = hints_target_coords[i];
+            }
+        }
+        hints_anim_scale = 1;
+        if(hints_anim_start <= t && t <= hints_anim_end) {
+            hints_anim_scale = sin_trans(hints_anim_start, 0.1, hints_anim_end, 1, t);
+        }
+    }
+    make_sorted_words();
+}
+window.onresize = function() {
+    if(canvas) {
+        canvas.width = window.innerWidth * 1;
+        canvas.height = window.innerHeight * 1;
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        if(mode == 0) {
+            set_init_target();
+            start_anim(1000);
+        }
+        draw();
+    }
+}
+window.onmousemove = function(e) {
+    mouse_pos = [e.clientX, e.clientY];
+}
+window.onmouseout = function(e) {
+    mouse_pos = undefined;
+}
+window.onkeydown = function(e) {
+    //console.log(e.keyCode);
+    if(e.keyCode == 49) { // "1"
+        data = data1;
+    }
+    if(e.keyCode == 50) { // "2"
+        data = data2;
+    }
+    if(e.keyCode == 51) { // "3"
+        data = data3;
+    }
+    if(e.keyCode == 52) { // "4"
+        data = data4;
+    }
+    if([49, 50, 51, 52].indexOf(e.keyCode) != -1) {
+        words_stats = get_words_stats();
+        words_cur_sizes = [];
+        words_cur_coords = [];
+        for(var i=0; i<data.words.length; i++) {
+            words_cur_sizes[i] = 10;
+            words_cur_coords[i] = go_away_dest([Math.random() * canvas.width, Math.random() * canvas.height]);
+        }
+        set_init_target();
+        start_anim(1000);
+    }
+}
+window.onload = function() {
+    canvas = document.getElementById("canv");
+    ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth * 1;
+    canvas.height = window.innerHeight * 1;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    for(var i=0; i<data.words.length; i++) {
+        words_cur_sizes[i] = 10;
+        words_cur_coords[i] = go_away_dest([Math.random() * canvas.width, Math.random() * canvas.height]);
+    }
+    ctx.font = hint_font_size + "px Courier";
+    hint_char_width = ctx.measureText("W").width;
+    hint_char_height = hint_font_size;
+    words_stats = get_words_stats();
+    set_init_target();
+    start_anim(1000);
+    page_loaded = +new Date();
+    canvas.onmousedown = function(e) {
+        mouse_pos = [e.clientX, e.clientY];
+        if(hover_word == -1) {
+            set_init_target();
+        } else {
+            set_dist_target(hover_word);
+        }
+        start_anim(1000);
+    }
+    setInterval(function(){
+        update();
+        draw();
+        var t = +new Date();
+        real_fpc = 1000 / (t - prev_frame);
+        if(t - page_loaded >= 300) min_fpc = Math.min(real_fpc, min_fpc);
+        prev_frame = t;
+    }, 1000/24)
+}
+</script>
+</head>
+<body>
+<canvas id="canv"></canvas>
+</body>
+</html>
