@@ -1,0 +1,245 @@
+{
+  "nodes": [
+    {
+      "count": 1,
+      "id": "2018_13",
+      "x": 2018,
+      "num": 1,
+      "label": "higher education,social capital,public administration ...",
+      "color": "#C0C0C0"
+    },
+    {
+      "count": 1,
+      "id": "2018_7",
+      "x": 2018,
+      "num": 2,
+      "label": "russian regions,public health,intellectual property ...",
+      "color": "#E19239"
+    },
+    {
+      "count": 1,
+      "id": "2018_3",
+      "x": 2018,
+      "num": 3,
+      "label": "innovation,foresight,knowledge management ...",
+      "color": "#FC1B17"
+    },
+    {
+      "count": 1,
+      "id": "2018_29",
+      "x": 2018,
+      "num": 4,
+      "label": "decision making,social networks,topic modeling ...",
+      "color": "#BB7C64"
+    },
+    {
+      "count": 1,
+      "id": "2018_2",
+      "x": 2018,
+      "num": 5,
+      "label": "graph theory,kolmogorov complexity,computation theory ...",
+      "color": "#0088AE"
+    },
+    {
+      "count": 1,
+      "id": "2018_18",
+      "x": 2018,
+      "num": 6,
+      "label": "game theory,energy efficiency,system dynamics ...",
+      "color": "#BB9A34"
+    },
+    {
+      "count": 1,
+      "id": "2018_22",
+      "x": 2018,
+      "num": 7,
+      "label": "human capital,population dynamics,family policy ...",
+      "color": "#BBADE2"
+    },
+    {
+      "count": 1,
+      "id": "2018_24",
+      "x": 2018,
+      "num": 8,
+      "label": "national identity,social movements,political economy ...",
+      "color": "#BB248B"
+    },
+    {
+      "count": 1,
+      "id": "2018_10",
+      "x": 2018,
+      "num": 9,
+      "label": "formal concept analysis,data mining,machine learning ...",
+      "color": "#E100A5"
+    },
+    {
+      "count": 1,
+      "id": "2018_28",
+      "x": 2018,
+      "num": 10,
+      "label": "algebraic geometry,integrable systems,moduli spaces ...",
+      "color": "#BB3739"
+    },
+    {
+      "count": 1,
+      "id": "2018_5",
+      "x": 2018,
+      "num": 11,
+      "label": "academic writing,critical thinking,communicative competence ...",
+      "color": "#00E1E1"
+    },
+    {
+      "count": 1,
+      "id": "2018_17",
+      "x": 2018,
+      "num": 12,
+      "label": "computational complexity,approximation algorithms,stochastic systems ...",
+      "color": "#BB425B"
+    },
+    {
+      "count": 1,
+      "id": "2018_12",
+      "x": 2018,
+      "num": 13,
+      "label": "life satisfaction,basic values,educational policy ...",
+      "color": "#A020F0"
+    },
+    {
+      "count": 1,
+      "id": "2018_1",
+      "x": 2018,
+      "num": 14,
+      "label": "natural language processing,corpus linguistics,computational linguistics ...",
+      "color": "#54BD01"
+    },
+    {
+      "count": 1,
+      "id": "2018_19",
+      "x": 2018,
+      "num": 15,
+      "label": "big data,process mining,text mining ...",
+      "color": "#BBDF60"
+    },
+    {
+      "count": 1,
+      "id": "2018_9",
+      "x": 2018,
+      "num": 16,
+      "label": "economic growth,public procurement,economic crisis ...",
+      "color": "#008080"
+    },
+    {
+      "count": 1,
+      "id": "2018_23",
+      "x": 2018,
+      "num": 17,
+      "label": "global governance,international relations,property rights ...",
+      "color": "#BBF20D"
+    },
+    {
+      "count": 1,
+      "id": "2018_11",
+      "x": 2018,
+      "num": 18,
+      "label": "human experiment,brain mapping,motor cortex ...",
+      "color": "#A500E1"
+    },
+    {
+      "count": 1,
+      "id": "2018_15",
+      "x": 2018,
+      "num": 19,
+      "label": "monopolistic competition,corporate governance,intellectual capital ...",
+      "color": "#87CEEB"
+    },
+    {
+      "count": 1,
+      "id": "2018_26",
+      "x": 2018,
+      "num": 20,
+      "label": "dynamical systems,cremona group,del pezzo surface ...",
+      "color": "#BBC18F"
+    },
+    {
+      "count": 1,
+      "id": "2018_14",
+      "x": 2018,
+      "num": 21,
+      "label": "finite element method,phase transition,dusty plasmas ...",
+      "color": "#008000"
+    },
+    {
+      "count": 1,
+      "id": "2018_16",
+      "x": 2018,
+      "num": 22,
+      "label": "molecular dynamics,density functional theory,magnetic field ...",
+      "color": "#BBFD30"
+    },
+    {
+      "count": 1,
+      "id": "2018_0",
+      "x": 2018,
+      "num": 23,
+      "label": "russian empire,history of science,contemporary art ...",
+      "color": "#D01702"
+    },
+    {
+      "count": 1,
+      "id": "2018_21",
+      "x": 2018,
+      "num": 24,
+      "label": "high energy physics,radiation effects,dispersion characteristics ...",
+      "color": "#BB5509"
+    },
+    {
+      "count": 1,
+      "id": "2018_4",
+      "x": 2018,
+      "num": 25,
+      "label": "diffusion processes,differential equations,gaussian measure ...",
+      "color": "#E10291"
+    },
+    {
+      "count": 1,
+      "id": "2018_8",
+      "x": 2018,
+      "num": 26,
+      "label": "recommender systems,internet of things,information retrieval ...",
+      "color": "#FF69B4"
+    },
+    {
+      "count": 1,
+      "id": "2018_6",
+      "x": 2018,
+      "num": 27,
+      "label": "particle beams,high-field injection,single-photon detectors ...",
+      "color": "#00A5E1"
+    },
+    {
+      "count": 1,
+      "id": "2018_27",
+      "x": 2018,
+      "num": 28,
+      "label": "molecular modeling,breast cancer,mass spectrometry ...",
+      "color": "#BB06BB"
+    },
+    {
+      "count": 1,
+      "id": "2018_25",
+      "x": 2018,
+      "num": 29,
+      "label": "life expectancy,cause of death,global health ...",
+      "color": "#BB68B6"
+    },
+    {
+      "count": 1,
+      "id": "2018_20",
+      "x": 2018,
+      "num": 30,
+      "label": "linear programming,financial markets,stock market ...",
+      "color": "#BB10DD"
+    }
+  ],
+  "links": []
+}

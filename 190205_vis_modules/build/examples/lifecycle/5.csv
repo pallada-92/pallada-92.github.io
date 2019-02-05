@@ -1,0 +1,628 @@
+year,cluster,cluster_name,n_preprints,n_articles,n_books_and_chapters,color,number,cluster_label
+2008,28,algebraic geometry; optimal transportation; algebraic variety,3.096562438374136,21.67593706861895,3.096562438374136,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2008,19,big data; cloud computing; software engineering,0.0,11.516244754851645,5.992438212972282,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2008,5,blended learning; history of education; performance indicators,3.096562438374136,8.881096482873078,12.147689126136713,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2008,11,brain mapping; motor cortex; visual perception,0.0,14.67104968810714,3.0463907724301387,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2008,6,carbon nanotubes; superplastic forming; magnetic fields,0.0,3.096562438374136,0.0,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2008,17,computational complexity; stochastic systems; combinatorial optimization,8.085567332466482,8.787970655682438,0.0,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2008,18,computer science; system dynamics; decision support systems,11.26918553568668,14.572438130065244,0.0,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2008,10,data mining; machine learning; artificial intelligence,0.0,9.289687315122407,6.150120591653419,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2008,29,decision making; social networks analysis; social media,0.0,20.244418937329925,11.091232258239394,#BB7C64,4,decision making; social networks; topic modeling; social media
+2008,4,diffusion processes; differential equations; chaotic flow,0.0,15.407554692954685,0.0,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2008,26,dynamical systems; representation theory; tropical geometry,0.0,15.30721136106669,0.0,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2008,9,economic growth; international trade; income inequality,5.445340972618324,17.54118304122011,3.096562438374136,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2008,23,global governance; international relations; foreign policy,0.0,27.06213358942173,12.386249753496545,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2008,2,graph theory; computation theory; genetic algorithms,8.085567332466482,18.305925567129524,3.096562438374136,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2008,13,higher education; social capital; public policy,2.7492935320761798,41.01917688781578,15.266975942661151,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2008,22,human capital; population dynamics; family policy,3.03635643924134,5.888441129480907,6.193124876748271,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2008,3,innovation; foresight; knowledge management,6.132918877615476,6.1596770994522725,12.192730470569696,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2008,8,internet of things; information retrieval; knowledge extraction,0.0,6.193124876748271,3.053558153279281,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2008,25,life expectancy; global health; quality of life,0.0,5.737926131648916,0.0,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2008,12,life satisfaction; educational policy; social identity,0.0,15.223428441742794,6.092781544860277,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2008,20,linear programming; financial markets; stock market,0.0,3.096562438374136,0.0,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2008,16,molecular dynamics; magnetic field; quantum theory,0.0,6.193124876748271,0.0,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2008,27,molecular modeling; mass spectrometry; gene expression,0.0,0.0,0.0,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2008,15,monopolistic competition; corporate governance; monetary policy,19.292160973065613,22.76707263475975,5.934284342443893,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2008,24,national identity; social movements; political economy,2.7492935320761798,30.545854778676585,9.289687315122407,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2008,1,natural language processing; computational linguistics; digital humanities,6.193124876748271,6.017524045944282,8.574005433042913,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2008,14,phase transition; numerical methods; earth rotation,0.0,6.117867377832277,3.096562438374136,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2008,21,radiation effects; circuit simulation; high energy physics,0.0,2.7632291050408018,3.0463907724301387,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2008,7,russian regions; intellectual property; health care policy,5.2265756567704,30.862850818289555,3.096562438374136,#E19239,2,russian regions; public health; intellectual property; human rights
+2008,0,urban studies; philosophy of history; cultural sociology,3.03635643924134,9.289687315122407,5.892094881084289,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2009,28,algebraic geometry; optimal transportation; algebraic variety,6.6111326270306074,68.65428326147266,6.6111326270306074,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2009,19,big data; cloud computing; software engineering,0.0,24.739008764797312,15.661250307273411,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2009,5,blended learning; history of education; performance indicators,0.0,26.043157180570454,25.56652635410249,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2009,11,brain mapping; motor cortex; visual perception,0.0,19.09587439171507,12.921235258397234,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2009,6,carbon nanotubes; superplastic forming; magnetic fields,0.0,9.176421653746115,3.2303088145993084,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2009,17,computational complexity; stochastic systems; combinatorial optimization,2.183576790365617,39.814137080106775,21.835767903656173,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2009,18,computer science; system dynamics; decision support systems,6.419230036369016,9.450944913036777,6.009072635702647,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2009,10,data mining; machine learning; artificial intelligence,0.0,19.039012024597167,9.499891846880137,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2009,29,decision making; social networks analysis; social media,2.9106204143611016,32.06490474682848,40.436651881175635,#BB7C64,4,decision making; social networks; topic modeling; social media
+2009,4,diffusion processes; differential equations; chaotic flow,0.0,22.463796918617916,0.0,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2009,26,dynamical systems; representation theory; tropical geometry,3.305566313515304,26.26391251072404,0.0,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2009,9,economic growth; international trade; income inequality,18.389630525649594,22.430436678719214,15.629071016972224,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2009,23,global governance; international relations; foreign policy,3.0498155933247384,12.139414018435476,44.01989170847537,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2009,2,graph theory; computation theory; genetic algorithms,5.297240513219329,16.798580344498696,34.333441474838374,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2009,13,higher education; social capital; public policy,12.118515293766766,41.275660700920675,62.372507291602346,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2009,22,human capital; population dynamics; family policy,9.565523969411414,25.650922495794173,19.513808131831148,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2009,3,innovation; foresight; knowledge management,2.9106204143611016,21.995906959848593,17.228563950668867,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2009,8,internet of things; information retrieval; knowledge extraction,0.0,12.819218391929738,15.89951667768223,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2009,25,life expectancy; global health; quality of life,0.0,9.394017924315227,6.021370338062799,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2009,12,life satisfaction; educational policy; social identity,0.0,24.90101613796699,24.791392929280647,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2009,20,linear programming; financial markets; stock market,0.0,0.0,0.0,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2009,16,molecular dynamics; magnetic field; quantum theory,0.0,19.076069753476233,0.0,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2009,27,molecular modeling; mass spectrometry; gene expression,0.0,0.0,0.0,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2009,15,monopolistic competition; corporate governance; monetary policy,12.755800774851425,25.957865348465663,12.087085127671616,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2009,24,national identity; social movements; political economy,3.1486572503773904,18.92164123966932,34.86504515001996,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2009,1,natural language processing; computational linguistics; digital humanities,3.3055663135153046,31.21620931295305,18.537636005714983,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2009,14,phase transition; numerical methods; earth rotation,0.0,28.848138519231462,5.672343634820503,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2009,21,radiation effects; circuit simulation; high energy physics,0.0,6.034366428881008,6.475669128981818,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2009,7,russian regions; intellectual property; health care policy,12.220393663581948,41.240127942915294,38.36312579878878,#E19239,2,russian regions; public health; intellectual property; human rights
+2009,0,urban studies; philosophy of history; cultural sociology,0.0,12.983704626701384,12.95246994254931,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2010,28,algebraic geometry; optimal transportation; algebraic variety,24.18112411599139,76.64646661710604,3.5512059437479064,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2010,19,big data; cloud computing; software engineering,3.5512059437479064,40.71391724249443,44.26943449914218,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2010,5,blended learning; history of education; performance indicators,0.0,46.454439800308286,33.58036861411291,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2010,11,brain mapping; motor cortex; visual perception,0.0,56.7083642602164,16.712845436625848,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2010,6,carbon nanotubes; superplastic forming; magnetic fields,0.0,26.984367219350723,0.0,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2010,17,computational complexity; stochastic systems; combinatorial optimization,21.409257173525077,29.71615007906975,17.067867140899345,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2010,18,computer science; system dynamics; decision support systems,13.64586123262584,60.705757293782995,30.281621446812053,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2010,10,data mining; machine learning; artificial intelligence,6.5003518961678495,47.062970880629635,20.24286694461505,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2010,29,decision making; social networks analysis; social media,9.617881174694427,61.1246361358076,22.858436063763172,#BB7C64,4,decision making; social networks; topic modeling; social media
+2010,4,diffusion processes; differential equations; chaotic flow,0.0,73.85684971757698,3.5512059437479064,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2010,26,dynamical systems; representation theory; tropical geometry,7.027154388579817,61.06576216744485,6.901725223719826,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2010,9,economic growth; international trade; income inequality,22.764467111638503,62.08749144642736,25.16521945505989,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2010,23,global governance; international relations; foreign policy,9.680256417570165,41.166877200139346,38.159228824537976,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2010,2,graph theory; computation theory; genetic algorithms,11.458042665497315,39.632023831342856,58.267807173269645,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2010,13,higher education; social capital; public policy,35.996556046297506,97.38805004816231,60.54225243106411,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2010,22,human capital; population dynamics; family policy,6.8583059798133394,66.78764290255617,19.152566796656775,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2010,3,innovation; foresight; knowledge management,3.01152119529568,67.16770957268608,50.46739299635549,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2010,8,internet of things; information retrieval; knowledge extraction,0.0,23.30011772429628,13.922645807406274,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2010,25,life expectancy; global health; quality of life,3.3823575349814283,13.468318770144082,6.876639390747827,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2010,12,life satisfaction; educational policy; social identity,6.933563478729335,61.848172179104616,13.903793779327644,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2010,20,linear programming; financial markets; stock market,3.3540329092176764,13.13471822865032,3.2178726104145734,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2010,16,molecular dynamics; magnetic field; quantum theory,0.0,37.35613157943736,3.5512059437479064,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2010,27,molecular modeling; mass spectrometry; gene expression,0.0,3.4964732172635467,3.3505192799719192,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2010,15,monopolistic competition; corporate governance; monetary policy,23.107375336831588,51.00998137460657,15.632145683625838,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2010,24,national identity; social movements; political economy,13.22399455795722,39.57159503848981,58.45966743355746,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2010,1,natural language processing; computational linguistics; digital humanities,13.018797776188824,57.445496619336865,46.78942139936647,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2010,14,phase transition; numerical methods; earth rotation,3.450862611859913,70.39436158842321,6.923930434211746,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2010,21,radiation effects; circuit simulation; high energy physics,3.5512059437479064,30.00065994594077,20.55925461741646,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2010,7,russian regions; intellectual property; health care policy,13.134501109937364,86.64701779792641,47.716761602032,#E19239,2,russian regions; public health; intellectual property; human rights
+2010,0,urban studies; philosophy of history; cultural sociology,0.0,37.50573066522702,25.83008689133256,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2011,28,algebraic geometry; optimal transportation; algebraic variety,37.11502135009209,154.59855922435162,10.57728283782806,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2011,19,big data; cloud computing; software engineering,0.0,50.507363842869395,65.25758735415731,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2011,5,blended learning; history of education; performance indicators,7.186570428386784,28.94993659881909,45.68898154403207,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2011,11,brain mapping; motor cortex; visual perception,0.0,80.73687816055197,13.784525366797563,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2011,6,carbon nanotubes; superplastic forming; magnetic fields,3.6373080289573125,28.70097009363275,17.537884042885096,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2011,17,computational complexity; stochastic systems; combinatorial optimization,3.712565527873308,86.34794383738155,45.75210926558328,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2011,18,computer science; system dynamics; decision support systems,18.22949430603321,54.45076606300089,49.48172127004304,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2011,10,data mining; machine learning; artificial intelligence,0.0,48.59825980142436,91.60549919014584,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2011,29,decision making; social networks analysis; social media,10.528827831324033,54.571245525347386,82.9699776190438,#BB7C64,4,decision making; social networks; topic modeling; social media
+2011,4,diffusion processes; differential equations; chaotic flow,7.138599046827058,47.60753651465647,6.823071064418653,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2011,26,dynamical systems; representation theory; tropical geometry,17.627974113691867,118.12863959775514,10.69230044130403,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2011,9,economic growth; international trade; income inequality,63.34602613925368,73.56975449640808,36.51503042305939,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2011,23,global governance; international relations; foreign policy,17.089594247428632,65.95516853654725,39.720491202626405,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2011,2,graph theory; computation theory; genetic algorithms,0.0,48.59994329194519,68.31700671426633,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2011,13,higher education; social capital; public policy,30.245883689145266,127.29956234600745,130.17957921361455,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2011,22,human capital; population dynamics; family policy,9.799399408600866,86.64003202512234,57.48650721229062,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2011,3,innovation; foresight; knowledge management,19.486553717601907,89.52218034519818,61.05884291936384,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2011,8,internet of things; information retrieval; knowledge extraction,0.0,21.000395252723827,37.317145705643725,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2011,25,life expectancy; global health; quality of life,6.861312929470791,30.062270349640716,21.105881375624133,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2011,12,life satisfaction; educational policy; social identity,6.871724490854815,100.32315873546459,56.36937989409419,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2011,20,linear programming; financial markets; stock market,3.4115355322093266,24.062317279636392,17.226639212418856,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2011,16,molecular dynamics; magnetic field; quantum theory,0.0,71.35895403566165,17.426004306486643,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2011,27,molecular modeling; mass spectrometry; gene expression,0.0,17.950708336538593,0.0,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2011,15,monopolistic competition; corporate governance; monetary policy,40.29688395131756,78.19359909150491,33.684965336342195,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2011,24,national identity; social movements; political economy,6.4769953707011245,58.58488087692122,57.286529541103356,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2011,1,natural language processing; computational linguistics; digital humanities,0.0,32.087833162546474,71.53815788340023,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2011,14,phase transition; numerical methods; earth rotation,3.5620505300413177,57.46036884899368,3.352838445857433,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2011,21,radiation effects; circuit simulation; high energy physics,0.0,38.79326178388968,31.814687091295102,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2011,7,russian regions; intellectual property; health care policy,24.924354780876133,119.70252564711198,42.117684135514736,#E19239,2,russian regions; public health; intellectual property; human rights
+2011,0,urban studies; philosophy of history; cultural sociology,3.712565527873308,24.52617162176932,41.213846353092215,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2012,28,algebraic geometry; optimal transportation; algebraic variety,118.41791227308487,297.2757162696262,31.798685112233173,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2012,19,big data; cloud computing; software engineering,16.9132153345493,149.2301575770171,171.8603217580229,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2012,5,blended learning; history of education; performance indicators,40.54563395232418,107.55839005588815,151.72384404079898,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2012,11,brain mapping; motor cortex; visual perception,13.73490770221954,185.6457070178692,61.37106450442311,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2012,6,carbon nanotubes; superplastic forming; magnetic fields,0.0,116.63116232211365,14.737815562000947,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2012,17,computational complexity; stochastic systems; combinatorial optimization,10.940632736699047,207.00393877716056,85.7406241633428,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2012,18,computer science; system dynamics; decision support systems,28.997304508334647,174.02198758469032,113.55846754518656,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2012,10,data mining; machine learning; artificial intelligence,0.0,165.87290518089824,155.10358283778965,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2012,29,decision making; social networks analysis; social media,42.935856666280365,216.06288230253475,133.58872958329118,#BB7C64,4,decision making; social networks; topic modeling; social media
+2012,4,diffusion processes; differential equations; chaotic flow,15.201053432790903,134.88447965442094,7.4980123291150855,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2012,26,dynamical systems; representation theory; tropical geometry,66.25711023916342,220.98393401604184,21.73610338687177,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2012,9,economic growth; international trade; income inequality,46.978060996054495,162.8705082227797,92.49945042458359,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2012,23,global governance; international relations; foreign policy,60.89251388377021,179.67183436606015,129.20217923761507,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2012,2,graph theory; computation theory; genetic algorithms,55.231774962911224,240.114669416499,140.72050862494817,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2012,13,higher education; social capital; public policy,99.74318487286504,368.6169373107075,306.3283516081563,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2012,22,human capital; population dynamics; family policy,79.36044141773705,204.61475507614318,118.99726707866408,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2012,3,innovation; foresight; knowledge management,85.30342260513764,210.74099698481456,210.25242505646412,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2012,8,internet of things; information retrieval; knowledge extraction,3.9435439771534537,80.41477394850506,77.25061075345845,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2012,25,life expectancy; global health; quality of life,10.719839662511331,69.45578283442877,10.49942466853133,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2012,12,life satisfaction; educational policy; social identity,56.831403544549545,186.95160652594132,151.96142408997568,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2012,20,linear programming; financial markets; stock market,34.52530142273301,43.63105865737065,21.208288174469285,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2012,16,molecular dynamics; magnetic field; quantum theory,0.0,173.33098684052024,3.7177714804054687,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2012,27,molecular modeling; mass spectrometry; gene expression,3.7105539757081143,45.544356342736094,3.9435439771534537,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2012,15,monopolistic competition; corporate governance; monetary policy,74.97304795337871,150.65660431592042,74.15307754792738,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2012,24,national identity; social movements; political economy,43.55105479979425,231.79243596499248,152.96502432132638,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2012,1,natural language processing; computational linguistics; digital humanities,20.888569694037173,125.77412859150196,149.9752091531087,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2012,14,phase transition; numerical methods; earth rotation,11.30821032374658,134.11565086506292,21.9233957723066,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2012,21,radiation effects; circuit simulation; high energy physics,3.9435439771534537,86.98684106727876,46.70595966937577,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2012,7,russian regions; intellectual property; health care policy,95.01253192634029,281.0559771978912,177.75153319554983,#E19239,2,russian regions; public health; intellectual property; human rights
+2012,0,urban studies; philosophy of history; cultural sociology,22.060264486952217,102.95092438906552,96.53312168988451,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2013,28,algebraic geometry; optimal transportation; algebraic variety,234.11624166686946,300.71349818608917,39.49027158623393,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2013,19,big data; cloud computing; software engineering,27.50052457144079,161.2653037131434,259.60281108010713,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2013,5,blended learning; history of education; performance indicators,91.57043580925169,233.7645627093292,186.84462851456908,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2013,11,brain mapping; motor cortex; visual perception,24.92162472427935,246.48053034882915,73.10071071850813,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2013,6,carbon nanotubes; superplastic forming; magnetic fields,3.6471383660631504,118.88126345971105,47.61957994363138,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2013,17,computational complexity; stochastic systems; combinatorial optimization,50.5880816179244,251.32922196400727,152.42661062541444,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2013,18,computer science; system dynamics; decision support systems,95.86810314282356,274.62958815196424,166.0822448277919,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2013,10,data mining; machine learning; artificial intelligence,17.869421261709906,197.7331532007901,257.63141823466634,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2013,29,decision making; social networks analysis; social media,87.34296658533718,281.71242020790567,211.78777248781054,#BB7C64,4,decision making; social networks; topic modeling; social media
+2013,4,diffusion processes; differential equations; chaotic flow,36.91096407087228,159.27931283291045,34.050084135959594,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2013,26,dynamical systems; representation theory; tropical geometry,135.219233026577,263.0101769651494,42.295737400000384,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2013,9,economic growth; international trade; income inequality,168.77335351445802,197.28689185328437,133.0733112976607,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2013,23,global governance; international relations; foreign policy,55.07885701312462,198.76301944272197,122.82641385588457,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2013,2,graph theory; computation theory; genetic algorithms,39.75064177773253,253.3257111922002,242.2489655921333,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2013,13,higher education; social capital; public policy,199.24552979150548,388.6041322198254,229.76268414505418,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2013,22,human capital; population dynamics; family policy,84.48928799027955,256.3593420941272,115.5488297083883,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2013,3,innovation; foresight; knowledge management,164.53278818217242,195.8160460348648,256.14149595990835,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2013,8,internet of things; information retrieval; knowledge extraction,14.216883685929325,80.02917384774209,139.97522328648128,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2013,25,life expectancy; global health; quality of life,9.998094536560142,58.153911341366396,24.519278022564894,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2013,12,life satisfaction; educational policy; social identity,111.40232946547201,223.67662193542628,118.21106603904457,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2013,20,linear programming; financial markets; stock market,35.44643635593935,68.89839302556516,29.32242111804913,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2013,16,molecular dynamics; magnetic field; quantum theory,14.930622880130125,191.99577412460067,18.267079924454073,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2013,27,molecular modeling; mass spectrometry; gene expression,0.0,68.95785938148029,7.356746100430452,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2013,15,monopolistic competition; corporate governance; monetary policy,148.88546966656452,153.52271145264626,69.02664192471627,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2013,24,national identity; social movements; political economy,65.24296622970517,257.70725557937044,113.35146842093998,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2013,1,natural language processing; computational linguistics; digital humanities,31.981066925619988,189.2954474230734,237.31625797467345,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2013,14,phase transition; numerical methods; earth rotation,35.70597798969561,184.22690576413154,32.87016019389973,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2013,21,radiation effects; circuit simulation; high energy physics,7.565958184614336,107.50554635197192,110.83286415319849,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2013,7,russian regions; intellectual property; health care policy,164.34735179483323,367.9332343130077,185.56988989099938,#E19239,2,russian regions; public health; intellectual property; human rights
+2013,0,urban studies; philosophy of history; cultural sociology,40.505557166689094,206.7296610454098,114.21344775186223,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2014,28,algebraic geometry; optimal transportation; algebraic variety,215.25646634061331,422.73225937456766,45.37996513993927,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2014,19,big data; cloud computing; software engineering,27.41964433870371,209.0747070934424,254.1024749695937,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2014,5,blended learning; history of education; performance indicators,103.40628386743471,260.78299427239966,222.7364621916774,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2014,11,brain mapping; motor cortex; visual perception,38.70689699461342,319.2766883997244,47.19374125787379,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2014,6,carbon nanotubes; superplastic forming; magnetic fields,3.95784663370815,207.06376597706551,61.131457039193236,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2014,17,computational complexity; stochastic systems; combinatorial optimization,44.49662704673257,332.49362658227415,148.42340084257611,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2014,18,computer science; system dynamics; decision support systems,73.9800528535053,361.9081908189157,162.8777177273955,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2014,10,data mining; machine learning; artificial intelligence,7.108221858564683,309.8425071430003,269.45916329554285,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2014,29,decision making; social networks analysis; social media,121.88716106304277,476.2187446543472,273.1235482631339,#BB7C64,4,decision making; social networks; topic modeling; social media
+2014,4,diffusion processes; differential equations; chaotic flow,44.846393845823314,212.3066411809509,25.460465111370997,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2014,26,dynamical systems; representation theory; tropical geometry,148.0581964707935,277.80034879624395,53.69069854291704,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2014,9,economic growth; international trade; income inequality,124.4349502430736,304.49950575344917,90.25612592677332,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2014,23,global governance; international relations; foreign policy,106.13765724103148,297.6568116606166,131.7958941857956,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2014,2,graph theory; computation theory; genetic algorithms,60.30101100492861,342.73589918810865,270.49619681646703,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2014,13,higher education; social capital; public policy,265.7103101006706,616.6206090644537,243.21504778539384,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2014,22,human capital; population dynamics; family policy,138.8805073958547,384.2946104198677,128.36679083709257,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2014,3,innovation; foresight; knowledge management,154.4291609405571,477.9214907212814,223.69019241467674,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2014,8,internet of things; information retrieval; knowledge extraction,27.932419223682537,151.29342780217576,161.9972743557253,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2014,25,life expectancy; global health; quality of life,25.79856732977304,128.27294797916434,30.301621037034593,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2014,12,life satisfaction; educational policy; social identity,164.26360576246572,289.1425889514988,97.32452684629742,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2014,20,linear programming; financial markets; stock market,17.772042156286933,96.9983591035548,38.60185186307317,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2014,16,molecular dynamics; magnetic field; quantum theory,10.379197770364831,319.1563391843873,32.48099617845422,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2014,27,molecular modeling; mass spectrometry; gene expression,14.556708956125645,120.20234866142195,17.97519344955167,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2014,15,monopolistic competition; corporate governance; monetary policy,149.71863154991507,276.8787712456577,105.72602250190303,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2014,24,national identity; social movements; political economy,136.92903568324152,358.39919417814934,175.2254563262596,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2014,1,natural language processing; computational linguistics; digital humanities,61.10244829868905,230.91495954723808,229.2650272862751,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2014,14,phase transition; numerical methods; earth rotation,24.04162033231918,238.89313038340288,87.72499349253005,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2014,21,radiation effects; circuit simulation; high energy physics,3.3398656114202714,140.8276222778713,155.1264187288696,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2014,7,russian regions; intellectual property; health care policy,194.2531099445385,433.7249628580066,215.6139474106633,#E19239,2,russian regions; public health; intellectual property; human rights
+2014,0,urban studies; philosophy of history; cultural sociology,110.90520173699151,234.94744171220051,128.26633001009387,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2015,28,algebraic geometry; optimal transportation; algebraic variety,173.83708651029838,418.8555765816166,37.726934635482685,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2015,19,big data; cloud computing; software engineering,21.315214725556167,302.58431135358535,286.77297169860395,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2015,5,blended learning; history of education; performance indicators,109.31295317222578,431.3917212847022,213.85808266035386,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2015,11,brain mapping; motor cortex; visual perception,27.53902706307605,405.99848917157016,77.11818095815184,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2015,6,carbon nanotubes; superplastic forming; magnetic fields,0.0,264.58636103113133,47.75732385725529,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2015,17,computational complexity; stochastic systems; combinatorial optimization,91.47290122293484,410.3008419960264,171.98710575093708,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2015,18,computer science; system dynamics; decision support systems,101.98875284585877,436.0835365914377,223.3058007640033,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2015,10,data mining; machine learning; artificial intelligence,16.250191273692188,312.7786034000972,361.2259817813952,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2015,29,decision making; social networks analysis; social media,132.75200890024882,478.1929741294276,298.4578534263868,#BB7C64,4,decision making; social networks; topic modeling; social media
+2015,4,diffusion processes; differential equations; chaotic flow,45.393931266692675,264.79689821905345,30.658150970356644,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2015,26,dynamical systems; representation theory; tropical geometry,151.54912869647268,255.8748475681752,60.734840426769495,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2015,9,economic growth; international trade; income inequality,153.1418439212469,295.97559307727903,166.39869814627926,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2015,23,global governance; international relations; foreign policy,82.60655444209324,339.4856361699301,153.44207855461306,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2015,2,graph theory; computation theory; genetic algorithms,80.91557176379831,360.18106693891866,299.5678174563529,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2015,13,higher education; social capital; public policy,247.0020114695237,617.8265873016549,345.3077497912286,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2015,22,human capital; population dynamics; family policy,96.66861986887302,496.939156384983,191.7443266058409,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2015,3,innovation; foresight; knowledge management,166.7267508411029,482.69515180081635,256.3125583924628,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2015,8,internet of things; information retrieval; knowledge extraction,17.008614548418635,128.17565357098852,171.24870352410696,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2015,25,life expectancy; global health; quality of life,29.429963642014183,152.43914615106908,17.175088210259116,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2015,12,life satisfaction; educational policy; social identity,111.64773204548464,387.6198826308624,137.58748457576877,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2015,20,linear programming; financial markets; stock market,29.36274508932483,88.44632570754234,59.32604161670145,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2015,16,molecular dynamics; magnetic field; quantum theory,13.702055862071214,476.24844476788354,47.20535304712139,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2015,27,molecular modeling; mass spectrometry; gene expression,7.336036910321944,181.79835639746207,21.58804658322366,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2015,15,monopolistic competition; corporate governance; monetary policy,174.9344397063744,239.1358056935128,131.37512376203858,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2015,24,national identity; social movements; political economy,75.73277331223781,447.2448448293962,178.47423863101844,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2015,1,natural language processing; computational linguistics; digital humanities,111.03989111727057,315.8042558800028,296.4110258071212,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2015,14,phase transition; numerical methods; earth rotation,24.838013615496678,346.1345932102262,105.14145101785894,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2015,21,radiation effects; circuit simulation; high energy physics,17.879352383232128,195.15905087738727,108.47212253822904,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2015,7,russian regions; intellectual property; health care policy,163.22769292826538,569.1090086614041,164.95364343507939,#E19239,2,russian regions; public health; intellectual property; human rights
+2015,0,urban studies; philosophy of history; cultural sociology,77.68804616545536,304.6094634821145,141.3312290384535,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2016,28,algebraic geometry; optimal transportation; algebraic variety,209.97320456145084,486.32955292602793,28.671661501995487,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2016,19,big data; cloud computing; software engineering,20.790932658151807,365.9565022924499,446.325758540704,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2016,5,blended learning; history of education; performance indicators,71.44874104332447,508.6946597951851,258.2698356597541,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2016,11,brain mapping; motor cortex; visual perception,33.464694218236126,573.9828548596746,108.83989204480288,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2016,6,carbon nanotubes; superplastic forming; magnetic fields,7.227820901094147,357.60741664535965,92.603634928356,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2016,17,computational complexity; stochastic systems; combinatorial optimization,50.703103880668095,509.75568992730615,194.25830947706757,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2016,18,computer science; system dynamics; decision support systems,98.31524018048843,481.17692545651914,326.35607969690125,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2016,10,data mining; machine learning; artificial intelligence,17.506977295094863,425.70676479535047,408.19145561450654,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2016,29,decision making; social networks analysis; social media,92.76717272877191,553.7600953933094,315.71257728329203,#BB7C64,4,decision making; social networks; topic modeling; social media
+2016,4,diffusion processes; differential equations; chaotic flow,57.63229843085705,346.4464008329789,35.31213761312149,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2016,26,dynamical systems; representation theory; tropical geometry,149.14698493613076,433.9068765609474,79.2160846388825,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2016,9,economic growth; international trade; income inequality,108.26888432639281,396.08793992395135,147.70217488767202,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2016,23,global governance; international relations; foreign policy,71.68610805412773,451.8543989359288,189.39401759539064,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2016,2,graph theory; computation theory; genetic algorithms,42.76524740747851,546.4665189366499,372.6060419698547,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2016,13,higher education; social capital; public policy,149.63217728615308,795.9852781764528,497.36459565862197,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2016,22,human capital; population dynamics; family policy,84.52415753318526,588.2153698159675,177.54563369128502,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2016,3,innovation; foresight; knowledge management,101.86147176996315,636.6121317841422,345.0244432241231,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2016,8,internet of things; information retrieval; knowledge extraction,7.123608526202843,176.18724617911386,292.31323971363497,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2016,25,life expectancy; global health; quality of life,6.76676047911304,213.54171404020454,16.453087449927825,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2016,12,life satisfaction; educational policy; social identity,79.02907591547134,536.5431456513214,112.40593858969892,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2016,20,linear programming; financial markets; stock market,32.690516817307426,130.86281144093672,68.03897120028418,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2016,16,molecular dynamics; magnetic field; quantum theory,13.490773020242429,544.3658380552065,59.35364978710509,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2016,27,molecular modeling; mass spectrometry; gene expression,16.161990493919145,329.8404805612173,34.9049334227466,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2016,15,monopolistic competition; corporate governance; monetary policy,91.67344788570615,324.59797071218344,125.68991939731684,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2016,24,national identity; social movements; political economy,76.47260367546238,492.7276901346992,218.072748430448,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2016,1,natural language processing; computational linguistics; digital humanities,34.721003867072554,391.4448808220117,311.6132735819576,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2016,14,phase transition; numerical methods; earth rotation,28.066730945281673,536.4041452182995,107.13557457989691,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2016,21,radiation effects; circuit simulation; high energy physics,18.56712583306802,354.15377701104467,278.87042061105274,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2016,7,russian regions; intellectual property; health care policy,113.04543018817749,748.5823450279881,227.33589966076042,#E19239,2,russian regions; public health; intellectual property; human rights
+2016,0,urban studies; philosophy of history; cultural sociology,40.544994004294175,263.0000876855443,156.42521169649112,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2017,28,algebraic geometry; optimal transportation; algebraic variety,148.41234065185782,393.97164848880095,43.052592236005175,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2017,19,big data; cloud computing; software engineering,12.969606954387665,328.996747770427,468.8181663636901,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2017,5,blended learning; history of education; performance indicators,61.02629792405387,479.1304200526551,176.6968402971284,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2017,11,brain mapping; motor cortex; visual perception,45.94921729229905,584.5216463710201,129.70538510634606,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2017,6,carbon nanotubes; superplastic forming; magnetic fields,3.300867104689301,387.83511442731145,106.21821736737827,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2017,17,computational complexity; stochastic systems; combinatorial optimization,41.6713115139058,505.1870378653458,231.89482914163884,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2017,18,computer science; system dynamics; decision support systems,73.22147603168727,559.3184605015774,369.66894728069104,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2017,10,data mining; machine learning; artificial intelligence,46.66145735775479,405.49117819435486,432.4356282021597,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2017,29,decision making; social networks analysis; social media,84.10748862127237,612.4426959396826,372.0982174664498,#BB7C64,4,decision making; social networks; topic modeling; social media
+2017,4,diffusion processes; differential equations; chaotic flow,40.135590104945955,288.5262864161972,59.89822771785936,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2017,26,dynamical systems; representation theory; tropical geometry,98.69000581825868,409.1056193622459,80.1474478430874,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2017,9,economic growth; international trade; income inequality,83.86434200843185,463.86192865428717,151.0152215694778,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2017,23,global governance; international relations; foreign policy,44.86826315546782,406.4907388255632,217.7313643383537,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2017,2,graph theory; computation theory; genetic algorithms,42.576132849171316,483.6338056598687,406.99363323912536,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2017,13,higher education; social capital; public policy,165.8861948589367,828.1644665718933,437.6583204248336,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2017,22,human capital; population dynamics; family policy,85.42344001429724,582.0840883670135,181.68915138546,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2017,3,innovation; foresight; knowledge management,87.43020037377808,687.5956410407769,359.12447799098067,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2017,8,internet of things; information retrieval; knowledge extraction,10.164935097143124,170.14814473619853,207.19357128241074,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2017,25,life expectancy; global health; quality of life,8.296861250867705,235.0306643654094,23.93569459865696,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2017,12,life satisfaction; educational policy; social identity,51.59584578099928,455.47675429482763,145.42296189677575,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2017,20,linear programming; financial markets; stock market,10.982357756537835,150.88940304450955,71.61678947246045,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2017,16,molecular dynamics; magnetic field; quantum theory,6.719905027280107,464.64824740560545,75.35048813718306,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2017,27,molecular modeling; mass spectrometry; gene expression,3.902927096017263,224.85796311444682,49.80135328380509,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2017,15,monopolistic competition; corporate governance; monetary policy,80.49362487418358,356.91901388174256,128.80714373478742,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2017,24,national identity; social movements; political economy,54.036235391627045,514.8235959487027,242.68390027860409,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2017,1,natural language processing; computational linguistics; digital humanities,62.90774888583821,384.6194367022934,320.18055857321554,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2017,14,phase transition; numerical methods; earth rotation,28.619033091330646,455.52443473876235,109.58897236610704,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2017,21,radiation effects; circuit simulation; high energy physics,6.28323272530424,324.95230000408674,238.10909601739726,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2017,7,russian regions; intellectual property; health care policy,148.4606408549894,707.7943631492799,284.66228476647586,#E19239,2,russian regions; public health; intellectual property; human rights
+2017,0,urban studies; philosophy of history; cultural sociology,49.45094533343625,341.55092398476916,121.79436584650783,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
+2018,28,algebraic geometry; optimal transportation; algebraic variety,102.57928191446258,399.37372467316214,17.2094069682973,#BB3739,10,"algebraic geometry; integrable systems; moduli spaces; 
+optimal transportation"
+2018,19,big data; cloud computing; software engineering,16.00614760634331,226.68742308824508,304.9867551942111,#BBDF60,15,"big data; process mining; text mining; cloud computing; 
+software engineering"
+2018,5,blended learning; history of education; performance indicators,25.819112403686734,310.6311925589193,175.77867996531967,#00E1E1,11,"academic writing; critical thinking; communicative competence; 
+behavioral economics"
+2018,11,brain mapping; motor cortex; visual perception,32.93508943257947,387.78227581516114,98.0100160404414,#A500E1,18,"human experiment; brain mapping; motor cortex; 
+working memory; visual search; prefrontal cortex"
+2018,6,carbon nanotubes; superplastic forming; magnetic fields,0.0,350.0074663665132,51.01921469681131,#00A5E1,27,"particle beams; high-field injection; single-photon detectors; 
+carbon nanotubes; plasma focus; superplastic forming"
+2018,17,computational complexity; stochastic systems; combinatorial optimization,31.401983521634737,397.48023780044525,167.73876115283795,#BB425B,12,"computational complexity; approximation algorithms; 
+stochastic systems; scheduling theory; combinatorial optimization"
+2018,18,computer science; system dynamics; decision support systems,33.407751502505604,388.72422043382124,278.70738957152093,#BB9A34,6,"game theory; energy efficiency; system dynamics; 
+supply chains"
+2018,10,data mining; machine learning; artificial intelligence,18.95273279208243,262.56363215193056,331.6530418959873,#E100A5,9,"formal concept analysis; data mining; machine learning; 
+artificial intelligence; neural networks"
+2018,29,decision making; social networks analysis; social media,31.511901106708798,422.1052738138013,261.93899081974814,#BB7C64,4,decision making; social networks; topic modeling; social media
+2018,4,diffusion processes; differential equations; chaotic flow,25.04480917172735,276.55016434562907,43.83432716733595,#E10291,25,"diffusion processes; differential equations; gaussian measure; 
+spatial discretization"
+2018,26,dynamical systems; representation theory; tropical geometry,62.32426355349085,335.5651076171507,50.12881769730718,#BBC18F,20,"dynamical systems; cremona group; del pezzo surface;
+representation theory; mirror symmetry; tropical geometry"
+2018,9,economic growth; international trade; income inequality,61.2774060758091,336.2201615652901,120.6679099900015,#008080,16,"economic growth; public procurement; economic crisis; 
+international trade; multinational corporations"
+2018,23,global governance; international relations; foreign policy,36.40719783480768,298.30145015827753,210.36386028825248,#BBF20D,17,"global governance; international relations; property rights; 
+foreign policy"
+2018,2,graph theory; computation theory; genetic algorithms,20.57993045329966,326.41716887116337,242.4010017970296,#0088AE,5,"graph theory; kolmogorov complexity; computation theory; 
+resource management"
+2018,13,higher education; social capital; public policy,73.61885843465483,645.4422263274132,390.451685182892,#C0C0C0,1,"higher education; social capital; public administration; civil society; 
+labor market"
+2018,22,human capital; population dynamics; family policy,33.466719366639786,448.2241172556703,185.25344257022502,#BBADE2,7,"human capital; population dynamics; family policy; 
+youth migration"
+2018,3,innovation; foresight; knowledge management,63.264294920416965,487.3516377927056,255.0241913071508,#FC1B17,3,innovation; foresight; knowledge management; technology transfer
+2018,8,internet of things; information retrieval; knowledge extraction,9.49907451640308,120.4402871222381,176.01513938154756,#FF69B4,26,"recommender systems; internet of things; information retrieval; 
+wireless networks"
+2018,25,life expectancy; global health; quality of life,6.3486782183121155,159.12478664392447,26.73749429579452,#BB68B6,29,"life expectancy; cause of death; global health; quality of life; 
+age distribution; cost of illness"
+2018,12,life satisfaction; educational policy; social identity,61.855776392461244,425.5641530978232,137.1456322746456,#A020F0,13,"life satisfaction; basic values; educational policy; 
+emotional intelligence; social identity"
+2018,20,linear programming; financial markets; stock market,10.368568888142132,117.79175742013378,30.264245029053487,#BB10DD,30,"linear programming; financial markets; stock market; 
+market graph; price dynamics"
+2018,16,molecular dynamics; magnetic field; quantum theory,16.566286601236783,469.7638061818645,55.875961044943324,#BBFD30,22,"molecular dynamics; density functional theory; magnetic field; 
+quantum theory; thin films"
+2018,27,molecular modeling; mass spectrometry; gene expression,0.0,172.64532168021634,32.851527428226596,#BB06BB,28,"molecular modeling; breast cancer; mass spectrometry; 
+amino acid sequence; dopaminergic neurons; gene expression"
+2018,15,monopolistic competition; corporate governance; monetary policy,58.4407159007236,338.13999457673657,101.73692140545198,#87CEEB,19,"monopolistic competition; corporate governance; 
+intellectual capital; monetary policy; ownership structure"
+2018,24,national identity; social movements; political economy,8.473940293049658,457.36320240697637,221.9022846283825,#BB248B,8,"national identity; social movements; political economy; 
+collective memory; cold war"
+2018,1,natural language processing; computational linguistics; digital humanities,12.34830424555014,314.06858099473664,227.89011454315443,#54BD01,14,"natural language processing; corpus linguistics; 
+computational linguistics; digital humanities"
+2018,14,phase transition; numerical methods; earth rotation,33.30620757013096,453.9805950650405,80.67983217724877,#008000,21,"finite element method; phase transition; dusty plasmas; 
+number theory; numerical methods; earth rotation"
+2018,21,radiation effects; circuit simulation; high energy physics,3.1388632492913877,181.51347805887298,153.17489140432627,#BB5509,24,"high energy physics; radiation effects; dispersion characteristics; 
+coupling coefficient; circuit simulation"
+2018,7,russian regions; intellectual property; health care policy,57.086010899074715,543.7050640852603,240.2125481472641,#E19239,2,russian regions; public health; intellectual property; human rights
+2018,0,urban studies; philosophy of history; cultural sociology,6.2622155988415935,246.08620156086133,143.61657224816028,#D01702,23,"russian empire; history of science; contemporary art; cultural 
+heritage; transmedia storytelling; russian philosophy; middle ages"
