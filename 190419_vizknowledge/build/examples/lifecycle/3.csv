@@ -1,0 +1,618 @@
+cluster,cluster_name,year,n_preprints,n_articles,n_books_and_chapters
+0,urban studies; history of philosophy; cultural sociology,2008,0,0,1
+0,urban studies; history of philosophy; cultural sociology,2009,0,0,4
+0,urban studies; history of philosophy; cultural sociology,2010,0,0,1
+0,urban studies; history of philosophy; cultural sociology,2010,0,0,2
+0,urban studies; history of philosophy; cultural sociology,2011,1,5,2
+0,urban studies; history of philosophy; cultural sociology,2011,1,5,9
+0,urban studies; history of philosophy; cultural sociology,2012,8,40,6
+0,urban studies; history of philosophy; cultural sociology,2012,8,40,21
+0,urban studies; history of philosophy; cultural sociology,2013,17,51,5
+0,urban studies; history of philosophy; cultural sociology,2013,17,51,17
+0,urban studies; history of philosophy; cultural sociology,2014,32,71,9
+0,urban studies; history of philosophy; cultural sociology,2014,32,71,35
+0,urban studies; history of philosophy; cultural sociology,2015,24,93,11
+0,urban studies; history of philosophy; cultural sociology,2015,24,93,43
+0,urban studies; history of philosophy; cultural sociology,2016,10,103,10
+0,urban studies; history of philosophy; cultural sociology,2016,10,103,51
+0,urban studies; history of philosophy; cultural sociology,2017,11,104,9
+0,urban studies; history of philosophy; cultural sociology,2017,11,104,27
+0,urban studies; history of philosophy; cultural sociology,2018,1,62,14
+0,urban studies; history of philosophy; cultural sociology,2018,1,62,39
+1,natural language processing; computational linguistics; digital humanities,2008,1,2,1
+1,natural language processing; computational linguistics; digital humanities,2008,1,2,4
+1,natural language processing; computational linguistics; digital humanities,2009,1,3,2
+1,natural language processing; computational linguistics; digital humanities,2010,4,8,2
+1,natural language processing; computational linguistics; digital humanities,2010,4,8,9
+1,natural language processing; computational linguistics; digital humanities,2011,0,0,2
+1,natural language processing; computational linguistics; digital humanities,2011,0,0,13
+1,natural language processing; computational linguistics; digital humanities,2012,7,20,3
+1,natural language processing; computational linguistics; digital humanities,2012,7,20,28
+1,natural language processing; computational linguistics; digital humanities,2013,7,33,5
+1,natural language processing; computational linguistics; digital humanities,2013,7,33,46
+1,natural language processing; computational linguistics; digital humanities,2014,14,27,1
+1,natural language processing; computational linguistics; digital humanities,2014,14,27,43
+1,natural language processing; computational linguistics; digital humanities,2015,32,48,6
+1,natural language processing; computational linguistics; digital humanities,2015,32,48,57
+1,natural language processing; computational linguistics; digital humanities,2016,11,77,4
+1,natural language processing; computational linguistics; digital humanities,2016,11,77,74
+1,natural language processing; computational linguistics; digital humanities,2017,9,70,3
+1,natural language processing; computational linguistics; digital humanities,2017,9,70,63
+1,natural language processing; computational linguistics; digital humanities,2018,4,68,7
+1,natural language processing; computational linguistics; digital humanities,2018,4,68,51
+2,graph theory; computation theory; genetic algorithms,2008,0,0,1
+2,graph theory; computation theory; genetic algorithms,2008,0,0,1
+2,graph theory; computation theory; genetic algorithms,2009,1,4,1
+2,graph theory; computation theory; genetic algorithms,2009,1,4,1
+2,graph theory; computation theory; genetic algorithms,2010,0,0,1
+2,graph theory; computation theory; genetic algorithms,2010,0,0,2
+2,graph theory; computation theory; genetic algorithms,2011,1,6,1
+2,graph theory; computation theory; genetic algorithms,2011,1,6,9
+2,graph theory; computation theory; genetic algorithms,2012,4,33,6
+2,graph theory; computation theory; genetic algorithms,2012,4,33,11
+2,graph theory; computation theory; genetic algorithms,2013,5,30,6
+2,graph theory; computation theory; genetic algorithms,2013,5,30,29
+2,graph theory; computation theory; genetic algorithms,2014,2,53,9
+2,graph theory; computation theory; genetic algorithms,2014,2,53,35
+2,graph theory; computation theory; genetic algorithms,2015,6,45,2
+2,graph theory; computation theory; genetic algorithms,2015,6,45,29
+2,graph theory; computation theory; genetic algorithms,2016,7,43,5
+2,graph theory; computation theory; genetic algorithms,2016,7,43,35
+2,graph theory; computation theory; genetic algorithms,2017,5,62,5
+2,graph theory; computation theory; genetic algorithms,2017,5,62,55
+2,graph theory; computation theory; genetic algorithms,2018,3,35,7
+2,graph theory; computation theory; genetic algorithms,2018,3,35,24
+3,innovation; foresight; knowledge management,2008,0,0,1
+3,innovation; foresight; knowledge management,2009,0,0,4
+3,innovation; foresight; knowledge management,2010,0,0,3
+3,innovation; foresight; knowledge management,2011,0,0,1
+3,innovation; foresight; knowledge management,2011,0,0,17
+3,innovation; foresight; knowledge management,2012,15,33,7
+3,innovation; foresight; knowledge management,2012,15,33,33
+3,innovation; foresight; knowledge management,2013,34,52,8
+3,innovation; foresight; knowledge management,2013,34,52,35
+3,innovation; foresight; knowledge management,2014,27,67,9
+3,innovation; foresight; knowledge management,2014,27,67,33
+3,innovation; foresight; knowledge management,2015,35,77,6
+3,innovation; foresight; knowledge management,2015,35,77,28
+3,innovation; foresight; knowledge management,2016,26,102,11
+3,innovation; foresight; knowledge management,2016,26,102,75
+3,innovation; foresight; knowledge management,2017,26,126,4
+3,innovation; foresight; knowledge management,2017,26,126,45
+3,innovation; foresight; knowledge management,2018,11,98,7
+3,innovation; foresight; knowledge management,2018,11,98,32
+4,diffusion processes; differential equations; chaotic flow,2010,0,0,1
+4,diffusion processes; differential equations; chaotic flow,2011,4,15,2
+4,diffusion processes; differential equations; chaotic flow,2012,6,29,5
+4,diffusion processes; differential equations; chaotic flow,2013,14,32,1
+4,diffusion processes; differential equations; chaotic flow,2013,14,32,2
+4,diffusion processes; differential equations; chaotic flow,2014,10,49,1
+4,diffusion processes; differential equations; chaotic flow,2014,10,49,1
+4,diffusion processes; differential equations; chaotic flow,2015,9,53,3
+4,diffusion processes; differential equations; chaotic flow,2015,9,53,7
+4,diffusion processes; differential equations; chaotic flow,2016,16,63,4
+4,diffusion processes; differential equations; chaotic flow,2017,11,69,1
+4,diffusion processes; differential equations; chaotic flow,2017,11,69,6
+4,diffusion processes; differential equations; chaotic flow,2018,15,58,3
+4,diffusion processes; differential equations; chaotic flow,2018,15,58,5
+5,blended learning; history of education; performance indicators,2008,0,0,2
+5,blended learning; history of education; performance indicators,2009,0,0,2
+5,blended learning; history of education; performance indicators,2010,0,0,4
+5,blended learning; history of education; performance indicators,2011,0,0,4
+5,blended learning; history of education; performance indicators,2011,0,0,2
+5,blended learning; history of education; performance indicators,2012,0,0,5
+5,blended learning; history of education; performance indicators,2012,0,0,7
+5,blended learning; history of education; performance indicators,2013,0,0,4
+5,blended learning; history of education; performance indicators,2013,0,0,7
+5,blended learning; history of education; performance indicators,2014,0,0,8
+5,blended learning; history of education; performance indicators,2014,0,0,7
+5,blended learning; history of education; performance indicators,2015,3,19,5
+5,blended learning; history of education; performance indicators,2015,3,19,9
+5,blended learning; history of education; performance indicators,2016,0,0,6
+5,blended learning; history of education; performance indicators,2016,0,0,7
+5,blended learning; history of education; performance indicators,2017,2,9,12
+5,blended learning; history of education; performance indicators,2017,2,9,9
+5,blended learning; history of education; performance indicators,2018,1,7,4
+5,blended learning; history of education; performance indicators,2018,1,7,4
+6,carbon nanotubes; superplastic forming; magnetic fields,2010,0,0,1
+6,carbon nanotubes; superplastic forming; magnetic fields,2011,0,0,3
+6,carbon nanotubes; superplastic forming; magnetic fields,2012,0,0,4
+6,carbon nanotubes; superplastic forming; magnetic fields,2013,0,0,1
+6,carbon nanotubes; superplastic forming; magnetic fields,2013,0,0,9
+6,carbon nanotubes; superplastic forming; magnetic fields,2014,0,0,1
+6,carbon nanotubes; superplastic forming; magnetic fields,2014,0,0,18
+6,carbon nanotubes; superplastic forming; magnetic fields,2015,0,0,6
+6,carbon nanotubes; superplastic forming; magnetic fields,2016,2,72,12
+6,carbon nanotubes; superplastic forming; magnetic fields,2017,0,0,1
+6,carbon nanotubes; superplastic forming; magnetic fields,2017,0,0,15
+6,carbon nanotubes; superplastic forming; magnetic fields,2018,0,0,3
+7,russian regions; human rights; health care policy,2008,0,0,2
+7,russian regions; human rights; health care policy,2008,0,0,1
+7,russian regions; human rights; health care policy,2009,0,0,2
+7,russian regions; human rights; health care policy,2009,0,0,8
+7,russian regions; human rights; health care policy,2010,0,0,2
+7,russian regions; human rights; health care policy,2010,0,0,6
+7,russian regions; human rights; health care policy,2011,1,13,5
+7,russian regions; human rights; health care policy,2011,1,13,7
+7,russian regions; human rights; health care policy,2012,7,24,12
+7,russian regions; human rights; health care policy,2012,7,24,24
+7,russian regions; human rights; health care policy,2013,17,37,8
+7,russian regions; human rights; health care policy,2013,17,37,20
+7,russian regions; human rights; health care policy,2014,27,38,8
+7,russian regions; human rights; health care policy,2014,27,38,30
+7,russian regions; human rights; health care policy,2015,16,56,9
+7,russian regions; human rights; health care policy,2015,16,56,24
+7,russian regions; human rights; health care policy,2016,13,66,4
+7,russian regions; human rights; health care policy,2016,13,66,24
+7,russian regions; human rights; health care policy,2017,15,50,13
+7,russian regions; human rights; health care policy,2017,15,50,39
+7,russian regions; human rights; health care policy,2018,11,62,7
+7,russian regions; human rights; health care policy,2018,11,62,30
+8,internet of things; information retrieval; knowledge extraction,2009,0,0,1
+8,internet of things; information retrieval; knowledge extraction,2011,0,0,3
+8,internet of things; information retrieval; knowledge extraction,2012,0,0,6
+8,internet of things; information retrieval; knowledge extraction,2013,0,0,1
+8,internet of things; information retrieval; knowledge extraction,2013,0,0,9
+8,internet of things; information retrieval; knowledge extraction,2014,2,24,16
+8,internet of things; information retrieval; knowledge extraction,2015,2,13,2
+8,internet of things; information retrieval; knowledge extraction,2015,2,13,14
+8,internet of things; information retrieval; knowledge extraction,2016,1,15,1
+8,internet of things; information retrieval; knowledge extraction,2016,1,15,24
+8,internet of things; information retrieval; knowledge extraction,2017,2,18,1
+8,internet of things; information retrieval; knowledge extraction,2017,2,18,32
+8,internet of things; information retrieval; knowledge extraction,2018,1,18,1
+8,internet of things; information retrieval; knowledge extraction,2018,1,18,23
+9,economic growth; international trade; income inequality,2008,2,9,1
+9,economic growth; international trade; income inequality,2008,2,9,1
+9,economic growth; international trade; income inequality,2009,8,11,8
+9,economic growth; international trade; income inequality,2010,7,14,2
+9,economic growth; international trade; income inequality,2010,7,14,8
+9,economic growth; international trade; income inequality,2011,19,18,1
+9,economic growth; international trade; income inequality,2011,19,18,13
+9,economic growth; international trade; income inequality,2012,13,49,4
+9,economic growth; international trade; income inequality,2012,13,49,19
+9,economic growth; international trade; income inequality,2013,40,45,10
+9,economic growth; international trade; income inequality,2013,40,45,21
+9,economic growth; international trade; income inequality,2014,36,69,5
+9,economic growth; international trade; income inequality,2014,36,69,16
+9,economic growth; international trade; income inequality,2015,42,73,12
+9,economic growth; international trade; income inequality,2015,42,73,26
+9,economic growth; international trade; income inequality,2016,31,93,8
+9,economic growth; international trade; income inequality,2016,31,93,24
+9,economic growth; international trade; income inequality,2017,22,82,12
+9,economic growth; international trade; income inequality,2017,22,82,28
+9,economic growth; international trade; income inequality,2018,17,76,9
+9,economic growth; international trade; income inequality,2018,17,76,29
+10,data mining; machine learning; artificial intelligence,2008,0,0,1
+10,data mining; machine learning; artificial intelligence,2008,0,0,3
+10,data mining; machine learning; artificial intelligence,2009,0,0,1
+10,data mining; machine learning; artificial intelligence,2009,0,0,3
+10,data mining; machine learning; artificial intelligence,2010,0,0,1
+10,data mining; machine learning; artificial intelligence,2010,0,0,2
+10,data mining; machine learning; artificial intelligence,2011,0,0,6
+10,data mining; machine learning; artificial intelligence,2011,0,0,14
+10,data mining; machine learning; artificial intelligence,2012,0,0,6
+10,data mining; machine learning; artificial intelligence,2012,0,0,29
+10,data mining; machine learning; artificial intelligence,2013,2,34,10
+10,data mining; machine learning; artificial intelligence,2013,2,34,38
+10,data mining; machine learning; artificial intelligence,2014,3,34,7
+10,data mining; machine learning; artificial intelligence,2014,3,34,45
+10,data mining; machine learning; artificial intelligence,2015,1,29,4
+10,data mining; machine learning; artificial intelligence,2015,1,29,55
+10,data mining; machine learning; artificial intelligence,2016,4,43,9
+10,data mining; machine learning; artificial intelligence,2016,4,43,59
+10,data mining; machine learning; artificial intelligence,2017,3,38,7
+10,data mining; machine learning; artificial intelligence,2017,3,38,78
+10,data mining; machine learning; artificial intelligence,2018,3,25,10
+10,data mining; machine learning; artificial intelligence,2018,3,25,45
+11,brain mapping; motor cortex; visual perception,2008,0,0,1
+11,brain mapping; motor cortex; visual perception,2009,0,0,3
+11,brain mapping; motor cortex; visual perception,2010,0,0,3
+11,brain mapping; motor cortex; visual perception,2011,0,0,5
+11,brain mapping; motor cortex; visual perception,2012,3,31,11
+11,brain mapping; motor cortex; visual perception,2013,4,41,13
+11,brain mapping; motor cortex; visual perception,2014,5,57,10
+11,brain mapping; motor cortex; visual perception,2015,1,60,9
+11,brain mapping; motor cortex; visual perception,2016,6,79,1
+11,brain mapping; motor cortex; visual perception,2016,6,79,11
+11,brain mapping; motor cortex; visual perception,2017,13,77,21
+11,brain mapping; motor cortex; visual perception,2018,7,65,1
+11,brain mapping; motor cortex; visual perception,2018,7,65,15
+12,life satisfaction; educational policy; social identity,2008,0,0,1
+12,life satisfaction; educational policy; social identity,2008,0,0,2
+12,life satisfaction; educational policy; social identity,2009,0,0,1
+12,life satisfaction; educational policy; social identity,2009,0,0,9
+12,life satisfaction; educational policy; social identity,2010,0,0,1
+12,life satisfaction; educational policy; social identity,2010,0,0,1
+12,life satisfaction; educational policy; social identity,2011,0,0,16
+12,life satisfaction; educational policy; social identity,2012,17,30,4
+12,life satisfaction; educational policy; social identity,2012,17,30,32
+12,life satisfaction; educational policy; social identity,2013,25,44,3
+12,life satisfaction; educational policy; social identity,2013,25,44,23
+12,life satisfaction; educational policy; social identity,2014,35,46,1
+12,life satisfaction; educational policy; social identity,2014,35,46,18
+12,life satisfaction; educational policy; social identity,2015,27,59,7
+12,life satisfaction; educational policy; social identity,2015,27,59,27
+12,life satisfaction; educational policy; social identity,2016,20,92,4
+12,life satisfaction; educational policy; social identity,2016,20,92,36
+12,life satisfaction; educational policy; social identity,2017,12,87,4
+12,life satisfaction; educational policy; social identity,2017,12,87,30
+12,life satisfaction; educational policy; social identity,2018,12,84,6
+12,life satisfaction; educational policy; social identity,2018,12,84,35
+13,higher education; social capital; public policy,2008,0,0,1
+13,higher education; social capital; public policy,2009,0,0,1
+13,higher education; social capital; public policy,2009,0,0,2
+13,higher education; social capital; public policy,2010,0,0,1
+13,higher education; social capital; public policy,2010,0,0,3
+13,higher education; social capital; public policy,2011,3,5,2
+13,higher education; social capital; public policy,2011,3,5,3
+13,higher education; social capital; public policy,2012,7,14,2
+13,higher education; social capital; public policy,2012,7,14,5
+13,higher education; social capital; public policy,2013,14,18,5
+13,higher education; social capital; public policy,2013,14,18,6
+13,higher education; social capital; public policy,2014,10,23,1
+13,higher education; social capital; public policy,2014,10,23,8
+13,higher education; social capital; public policy,2015,9,35,6
+13,higher education; social capital; public policy,2015,9,35,16
+13,higher education; social capital; public policy,2016,4,36,4
+13,higher education; social capital; public policy,2016,4,36,43
+13,higher education; social capital; public policy,2017,3,30,11
+13,higher education; social capital; public policy,2017,3,30,21
+13,higher education; social capital; public policy,2018,2,24,6
+13,higher education; social capital; public policy,2018,2,24,15
+14,phase transition; numerical methods; earth rotation,2010,1,14,2
+14,phase transition; numerical methods; earth rotation,2011,0,0,1
+14,phase transition; numerical methods; earth rotation,2012,0,0,1
+14,phase transition; numerical methods; earth rotation,2012,0,0,15
+14,phase transition; numerical methods; earth rotation,2013,3,33,5
+14,phase transition; numerical methods; earth rotation,2014,2,52,3
+14,phase transition; numerical methods; earth rotation,2014,2,52,6
+14,phase transition; numerical methods; earth rotation,2015,4,58,2
+14,phase transition; numerical methods; earth rotation,2015,4,58,8
+14,phase transition; numerical methods; earth rotation,2016,1,95,1
+14,phase transition; numerical methods; earth rotation,2016,1,95,10
+14,phase transition; numerical methods; earth rotation,2017,1,91,3
+14,phase transition; numerical methods; earth rotation,2017,1,91,10
+14,phase transition; numerical methods; earth rotation,2018,9,55,4
+14,phase transition; numerical methods; earth rotation,2018,9,55,11
+15,monopolistic competition; corporate governance; monetary policy,2009,4,3,4
+15,monopolistic competition; corporate governance; monetary policy,2010,5,14,8
+15,monopolistic competition; corporate governance; monetary policy,2011,12,13,1
+15,monopolistic competition; corporate governance; monetary policy,2011,12,13,10
+15,monopolistic competition; corporate governance; monetary policy,2012,26,31,2
+15,monopolistic competition; corporate governance; monetary policy,2012,26,31,14
+15,monopolistic competition; corporate governance; monetary policy,2013,35,34,1
+15,monopolistic competition; corporate governance; monetary policy,2013,35,34,12
+15,monopolistic competition; corporate governance; monetary policy,2014,37,64,4
+15,monopolistic competition; corporate governance; monetary policy,2014,37,64,15
+15,monopolistic competition; corporate governance; monetary policy,2015,54,47,1
+15,monopolistic competition; corporate governance; monetary policy,2015,54,47,21
+15,monopolistic competition; corporate governance; monetary policy,2016,31,54,1
+15,monopolistic competition; corporate governance; monetary policy,2016,31,54,26
+15,monopolistic competition; corporate governance; monetary policy,2017,24,72,1
+15,monopolistic competition; corporate governance; monetary policy,2017,24,72,23
+15,monopolistic competition; corporate governance; monetary policy,2018,18,91,2
+15,monopolistic competition; corporate governance; monetary policy,2018,18,91,20
+16,molecular dynamics; magnetic field; quantum theory,2013,1,39,1
+16,molecular dynamics; magnetic field; quantum theory,2013,1,39,4
+16,molecular dynamics; magnetic field; quantum theory,2014,0,0,4
+16,molecular dynamics; magnetic field; quantum theory,2015,1,97,5
+16,molecular dynamics; magnetic field; quantum theory,2016,3,112,10
+16,molecular dynamics; magnetic field; quantum theory,2017,3,99,1
+16,molecular dynamics; magnetic field; quantum theory,2017,3,99,4
+16,molecular dynamics; magnetic field; quantum theory,2018,4,120,11
+17,computational complexity; stochastic systems; combinatorial optimization,2009,1,8,10
+17,computational complexity; stochastic systems; combinatorial optimization,2010,7,5,8
+17,computational complexity; stochastic systems; combinatorial optimization,2011,0,0,1
+17,computational complexity; stochastic systems; combinatorial optimization,2011,0,0,7
+17,computational complexity; stochastic systems; combinatorial optimization,2012,1,33,1
+17,computational complexity; stochastic systems; combinatorial optimization,2012,1,33,13
+17,computational complexity; stochastic systems; combinatorial optimization,2013,4,45,3
+17,computational complexity; stochastic systems; combinatorial optimization,2013,4,45,30
+17,computational complexity; stochastic systems; combinatorial optimization,2014,7,60,6
+17,computational complexity; stochastic systems; combinatorial optimization,2014,7,60,24
+17,computational complexity; stochastic systems; combinatorial optimization,2015,16,61,2
+17,computational complexity; stochastic systems; combinatorial optimization,2015,16,61,15
+17,computational complexity; stochastic systems; combinatorial optimization,2016,7,84,4
+17,computational complexity; stochastic systems; combinatorial optimization,2016,7,84,13
+17,computational complexity; stochastic systems; combinatorial optimization,2017,8,59,2
+17,computational complexity; stochastic systems; combinatorial optimization,2017,8,59,17
+17,computational complexity; stochastic systems; combinatorial optimization,2018,8,68,4
+17,computational complexity; stochastic systems; combinatorial optimization,2018,8,68,17
+18,computer science; system dynamics; decision support systems,2008,3,3,1
+18,computer science; system dynamics; decision support systems,2008,3,3,1
+18,computer science; system dynamics; decision support systems,2009,2,5,2
+18,computer science; system dynamics; decision support systems,2010,7,9,1
+18,computer science; system dynamics; decision support systems,2010,7,9,9
+18,computer science; system dynamics; decision support systems,2011,8,14,1
+18,computer science; system dynamics; decision support systems,2011,8,14,10
+18,computer science; system dynamics; decision support systems,2012,5,14,4
+18,computer science; system dynamics; decision support systems,2012,5,14,13
+18,computer science; system dynamics; decision support systems,2013,15,39,7
+18,computer science; system dynamics; decision support systems,2013,15,39,20
+18,computer science; system dynamics; decision support systems,2014,20,51,6
+18,computer science; system dynamics; decision support systems,2014,20,51,28
+18,computer science; system dynamics; decision support systems,2015,24,48,29
+18,computer science; system dynamics; decision support systems,2016,29,62,2
+18,computer science; system dynamics; decision support systems,2016,29,62,41
+18,computer science; system dynamics; decision support systems,2017,15,75,48
+18,computer science; system dynamics; decision support systems,2018,11,58,1
+18,computer science; system dynamics; decision support systems,2018,11,58,32
+19,big data; cloud computing; software engineering,2008,0,0,3
+19,big data; cloud computing; software engineering,2009,0,0,4
+19,big data; cloud computing; software engineering,2010,0,0,12
+19,big data; cloud computing; software engineering,2011,0,0,7
+19,big data; cloud computing; software engineering,2012,1,15,1
+19,big data; cloud computing; software engineering,2012,1,15,39
+19,big data; cloud computing; software engineering,2013,2,21,1
+19,big data; cloud computing; software engineering,2013,2,21,47
+19,big data; cloud computing; software engineering,2014,2,27,3
+19,big data; cloud computing; software engineering,2014,2,27,53
+19,big data; cloud computing; software engineering,2015,4,44,1
+19,big data; cloud computing; software engineering,2015,4,44,36
+19,big data; cloud computing; software engineering,2016,4,56,5
+19,big data; cloud computing; software engineering,2016,4,56,59
+19,big data; cloud computing; software engineering,2017,1,54,8
+19,big data; cloud computing; software engineering,2017,1,54,73
+19,big data; cloud computing; software engineering,2018,1,39,10
+19,big data; cloud computing; software engineering,2018,1,39,48
+20,linear programming; financial markets; stock market,2010,3,1,1
+20,linear programming; financial markets; stock market,2011,3,2,2
+20,linear programming; financial markets; stock market,2012,4,6,4
+20,linear programming; financial markets; stock market,2013,9,17,3
+20,linear programming; financial markets; stock market,2014,7,22,6
+20,linear programming; financial markets; stock market,2015,11,13,8
+20,linear programming; financial markets; stock market,2016,10,18,1
+20,linear programming; financial markets; stock market,2016,10,18,6
+20,linear programming; financial markets; stock market,2017,3,16,7
+20,linear programming; financial markets; stock market,2018,0,0,4
+21,radiation effects; circuit simulation; high energy physics,2008,0,0,1
+21,radiation effects; circuit simulation; high energy physics,2009,0,0,2
+21,radiation effects; circuit simulation; high energy physics,2010,0,0,3
+21,radiation effects; circuit simulation; high energy physics,2011,0,0,6
+21,radiation effects; circuit simulation; high energy physics,2012,0,0,7
+21,radiation effects; circuit simulation; high energy physics,2013,1,18,2
+21,radiation effects; circuit simulation; high energy physics,2013,1,18,19
+21,radiation effects; circuit simulation; high energy physics,2014,0,0,3
+21,radiation effects; circuit simulation; high energy physics,2014,0,0,32
+21,radiation effects; circuit simulation; high energy physics,2015,4,28,18
+21,radiation effects; circuit simulation; high energy physics,2016,1,72,38
+21,radiation effects; circuit simulation; high energy physics,2017,1,54,2
+21,radiation effects; circuit simulation; high energy physics,2017,1,54,39
+21,radiation effects; circuit simulation; high energy physics,2018,1,30,2
+21,radiation effects; circuit simulation; high energy physics,2018,1,30,36
+22,human capital; population dynamics; family policy,2008,1,5,1
+22,human capital; population dynamics; family policy,2009,2,7,11
+22,human capital; population dynamics; family policy,2010,3,13,3
+22,human capital; population dynamics; family policy,2010,3,13,10
+22,human capital; population dynamics; family policy,2011,6,19,3
+22,human capital; population dynamics; family policy,2011,6,19,16
+22,human capital; population dynamics; family policy,2012,16,41,4
+22,human capital; population dynamics; family policy,2012,16,41,21
+22,human capital; population dynamics; family policy,2013,15,54,6
+22,human capital; population dynamics; family policy,2013,15,54,28
+22,human capital; population dynamics; family policy,2014,35,68,8
+22,human capital; population dynamics; family policy,2014,35,68,23
+22,human capital; population dynamics; family policy,2015,19,81,2
+22,human capital; population dynamics; family policy,2015,19,81,31
+22,human capital; population dynamics; family policy,2016,15,68,7
+22,human capital; population dynamics; family policy,2016,15,68,38
+22,human capital; population dynamics; family policy,2017,18,79,6
+22,human capital; population dynamics; family policy,2017,18,79,25
+22,human capital; population dynamics; family policy,2018,6,68,8
+22,human capital; population dynamics; family policy,2018,6,68,42
+23,global governance; international relations; foreign policy,2009,0,0,1
+23,global governance; international relations; foreign policy,2009,0,0,11
+23,global governance; international relations; foreign policy,2010,4,15,2
+23,global governance; international relations; foreign policy,2010,4,15,10
+23,global governance; international relations; foreign policy,2011,6,23,9
+23,global governance; international relations; foreign policy,2011,6,23,14
+23,global governance; international relations; foreign policy,2012,20,51,19
+23,global governance; international relations; foreign policy,2012,20,51,31
+23,global governance; international relations; foreign policy,2013,13,58,11
+23,global governance; international relations; foreign policy,2013,13,58,33
+23,global governance; international relations; foreign policy,2014,26,87,8
+23,global governance; international relations; foreign policy,2014,26,87,29
+23,global governance; international relations; foreign policy,2015,20,83,12
+23,global governance; international relations; foreign policy,2015,20,83,38
+23,global governance; international relations; foreign policy,2016,17,104,21
+23,global governance; international relations; foreign policy,2016,17,104,41
+23,global governance; international relations; foreign policy,2017,17,90,21
+23,global governance; international relations; foreign policy,2017,17,90,40
+23,global governance; international relations; foreign policy,2018,8,64,25
+23,global governance; international relations; foreign policy,2018,8,64,40
+24,national identity; social movements; political economy,2008,0,0,1
+24,national identity; social movements; political economy,2008,0,0,3
+24,national identity; social movements; political economy,2009,0,0,2
+24,national identity; social movements; political economy,2009,0,0,3
+24,national identity; social movements; political economy,2010,1,14,1
+24,national identity; social movements; political economy,2010,1,14,5
+24,national identity; social movements; political economy,2011,2,19,1
+24,national identity; social movements; political economy,2011,2,19,5
+24,national identity; social movements; political economy,2012,8,52,9
+24,national identity; social movements; political economy,2012,8,52,27
+24,national identity; social movements; political economy,2013,15,40,9
+24,national identity; social movements; political economy,2013,15,40,31
+24,national identity; social movements; political economy,2014,21,61,12
+24,national identity; social movements; political economy,2014,21,61,25
+24,national identity; social movements; political economy,2015,17,89,9
+24,national identity; social movements; political economy,2015,17,89,26
+24,national identity; social movements; political economy,2016,12,97,12
+24,national identity; social movements; political economy,2016,12,97,36
+24,national identity; social movements; political economy,2017,13,108,20
+24,national identity; social movements; political economy,2017,13,108,46
+24,national identity; social movements; political economy,2018,7,96,11
+24,national identity; social movements; political economy,2018,7,96,37
+25,life expectancy; global health; quality of life,2008,0,0,2
+25,life expectancy; global health; quality of life,2009,0,0,1
+25,life expectancy; global health; quality of life,2010,0,0,2
+25,life expectancy; global health; quality of life,2010,0,0,1
+25,life expectancy; global health; quality of life,2012,2,8,1
+25,life expectancy; global health; quality of life,2013,1,16,1
+25,life expectancy; global health; quality of life,2013,1,16,3
+25,life expectancy; global health; quality of life,2014,0,0,2
+25,life expectancy; global health; quality of life,2014,0,0,2
+25,life expectancy; global health; quality of life,2015,0,0,4
+25,life expectancy; global health; quality of life,2016,1,33,3
+25,life expectancy; global health; quality of life,2017,0,0,1
+25,life expectancy; global health; quality of life,2017,0,0,5
+25,life expectancy; global health; quality of life,2018,0,0,3
+25,life expectancy; global health; quality of life,2018,0,0,2
+26,dynamical systems; representation theory; tropical geometry,2008,0,0,1
+26,dynamical systems; representation theory; tropical geometry,2009,0,0,1
+26,dynamical systems; representation theory; tropical geometry,2010,1,12,1
+26,dynamical systems; representation theory; tropical geometry,2012,8,26,1
+26,dynamical systems; representation theory; tropical geometry,2012,8,26,3
+26,dynamical systems; representation theory; tropical geometry,2013,30,34,3
+26,dynamical systems; representation theory; tropical geometry,2014,27,44,2
+26,dynamical systems; representation theory; tropical geometry,2014,27,44,5
+26,dynamical systems; representation theory; tropical geometry,2015,24,58,1
+26,dynamical systems; representation theory; tropical geometry,2015,24,58,2
+26,dynamical systems; representation theory; tropical geometry,2016,21,69,1
+26,dynamical systems; representation theory; tropical geometry,2016,21,69,5
+26,dynamical systems; representation theory; tropical geometry,2017,19,56,2
+26,dynamical systems; representation theory; tropical geometry,2018,11,50,3
+27,molecular modeling; mass spectrometry; gene expression,2012,0,0,1
+27,molecular modeling; mass spectrometry; gene expression,2014,4,24,3
+27,molecular modeling; mass spectrometry; gene expression,2015,4,28,4
+27,molecular modeling; mass spectrometry; gene expression,2016,1,72,5
+27,molecular modeling; mass spectrometry; gene expression,2017,0,0,1
+27,molecular modeling; mass spectrometry; gene expression,2017,0,0,7
+27,molecular modeling; mass spectrometry; gene expression,2018,0,0,7
+28,algebraic geometry; optimal transportation; algebraic variety,2008,1,11,1
+28,algebraic geometry; optimal transportation; algebraic variety,2009,2,27,1
+28,algebraic geometry; optimal transportation; algebraic variety,2010,9,37,1
+28,algebraic geometry; optimal transportation; algebraic variety,2010,9,37,1
+28,algebraic geometry; optimal transportation; algebraic variety,2011,9,60,1
+28,algebraic geometry; optimal transportation; algebraic variety,2011,9,60,3
+28,algebraic geometry; optimal transportation; algebraic variety,2012,36,91,2
+28,algebraic geometry; optimal transportation; algebraic variety,2012,36,91,4
+28,algebraic geometry; optimal transportation; algebraic variety,2013,57,98,1
+28,algebraic geometry; optimal transportation; algebraic variety,2013,57,98,10
+28,algebraic geometry; optimal transportation; algebraic variety,2014,57,95,5
+28,algebraic geometry; optimal transportation; algebraic variety,2014,57,95,8
+28,algebraic geometry; optimal transportation; algebraic variety,2015,51,125,3
+28,algebraic geometry; optimal transportation; algebraic variety,2015,51,125,6
+28,algebraic geometry; optimal transportation; algebraic variety,2016,70,114,2
+28,algebraic geometry; optimal transportation; algebraic variety,2016,70,114,16
+28,algebraic geometry; optimal transportation; algebraic variety,2017,49,121,4
+28,algebraic geometry; optimal transportation; algebraic variety,2017,49,121,8
+28,algebraic geometry; optimal transportation; algebraic variety,2018,43,107,3
+28,algebraic geometry; optimal transportation; algebraic variety,2018,43,107,4
+29,decision making; social networks analysis; social media,2008,1,1,1
+29,decision making; social networks analysis; social media,2009,0,0,4
+29,decision making; social networks analysis; social media,2010,0,0,1
+29,decision making; social networks analysis; social media,2010,0,0,2
+29,decision making; social networks analysis; social media,2011,0,0,1
+29,decision making; social networks analysis; social media,2011,0,0,12
+29,decision making; social networks analysis; social media,2012,4,14,2
+29,decision making; social networks analysis; social media,2012,4,14,22
+29,decision making; social networks analysis; social media,2013,8,21,6
+29,decision making; social networks analysis; social media,2013,8,21,32
+29,decision making; social networks analysis; social media,2014,12,39,3
+29,decision making; social networks analysis; social media,2014,12,39,30
+29,decision making; social networks analysis; social media,2015,9,32,5
+29,decision making; social networks analysis; social media,2015,9,32,31
+29,decision making; social networks analysis; social media,2016,9,40,4
+29,decision making; social networks analysis; social media,2016,9,40,43
+29,decision making; social networks analysis; social media,2017,6,43,6
+29,decision making; social networks analysis; social media,2017,6,43,30
+29,decision making; social networks analysis; social media,2018,2,30,3
+29,decision making; social networks analysis; social media,2018,2,30,20
+29,decision making; social networks analysis; social media,2011,0,7,0
+29,decision making; social networks analysis; social media,2010,0,1,0
+29,decision making; social networks analysis; social media,2009,0,1,0
+27,molecular modeling; mass spectrometry; gene expression,2018,0,36,0
+27,molecular modeling; mass spectrometry; gene expression,2017,0,45,0
+27,molecular modeling; mass spectrometry; gene expression,2013,0,22,0
+27,molecular modeling; mass spectrometry; gene expression,2012,0,11,0
+27,molecular modeling; mass spectrometry; gene expression,2011,0,2,0
+27,molecular modeling; mass spectrometry; gene expression,2010,0,3,0
+27,molecular modeling; mass spectrometry; gene expression,2009,0,1,0
+26,dynamical systems; representation theory; tropical geometry,2009,0,6,0
+26,dynamical systems; representation theory; tropical geometry,2008,0,5,0
+25,life expectancy; global health; quality of life,2018,0,23,0
+25,life expectancy; global health; quality of life,2017,0,34,0
+25,life expectancy; global health; quality of life,2015,0,30,0
+25,life expectancy; global health; quality of life,2014,0,26,0
+25,life expectancy; global health; quality of life,2011,0,4,0
+25,life expectancy; global health; quality of life,2010,0,5,0
+25,life expectancy; global health; quality of life,2009,0,3,0
+25,life expectancy; global health; quality of life,2008,0,4,0
+24,national identity; social movements; political economy,2009,0,5,0
+24,national identity; social movements; political economy,2008,0,6,0
+23,global governance; international relations; foreign policy,2009,0,6,0
+21,radiation effects; circuit simulation; high energy physics,2014,0,15,0
+21,radiation effects; circuit simulation; high energy physics,2012,0,8,0
+21,radiation effects; circuit simulation; high energy physics,2011,0,2,0
+21,radiation effects; circuit simulation; high energy physics,2010,0,1,0
+20,linear programming; financial markets; stock market,2018,0,8,0
+19,big data; cloud computing; software engineering,2011,0,4,0
+19,big data; cloud computing; software engineering,2010,0,4,0
+19,big data; cloud computing; software engineering,2009,0,2,0
+19,big data; cloud computing; software engineering,2008,0,1,0
+17,computational complexity; stochastic systems; combinatorial optimization,2011,0,18,0
+16,molecular dynamics; magnetic field; quantum theory,2014,0,54,0
+16,molecular dynamics; magnetic field; quantum theory,2012,0,39,0
+16,molecular dynamics; magnetic field; quantum theory,2011,0,14,0
+16,molecular dynamics; magnetic field; quantum theory,2010,0,9,0
+16,molecular dynamics; magnetic field; quantum theory,2009,0,5,0
+16,molecular dynamics; magnetic field; quantum theory,2008,0,1,0
+14,phase transition; numerical methods; earth rotation,2012,0,32,0
+14,phase transition; numerical methods; earth rotation,2011,0,18,0
+14,phase transition; numerical methods; earth rotation,2009,0,6,0
+14,phase transition; numerical methods; earth rotation,2008,0,2,0
+13,higher education; social capital; public policy,2010,0,1,0
+13,higher education; social capital; public policy,2009,0,4,0
+13,higher education; social capital; public policy,2008,0,1,0
+12,life satisfaction; educational policy; social identity,2011,0,26,0
+12,life satisfaction; educational policy; social identity,2010,0,13,0
+12,life satisfaction; educational policy; social identity,2009,0,8,0
+12,life satisfaction; educational policy; social identity,2008,0,5,0
+11,brain mapping; motor cortex; visual perception,2011,0,12,0
+11,brain mapping; motor cortex; visual perception,2010,0,13,0
+11,brain mapping; motor cortex; visual perception,2009,0,4,0
+11,brain mapping; motor cortex; visual perception,2008,0,1,0
+10,data mining; machine learning; artificial intelligence,2012,0,25,0
+10,data mining; machine learning; artificial intelligence,2011,0,8,0
+10,data mining; machine learning; artificial intelligence,2010,0,5,0
+10,data mining; machine learning; artificial intelligence,2009,0,4,0
+10,data mining; machine learning; artificial intelligence,2008,0,1,0
+8,internet of things; information retrieval; knowledge extraction,2013,0,12,0
+8,internet of things; information retrieval; knowledge extraction,2012,0,4,0
+8,internet of things; information retrieval; knowledge extraction,2011,0,1,0
+7,russian regions; human rights; health care policy,2010,0,11,0
+7,russian regions; human rights; health care policy,2009,0,11,0
+7,russian regions; human rights; health care policy,2008,0,3,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2018,0,44,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2017,0,67,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2015,0,51,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2014,0,42,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2013,0,24,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2012,0,21,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2011,0,9,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2010,0,7,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2009,0,4,0
+6,carbon nanotubes; superplastic forming; magnetic fields,2008,0,1,0
+5,blended learning; history of education; performance indicators,2016,0,15,0
+5,blended learning; history of education; performance indicators,2014,0,10,0
+5,blended learning; history of education; performance indicators,2013,0,10,0
+5,blended learning; history of education; performance indicators,2012,0,3,0
+5,blended learning; history of education; performance indicators,2010,0,3,0
+4,diffusion processes; differential equations; chaotic flow,2010,0,20,0
+4,diffusion processes; differential equations; chaotic flow,2008,0,4,0
+3,innovation; foresight; knowledge management,2011,0,10,0
+3,innovation; foresight; knowledge management,2010,0,8,0
+3,innovation; foresight; knowledge management,2009,0,2,0
+2,graph theory; computation theory; genetic algorithms,2010,0,2,0
+2,graph theory; computation theory; genetic algorithms,2008,0,2,0
+1,natural language processing; computational linguistics; digital humanities,2011,0,10,0
+0,urban studies; history of philosophy; cultural sociology,2010,0,9,0
+0,urban studies; history of philosophy; cultural sociology,2009,0,5,0
+15,monopolistic competition; corporate governance; monetary policy,2008,7,4,0
+23,global governance; international relations; foreign policy,2008,2,7,0
+4,diffusion processes; differential equations; chaotic flow,2009,1,6,0
+20,linear programming; financial markets; stock market,2008,1,1,0
+20,linear programming; financial markets; stock market,2009,1,1,0
+26,dynamical systems; representation theory; tropical geometry,2011,4,14,0
+17,computational complexity; stochastic systems; combinatorial optimization,2008,2,8,0

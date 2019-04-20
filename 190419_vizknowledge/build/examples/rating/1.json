@@ -1,0 +1,48 @@
+[
+  { "label": "molecular dynamics, molecular modeling, amino acid sequence", "value": 10906, "color": "#D01702" },
+  { "label": "neural networks, data mining, formal concept analysis", "value": 22586, "color": "#54BD01" },
+  { "label": "economic growth, russian economy, economic development", "value": 29859, "color": "#0088AE" },
+  { "label": "controlled study, human experiment, cognitive control", "value": 36296, "color": "#FC1B17" },
+  { "label": "russian history, collective memory, street art", "value": 15893, "color": "#E10291" },
+  {
+    "label": "decision making, data envelopment analysis, design methodology approach",
+    "value": 33200,
+    "color": "#00E1E1"
+  },
+  {
+    "label": "experimental datum, molecular dynamics simulations, molecular dynamics",
+    "value": 19702,
+    "color": "#00A5E1"
+  },
+  { "label": "moduli space, алгебраическая геометрия, algebraic geometry", "value": 16755, "color": "#E19239" },
+  { "label": "monopolistic competition, market outcome, russian economy", "value": 27470, "color": "#FF69B4" },
+  { "label": "mathematical model, data mining, neural networks", "value": 23059, "color": "#008080" },
+  { "label": "online community, social networking , empirical study", "value": 21269, "color": "#E100A5" },
+  { "label": "integrated luminosity, lhcb experiment, first uncertainty", "value": 22014, "color": "#A500E1" },
+  { "label": "authoritarian regime, economic development, united states", "value": 27505, "color": "#A020F0" },
+  { "label": "russian region, economic development, human capital", "value": 31575, "color": "#C0C0C0" },
+  { "label": "well being, higher education, life satisfaction", "value": 29324, "color": "#008000" },
+  { "label": "process mining, data mining, formal concept analysis", "value": 28485, "color": "#87CEEB" },
+  {
+    "label": "formal concept analysis, computational complexity, combinatorial optimization",
+    "value": 16783,
+    "color": "#BBFD30"
+  },
+  { "label": "social capital, life satisfaction, ethnic tolerance", "value": 27306, "color": "#BB425B" },
+  { "label": "design methodology approach, human capital, intellectual capital", "value": 38989, "color": "#BB9A34" },
+  { "label": "russian language, corpus linguistics, russian national corpus", "value": 24155, "color": "#BBDF60" },
+  { "label": "monopolistic competition, corporate governance, public procurement", "value": 29975, "color": "#BB10DD" },
+  { "label": "nuclear magnetic resonance, friction pair, mineral coating", "value": 7545, "color": "#BB5509" },
+  { "label": "higher education, social networks, labor market", "value": 30218, "color": "#BBADE2" },
+  { "label": "magnetic field, experimental datum, low temperature", "value": 25919, "color": "#BBF20D" },
+  {
+    "label": "algebraic geometry, алгебраическая геометрия, representation theory",
+    "value": 21986,
+    "color": "#BB248B"
+  },
+  { "label": "global burden, disease study, life expectancy", "value": 11944, "color": "#BB68B6" },
+  { "label": "academic writing, foreign language, critical thinking", "value": 16294, "color": "#BBC18F" },
+  { "label": "particle beams, experimental datum, avalanche photodiodes", "value": 22773, "color": "#BB06BB" },
+  { "label": "contemporary russia, russian empire, civil society", "value": 16203, "color": "#BB3739" },
+  { "label": "computational complexity, polynomial time, computational experiment", "value": 19742, "color": "#BB7C64" }
+]

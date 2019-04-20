@@ -1,0 +1,10 @@
+{
+  "size": { "width": 300, "height": 300 },
+  "data": [
+    { "text": "Этот текст никак не поместится в прямоугольник", "fontSize": 100 },
+    { "text": "This is text", "fontSize": 40 },
+    { "text": "This\nis\ntext", "fontSize": 30 },
+    { "text": "Это текст", "fontSize": 20 },
+    { "text": "Это\nтекст", "fontSize": 10 }
+  ]
+}
