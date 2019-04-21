@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="55mm" height="30mm" version="1.1" viewBox="0 0 55 30" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <defs>
+  <clipPath id="clipPath1256">
+   <path d="m130.02 536.41h3.054v-37.504h-3.054z"/>
+  </clipPath>
+  <clipPath id="clipPath1274">
+   <path d="m136.5 491.97h28.679v-28.679h-28.679z"/>
+  </clipPath>
+  <clipPath id="clipPath1294">
+   <path d="m97.854 528.56h28.68v-28.678h-28.68z"/>
+  </clipPath>
+  <clipPath id="clipPath1310">
+   <path d="m136.49 528.56h28.678v-28.68h-28.678z"/>
+  </clipPath>
+  <clipPath id="clipPath1326">
+   <path d="m130.02 492.99h3.054v-37.504h-3.054z"/>
+  </clipPath>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(0,-267)">
+  <g transform="matrix(.35278 0 0 -.35278 -29.858 457.06)">
+   <g fill="white">
+    <path d="m181.39 480.12c5e-3 -2.564 1.805-4.227 4.112-4.222 2.372 5e-3 4.164 1.613 4.158 4.242l-0.074 30.708c-5e-3 2.627-1.805 4.29-4.177 4.285-2.306-5e-3 -4.097-1.678-4.092-4.306zm11.924 0.028c0.011-4.552-3.382-7.317-7.805-7.327-4.422-0.011-7.764 2.738-7.774 7.291l-0.072 30.708c-0.011 4.551 3.316 7.379 7.739 7.39 4.423 0.01 7.828-2.802 7.839-7.355z"/>
+    <path d="m202.55 495.71 3.728 0.01c2.378 4e-3 4.174 1.616 4.169 4.252l-0.025 10.672c-7e-3 2.635-1.811 4.302-4.19 4.295l-3.728-8e-3zm9.053-22.671-5.382 19.595-3.664-9e-3 0.045-19.606-3.664-0.01-0.106 44.998 7.394 0.019c4.435 0.011 7.849-2.811 7.86-7.375l0.025-10.671c8e-3 -3.407-1.852-5.79-4.742-6.568l6.026-20.364z"/>
+    <path d="m223.21 488.18 6.872 0.016-3.399 25.361h-0.129zm-5.615-15.169 6.573 44.972 4.817 0.011 6.785-44.941-3.725-9e-3 -1.762 12.07-7.323-0.017-1.642-12.078z"/>
+   </g>
+   <g clip-path="url(#clipPath1256)" opacity=".8">
+    <path d="m130.02 525.69h3.054v-26.789h-3.054zm0 10.715h3.054v-5.036h-3.054z" fill="#ed135a"/>
+   </g>
+   <path d="m166.13 497.42h5.036v-3.055h-5.036z" fill="white"/>
+   <path d="m135.35 497.42h26.602v-3.055h-26.602z" fill="white"/>
+   <g clip-path="url(#clipPath1274)" opacity=".8">
+    <g transform="translate(138.66 491.97)">
+     <path d="m0 0 18.943-18.942-2.16-2.161-18.942 18.944zm22.958-22.959 3.562-3.561-2.16-2.159-3.56 3.561z" fill="#b9c3c9"/>
+    </g>
+   </g>
+   <path d="m126.57 489.78-18.942-18.942-2.16 2.159 18.944 18.942zm-22.958-22.958-3.561-3.562-2.16 2.161 3.561 3.56z" fill="#9da3d2"/>
+   <g clip-path="url(#clipPath1294)" opacity=".8">
+    <g transform="translate(124.37 499.88)">
+     <path d="m0 0-18.943 18.943 2.159 2.16 18.943-18.944zm-22.958 22.959-3.563 3.561 2.161 2.158 3.56-3.561z" fill="#00aeef"/>
+    </g>
+   </g>
+   <g clip-path="url(#clipPath1310)" opacity=".8">
+    <g transform="translate(136.49 502.04)">
+     <path d="m0 0 18.942 18.943 2.16-2.159-18.944-18.943zm22.958 22.958 3.561 3.563 2.16-2.161-3.561-3.56z" fill="#91268f"/>
+    </g>
+   </g>
+   <g clip-path="url(#clipPath1326)" opacity=".8">
+    <g transform="translate(133.07 492.99)">
+     <path d="m0 0 1e-3 -26.79-3.054 1e-3v26.789zm1e-3 -32.468-1e-3 -5.036h-3.053v5.035z" fill="#76a9c0"/>
+    </g>
+   </g>
+   <path d="m127.67 494.36h-26.789v3.055h26.788zm-32.469 0h-5.035l-1e-3 3.055h5.037z" fill="#6272b6"/>
+   <path d="m173.49 514.94-7e-3 3.081-15.11-0.029v-44.926h0.106v-9e-3l3.659 9e-3v41.854z" fill="white"/>
+  </g>
+ </g>
+</svg>
